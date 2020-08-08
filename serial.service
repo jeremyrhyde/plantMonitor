@@ -1,0 +1,13 @@
+[Unit]
+Description=Serial Logging
+After=network.target robot.service
+
+[Service]
+Type=forking
+Restart=on-failure
+RestartSec=3
+ExecStart=/usr/bin/screen -L -dmS serial_screen minicom -D /dev/ttyUSB0 -b 115200 -C "/home/pi/robot_testing/The_Wireless_Army/logs/RAW_UART.log"
+User=pi
+
+[Install]
+WantedBy=multi-user.target

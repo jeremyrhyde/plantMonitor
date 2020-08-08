@@ -1,0 +1,13 @@
+[Unit]
+Description=Datadog Service
+After=network.target serial.service
+
+[Service]
+Type=forking
+Restart=on-failure
+RestartSec=3
+ExecStart=/usr/bin/screen -L -dmS datadog_screen bash -c 'cd ~/go/src/github.com/DataDog/datadog-agent; sudo ./bin/agent/agent run -c bin/agent/dist/datadog.yaml'
+User=pi
+
+[Install]
+WantedBy=multi-user.target
