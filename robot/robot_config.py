@@ -2,9 +2,6 @@
 """Robot Config
 """
 
-from .actuators.servo import pulse_map
-import socket
-
 DAILY_CSV = "logs/daily_actions.csv"
 SCHED_CSV = "logs/scheduled_actions.csv"
 

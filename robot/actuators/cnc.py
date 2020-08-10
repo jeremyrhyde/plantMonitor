@@ -31,6 +31,9 @@ THE SOFTWARE.
 
 import serial
 import time
+import sys
+
+sys.path.append('/Users/pi/plantMonitor/robot')
 
 from .robot_config import *
 
