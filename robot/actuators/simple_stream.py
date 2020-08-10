@@ -59,6 +59,7 @@ class GRBL_Stream:
     def init(self):
         startup_file = open('startup.gcode','r');
 
+        print('Sending initializating command...')
         for line in startup_file:
             self.send_line(line)
 
@@ -75,14 +76,17 @@ class GRBL_Stream:
 
     def send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
-        print('Sending: ' + l)
+        print('G-Code: ' + l)
 
         l = l + '\n'
         self.serial.write(l.encode()) # Send g-code block to grbl
         grbl_out_bytes = self.serial.readline() # Wait for grbl response with carriage return
         grbl_out = grbl_out_bytes.decode("UTF-8")
 
-        print(' : ' + grbl_out.strip())
+        if grbl_out.strip() == 'ok':
+            print('Action Completed')
+        else:
+            print('Action Error: ' + grbl_out.strip())
 
 
 # Wait here until grbl is finished to close serial port and file.
