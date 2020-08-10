@@ -36,16 +36,14 @@ import time
 s = serial.Serial('/dev/ttyACM0',115200)
 
 # Open g-code file
-f = open('startup.gcode','r');
+startup_file = open('startup.gcode','r');
 
 # Wake up grbl
 s.write("\r\n\r\n".encode())
 time.sleep(2)   # Wait for grbl to initialize
 s.flushInput()  # Flush startup text in serial input
 
-# Stream g-code to grbl
-for line in f:
-    send_line(s, line)
+# Stream g-code to grb
 
 def send_line(s, line):
     l = line.strip() # Strip all EOL characters for consistency
@@ -57,6 +55,9 @@ def send_line(s, line):
     grbl_out = grbl_out_bytes.decode("UTF-8")
     print(' : ' + grbl_out.strip())
 
+
+for line in startup_file:
+    send_line(s, line)
 
 
 # Wait here until grbl is finished to close serial port and file.
