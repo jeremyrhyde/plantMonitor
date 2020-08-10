@@ -11,23 +11,8 @@ import sys
 sys.path.append('/home/pi/plantMonitor/robot/sensors')
 
 from limit_switch_sensor import Limit_Switch_Sensor
-#from inductor_actuator import Inductor
 
 limit_switch = True
-inductor = True
-
-numpad_cal = {'N' : 0,
-              'T' : 180,
-              '1' : 60,
-              '2' : 74,
-              '3' : 102,
-              '4' : 132,
-              '5' : 164,
-              '6' : 196,
-              '7' : 225,
-              '8' : 254,
-              '9' : 282,
-              '0' : 310}
 
 class Stepper:
     # Initialise the PCA9685 using the default address (0x40).
@@ -50,7 +35,7 @@ class Stepper:
         GPIO.setup(self.step_pin, GPIO.OUT)
 
         self.motor = RpiMotorLib.A4988Nema(self.dir_pin, self.step_pin, self.res_pins, 'A4988')
-        self.curr_pos = 180
+        self.curr_pos = 0
 
         self.total_rev = 0
 
@@ -151,7 +136,7 @@ class Stepper:
 def main():
     stepper = Stepper()
     while True:
-        user_input = input('Position: ')
+            user_input = input('Position: ')
 
         if user_input == 'Q':
             #stepper.move_stepper(numpad_cal['N'])
@@ -160,14 +145,11 @@ def main():
         elif user_input == 'C':
             stepper.calibration()
             stepper.release_motor()
-        elif user_input[0] == '#':
-            print('Moving to ' + user_input[1:])
-            stepper.move_stepper(numpad_cal[user_input[1:]])
-            stepper.release_motor()
-            #stepper.run_inductor()
-        else:
-            stepper.move_stepper(int(user_input))
-            stepper.release_motor()
+        elif user_input.isdigit():
+            move_stepper(self, int(user_input))
+        elif user_input[1:].isdigit():
+            move_stepper(self, int(user_input[1:])*-1)            
+
 
 if __name__ == "__main__":
     main()
