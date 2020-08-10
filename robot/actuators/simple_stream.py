@@ -36,7 +36,7 @@ import time
 s = serial.Serial('/dev/ttyACM0',115200)
 
 # Open g-code file
-startup_file = open('startup.gcode','r');
+
 
 # Wake up grbl
 s.write("\r\n\r\n".encode())
@@ -44,29 +44,45 @@ time.sleep(2)   # Wait for grbl to initialize
 s.flushInput()  # Flush startup text in serial input
 
 # Stream g-code to grb
+class GRBL_Stream:
 
-def send_line(s, line):
-    l = line.strip() # Strip all EOL characters for consistency
-    print('Sending: ' + l)
+    def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
 
-    l = l + '\n'
-    s.write(l.encode()) # Send g-code block to grbl
-    grbl_out_bytes = s.readline() # Wait for grbl response with carriage return
-    grbl_out = grbl_out_bytes.decode("UTF-8")
-    print(' : ' + grbl_out.strip())
+        self.serial_port = serial_port
+        self.baud_rate = baud_rate
 
+        self.serial = serial.Serial(serial_port,baud_rate)
 
-for line in startup_file:
-    send_line(s, line)
+        self.init()
+
+    def init(self):
+        startup_file = open('startup.gcode','r');
+
+        for line in startup_file:
+            self.send_line(line)
+
+    def send_line(self, line):
+        l = line.strip() # Strip all EOL characters for consistency
+        print('Sending: ' + l)
+
+        l = l + '\n'
+        self.serial.write(l.encode()) # Send g-code block to grbl
+        grbl_out_bytes = s.readline() # Wait for grbl response with carriage return
+        grbl_out = grbl_out_bytes.decode("UTF-8")
+
+        print(' : ' + grbl_out.strip())
 
 
 # Wait here until grbl is finished to close serial port and file.
-while True:
-    user_input = input('Input: ')
-    send_line(s, 'G21 G29 ' + user_input)
+def main():
+    cnc = GRBL_Stream()
 
+    while True:
+        user_input = input('Input: ')
+        cnc.send_line(s, 'G21 G29 ' + user_input)
 
-input("  Press <Enter> to exit and disable grbl.")
+if __name__ == "__main__":
+    main()
 
 # Close file and serial port
 f.close()
