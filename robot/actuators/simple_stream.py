@@ -50,6 +50,7 @@ class GRBL_Stream:
 
         self.serial_port = serial_port
         self.baud_rate = baud_rate
+        self.feedrate = 100
 
         self.serial = serial.Serial(serial_port,baud_rate)
 
@@ -60,6 +61,12 @@ class GRBL_Stream:
 
         for line in startup_file:
             self.send_line(line)
+
+    def set_feedrate(self, feedrate):
+        self.feedrate = feedrate
+
+    def get_feedrate(self):
+        return self.feedrate
 
     def send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
@@ -79,7 +86,15 @@ def main():
 
     while True:
         user_input = input('Input: ')
-        cnc.send_line('G21 G91 ' + user_input)
+        if user_input == 'X' or user_input == 'Y':
+            user_distance = input('Distance: ')
+            try:
+                cnc.send_line('G21 G91 ' + user_input + user_distance + '.0 F' + cnc.get_feedrate())
+            except:
+                print('Inproper command')
+        elif user_input == 'F':
+            user_feedrate = input('Feedrate: ')
+            cnc.set_feedrate(user_feedrate)
 
 if __name__ == "__main__":
     main()
