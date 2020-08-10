@@ -30,6 +30,5 @@ def serial_ports():
             pass
     return result
 
-
 if __name__ == '__main__':
     print(serial_ports())
