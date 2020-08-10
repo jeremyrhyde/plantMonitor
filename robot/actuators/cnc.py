@@ -103,7 +103,7 @@ class GRBL_Stream:
 
         new_pos = self.pos + bounded_move
 
-        print('Moving to: ' = str(new_pos))
+        print('Moving to: ' + str(new_pos))
 
         # Send command and check
         line = self.convert_to_line(move)
