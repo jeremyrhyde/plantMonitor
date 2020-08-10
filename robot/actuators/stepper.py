@@ -146,9 +146,9 @@ def main():
             stepper.calibration()
             stepper.release_motor()
         elif user_input.isdigit():
-            stepper.move_stepper(self, int(user_input))
+            stepper.move_stepper(int(user_input))
         elif user_input[1:].isdigit():
-            stepper.move_stepper(self, int(user_input[1:])*-1)
+            stepper.move_stepper(int(user_input[1:])*-1)
 
 
 if __name__ == "__main__":
