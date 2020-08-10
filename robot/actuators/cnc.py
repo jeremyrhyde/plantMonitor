@@ -32,16 +32,7 @@ THE SOFTWARE.
 import serial
 import time
 
-# Open grbl serial port
-s = serial.Serial('/dev/ttyACM0',115200)
-
-# Open g-code file
-
-
-# Wake up grbl
-s.write("\r\n\r\n".encode())
-time.sleep(2)   # Wait for grbl to initialize
-s.flushInput()  # Flush startup text in serial input
+from .robot_config import *
 
 # Stream g-code to grb
 class GRBL_Stream:
@@ -61,10 +52,7 @@ class GRBL_Stream:
 
         self.calibrate()
 
-        self.curr_pos = (0,0,0,0)
-
-        self.
-
+        self.curr_pos = [0,0]
 
     def init(self):
         startup_file = open('startup.gcode','r');
