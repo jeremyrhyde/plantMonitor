@@ -18,3 +18,4 @@ stitchclient==0.6.0
 tzlocal==1.5.1
 watchdog==0.9.0
 websockets==8.1.0
+RpiMotorLib==2.7
