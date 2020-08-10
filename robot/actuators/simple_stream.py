@@ -107,7 +107,7 @@ def main():
             except:
                 print('Improper feedrate command')
 
-        elif user_input == 'X':
+        elif user_input == 'Q':
             cnc.close()
 
 if __name__ == "__main__":
