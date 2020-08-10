@@ -8,7 +8,7 @@ from RpiMotorLib import RpiMotorLib
 
 import sys
 
-sys.path.append('/home/pi/robot_testing/The_Wireless_Army/robot/sensors')
+sys.path.append('/home/pi/plantMonitor/robot/sensors')
 
 from limit_switch_sensor import Limit_Switch_Sensor
 #from inductor_actuator import Inductor
