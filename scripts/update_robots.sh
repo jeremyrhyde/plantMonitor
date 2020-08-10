@@ -1,34 +1,34 @@
 #!/bin/bash
 
 update_commands="
-sudo systemctl disable robot_new;
-sudo systemctl disable screener;
-sudo systemctl disable api;
-sudo systemctl stop robot_new;
-sudo systemctl stop screener;
-sudo systemctl stop api;
+  sudo systemctl disable robot_new;
+  sudo systemctl disable screener;
+  sudo systemctl disable api;
+  sudo systemctl stop robot_new;
+  sudo systemctl stop screener;
+  sudo systemctl stop api;
 
-cd /home/pi/robot_testing/The_*/logs;
+  cd /home/pi/robot_testing/The_*/logs;
 
-echo 'Archiving Finished! Updating...';
+  echo 'Archiving Finished! Updating...';
 
-cd /home/pi/robot_testing/;
-git pull;
-git reset --hard origin/master_dev;
+  cd /home/pi/robot_testing/;
+  git pull;
+  git reset --hard origin/master_dev;
 
-echo 'Finished pulling from git';
+  echo 'Finished pulling from git';
 
-sudo rm /etc/systemd/system/serial.service;
-sudo cp /home/pi/plantMonitor/robot_new.service /etc/systemd/system/;
-sudo cp /home/pi/plantMonitor/screener.service /etc/systemd/system/;
-sudo cp /home/pi/plantMonitor/api.service /etc/systemd/system/;
+  sudo rm /etc/systemd/system/serial.service;
+  sudo cp /home/pi/plantMonitor/robot_new.service /etc/systemd/system/;
+  sudo cp /home/pi/plantMonitor/screener.service /etc/systemd/system/;
+  sudo cp /home/pi/plantMonitor/api.service /etc/systemd/system/;
 
-sudo systemctl enable robot_new;
-sudo systemctl enable screener;
-sudo systemctl enable api;
-sudo systemctl start robot_new;
-sudo systemctl start screener;
-sudo systemctl start api;"
+  sudo systemctl enable robot_new;
+  sudo systemctl enable screener;
+  sudo systemctl enable api;
+  sudo systemctl start robot_new;
+  sudo systemctl start screener;
+  sudo systemctl start api;"
 
 pull="
     cd /home/pi/plantMonitor/;
