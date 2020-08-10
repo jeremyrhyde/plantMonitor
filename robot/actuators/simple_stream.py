@@ -91,26 +91,33 @@ def main():
 
     while True:
         user_input = input('Input: ')
-        if user_input[0] == 'X' or user_input[0] == 'Y':
-            user_distance = user_input[2:]
-            cmd = user_input[0] + user_distance + '.0 F' + str(cnc.get_feedrate())
-            print(cmd)
-            try:
-                cnc.send_line('G21 G91 ' + cmd)
-            except:
-                print('Improper position command')
+        if len(user_input) > 0:
+            if user_input[0] == 'X' or user_input[0] == 'Y':
+                user_distance = user_input[2:]
+                cmd = user_input[0] + user_distance + '.0 F' + str(cnc.get_feedrate())
+                print(cmd)
+                try:
+                    cnc.send_line('G21 G91 ' + cmd)
+                except:
+                    print('Improper position command')
 
-        elif user_input[0] == 'F':
-            user_feedrate = user_input[2:]
-            try:
-                cnc.set_feedrate(int(user_feedrate))
-            except:
-                print('Improper feedrate command')
+            elif user_input[0] == 'F':
+                user_feedrate = user_input[2:]
+                try:
+                    cnc.set_feedrate(int(user_feedrate))
+                except:
+                    print('Improper feedrate command')
 
-        elif user_input[0] == 'Q':
-            cnc.close()
+            elif user_input[0] == 'Q':
+                print('Closing out...')
+                cnc.close()
+                break
+            else:
+                print(user_input)
         else:
-            print(user_input)
+            print('Closing out...')
+            cnc.close()
+            break
 
 if __name__ == "__main__":
     main()
