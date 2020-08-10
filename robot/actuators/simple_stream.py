@@ -62,6 +62,11 @@ class GRBL_Stream:
         for line in startup_file:
             self.send_line(line)
 
+        startup_file.close()
+
+    def close(self):
+        self.serial.close()
+
     def set_feedrate(self, feedrate):
         self.feedrate = feedrate
 
@@ -93,15 +98,17 @@ def main():
             try:
                 cnc.send_line('G21 G91 ' + cmd)
             except:
-                print('Improper command')
+                print('Improper position command')
 
-        elif user_input == 'F':
-            user_feedrate = input('Feedrate: ')
-            cnc.set_feedrate(user_feedrate)
+        elif user_input[0] == 'F':
+            user_feedrate = user_input[2:]
+            try:
+                cnc.set_feedrate(int(user_feedrate))
+            except:
+                print('Improper feedrate command')
+
+        elif user_input == 'X':
+            cnc.close()
 
 if __name__ == "__main__":
     main()
-
-# Close file and serial port
-f.close()
-s.close()
