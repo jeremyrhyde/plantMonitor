@@ -45,6 +45,9 @@ s.flushInput()  # Flush startup text in serial input
 
 # Stream g-code to grbl
 for line in f:
+    send_line(s, line)
+
+def send_line(s, line):
     l = line.strip() # Strip all EOL characters for consistency
     print('Sending: ' + l)
 
@@ -54,7 +57,14 @@ for line in f:
     grbl_out = grbl_out_bytes.decode("UTF-8")
     print(' : ' + grbl_out.strip())
 
+
+
 # Wait here until grbl is finished to close serial port and file.
+while True:
+    user_input = input('Input: ')
+    send_line(s, 'G21 G29 ' + user_input)
+
+
 input("  Press <Enter> to exit and disable grbl.")
 
 # Close file and serial port
