@@ -88,12 +88,13 @@ def main():
         user_input = input('Input: ')
         if user_input == 'X' or user_input == 'Y':
             user_distance = input('Distance: ')
+            cmd = user_input + user_distance + '.0 F' + cnc.get_feedrate()
+            print(cmd)
             try:
-                cmd = user_input + user_distance + '.0 F' + cnc.get_feedrate()
-                print(cmd)
                 cnc.send_line('G21 G91 ' + cmd)
             except:
-                print('Inproper command')
+                print('Improper command')
+
         elif user_input == 'F':
             user_feedrate = input('Feedrate: ')
             cnc.set_feedrate(user_feedrate)
