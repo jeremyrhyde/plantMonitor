@@ -136,7 +136,7 @@ class Stepper:
 def main():
     stepper = Stepper()
     while True:
-            user_input = input('Position: ')
+        user_input = input('Position: ')
 
         if user_input == 'Q':
             #stepper.move_stepper(numpad_cal['N'])
@@ -146,9 +146,9 @@ def main():
             stepper.calibration()
             stepper.release_motor()
         elif user_input.isdigit():
-            move_stepper(self, int(user_input))
+            stepper.move_stepper(self, int(user_input))
         elif user_input[1:].isdigit():
-            move_stepper(self, int(user_input[1:])*-1)            
+            stepper.move_stepper(self, int(user_input[1:])*-1)
 
 
 if __name__ == "__main__":
