@@ -67,7 +67,7 @@ class GRBL_Stream:
 
         l = l + '\n'
         self.serial.write(l.encode()) # Send g-code block to grbl
-        grbl_out_bytes = s.readline() # Wait for grbl response with carriage return
+        grbl_out_bytes = self.serial.readline() # Wait for grbl response with carriage return
         grbl_out = grbl_out_bytes.decode("UTF-8")
 
         print(' : ' + grbl_out.strip())
@@ -79,7 +79,7 @@ def main():
 
     while True:
         user_input = input('Input: ')
-        cnc.send_line(s, 'G21 G29 ' + user_input)
+        cnc.send_line('G21 G29 ' + user_input)
 
 if __name__ == "__main__":
     main()
