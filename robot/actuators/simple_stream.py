@@ -79,7 +79,7 @@ def main():
 
     while True:
         user_input = input('Input: ')
-        cnc.send_line('G21 G29 ' + user_input)
+        cnc.send_line('G21 G91 ' + user_input)
 
 if __name__ == "__main__":
     main()
