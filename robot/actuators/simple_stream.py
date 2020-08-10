@@ -90,6 +90,7 @@ def main():
             user_distance = input('Distance: ')
             try:
                 cmd = user_input + user_distance + '.0 F' + cnc.get_feedrate()
+                print(cmd)
                 cnc.send_line('G21 G91 ' + cmd)
             except:
                 print('Inproper command')
