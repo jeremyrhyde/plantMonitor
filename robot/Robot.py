@@ -28,7 +28,6 @@ from .robot_config import *
 #from .piCamera import *
 #from .sensors import Lock_Sensor, Relay_Sensor, Battery_Sensor
 
-
 class Robot:
 
     sched = None
