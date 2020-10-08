@@ -6,7 +6,7 @@ __author__ = "Sharan Juangphanich"
 __copyright__ = "Copyright 2018, Latchables, Inc."
 __credits__ = ["Sharan Juangphanich", "Aaron Sirken"]
 
-import Adafruit_GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 
 
@@ -18,16 +18,16 @@ class Limit_Switch_Sensor:
     def __init__(self, limit_switch_pin):
         self._LIMIT_SWITCH_PIN = limit_switch_pin
 
-        self.gpio = GPIO.get_platform_gpio()
+        GPIO.setmode(GPIO.BCM)
 
-        self.gpio.setup(self._LIMIT_SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.setup(self._LIMIT_SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def close(self):
         self.gpio.cleanup()
 
     # Alternatively, an event detect may be used (add_event_detect)
     def read_output(self):
-        input = self.gpio.input(self._LIMIT_SWITCH_PIN)
+        input = GPIO.input(self._LIMIT_SWITCH_PIN)
         return input
 
 def main():
