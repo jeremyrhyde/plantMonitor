@@ -98,7 +98,7 @@ def main():
         if len(user_input) > 0:
             if user_input[0] == 'X' or user_input[0] == 'Y':
                 user_distance = user_input[2:]
-                cmd = user_input[0] + user_distance + '.0 F' + str(cnc.get_feedrate())
+                cmd = user_input[0] + user_distance + ' F' + str(cnc.get_feedrate())
                 print(cmd)
                 try:
                     cnc.send_line('G21 G91 ' + cmd)
@@ -125,3 +125,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# example:
