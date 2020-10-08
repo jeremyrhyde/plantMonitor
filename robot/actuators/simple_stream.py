@@ -125,7 +125,7 @@ class GRBL_Stream:
 
             limit_val_Y = self.limit_switch_Y.read_output()
 
-            time.sleep(.03)
+            time.sleep(.02)
             print(limit_val_Y)
         self.curr_pos[1] = 0
 
