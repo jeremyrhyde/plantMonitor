@@ -124,6 +124,8 @@ class GRBL_Stream:
             self.send_move_cmd('Y', '0.05')
 
             limit_val_Y = self.limit_switch_Y.read_output()
+
+            time.sleep(.5)
             print(limit_val_Y)
         self.curr_pos[1] = 0
 
