@@ -133,7 +133,7 @@ class GRBL_Stream:
 
         print(cmd)
         try:
-            cnc.send_line('G21 G91 ' + cmd)
+            cnc._send_line('G21 G91 ' + cmd)
         except:
             print('Improper position command')
 
@@ -154,12 +154,12 @@ class GRBL_Stream:
 
             print(cmd)
             try:
-                cnc.send_line('G21 G91 ' + cmd)
+                cnc._send_line('G21 G91 ' + cmd)
             except:
                 print('Improper position command')
 
 
-    def send_line(self, line):
+    def _send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
         print('G-Code: ' + l)
 
@@ -179,6 +179,7 @@ def main():
     cnc = GRBL_Stream()
 
     #cnc.calibrate_Y()
+    print('hi')
 
     while True:
         user_input = input('Input: ')
