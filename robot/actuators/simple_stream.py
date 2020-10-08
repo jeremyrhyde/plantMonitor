@@ -134,8 +134,8 @@ class GRBL_Stream:
         print(cmd)
         try:
             cnc._send_line('G21 G91 ' + cmd)
-        except:
-            print('Improper position command')
+        except Exception as e:
+            print('Improper position command: ' + str(e))
 
     def send_move_cmd_safe(self, axis, dist):
 
@@ -155,8 +155,8 @@ class GRBL_Stream:
             print(cmd)
             try:
                 cnc._send_line('G21 G91 ' + cmd)
-            except:
-                print('Improper position command')
+            except Exception as e:
+                print('Improper position command: ' + str(e))
 
 
     def _send_line(self, line):
@@ -179,7 +179,6 @@ def main():
     cnc = GRBL_Stream()
 
     #cnc.calibrate_Y()
-    print('hi')
 
     while True:
         user_input = input('Input: ')
