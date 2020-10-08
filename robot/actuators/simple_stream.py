@@ -121,7 +121,7 @@ class GRBL_Stream:
         # Calibrate Y axis
         while limit_val_Y:
             print('advance')
-            self.send_move_cmd('Y', '0.05')
+            self.send_move_cmd('Y', '0.1')
 
             limit_val_Y = self.limit_switch_Y.read_output()
 
