@@ -56,7 +56,7 @@ class GRBL_Stream:
 
         self.serial = serial.Serial(serial_port,baud_rate)
 
-        self.init()
+        self.init_cnc()
 
         self.curr_pos = [0,0]
 
@@ -68,12 +68,12 @@ class GRBL_Stream:
         self.limit_switch_X = Limit_Switch_Sensor(26)
         self.limit_switch_Y = Limit_Switch_Sensor(26)
 
-    def init(self):
+    def init_cnc(self):
         startup_file = open('startup.gcode','r');
 
         print('Sending initializating command...')
         for line in startup_file:
-            self.send_line(line)
+            self._send_line(line)
 
         startup_file.close()
 
