@@ -104,7 +104,7 @@ class GRBL_Stream:
 
         # Calibrate X axis
         while limit_val_X:
-            self.send_move_cmd('X', '0.1')
+            self.send_move_cmd('X', '0.05')
 
             limit_val_X = self.limit_switch_X.read_output()
 
@@ -121,7 +121,7 @@ class GRBL_Stream:
         # Calibrate Y axis
         while limit_val_Y:
             print('advance')
-            self.send_move_cmd('Y', '0.1')
+            self.send_move_cmd('Y', '0.05')
 
             limit_val_Y = self.limit_switch_Y.read_output()
             print(limit_val_Y)
@@ -179,7 +179,7 @@ class GRBL_Stream:
 def main():
 
     cnc = GRBL_Stream()
-    #cnc.calibrate_Y()
+    cnc.calibrate_Y()
 
     while True:
         user_input = input('Input: ')
