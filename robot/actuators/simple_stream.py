@@ -32,6 +32,8 @@ THE SOFTWARE.
 import serial
 import time
 
+from .limit_switch_sensor import Limit_Switch_Sensor
+
 # Open grbl serial port
 # s = serial.Serial('/dev/ttyACM0',115200)
 #
@@ -56,6 +58,14 @@ class GRBL_Stream:
 
         self.init()
 
+        #self.calibrate()
+        self.X_max = 5
+        self.Y_max = 5
+
+        print('Initializing limit switches (X : #1, Y : #1)')
+        self.limit_switch_X = Limit_Switch_Sensor(26)
+        self.limit_switch_Y = Limit_Switch_Sensor(27)
+
     def init(self):
         startup_file = open('startup.gcode','r');
 
@@ -74,6 +84,77 @@ class GRBL_Stream:
     def get_feedrate(self):
         return self.feedrate
 
+    def calibrate(self):
+
+        print('Returning to home')
+        self.calibrate_X()
+
+        time.sleep(3)
+
+        self.calibrate_Y()
+
+    def calibrate_X(self):
+
+        limit_val_X = 0 #limit switch
+
+        print('Beginning to calibrate X axis...')
+
+        # Calibrate X axis
+        while not limit_val_X:
+            self.send_move_cmd('X', '0.1')
+
+            limit_val_X = 0 #limit switch
+
+        self.curr_pos[0] = 0
+
+        print('Calibrate of X axis complete!')
+
+    def calibrate_Y(self):
+
+        print('Beginning to calibrate Y axis...')
+
+        limit_val_Y = 0 #limit switch
+
+        # Calibrate Y axis
+        while not limit_val_Y:
+            self.send_move_cmd('Y', '0.1')
+
+            limit_val_Y = 0 #limit switch
+
+        self.curr_pos[1] = 0
+
+        print('Calibrate of Y axis complete!')
+
+    def send_move_cmd(self, axis, distance):
+        cmd = axis + user_distance + ' F' + str(cnc.get_feedrate())
+
+        print(cmd)
+        try:
+            cnc.send_line('G21 G91 ' + cmd)
+        except:
+            print('Improper position command')
+
+    def send_move_cmd_safe(self, axis, dist):
+
+        next_pos = self.curr_pos
+        if axis == 'X':
+            next_pos[0] = next_pos[0] + float(dist)
+        if axis == 'Y':
+            next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
+
+        if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
+            print('Error! Moving beyond max (' + axis + ')')
+        else:
+            cmd = axis + user_dist + ' F' + str(cnc.get_feedrate())
+
+            print(cmd)
+            try:
+                cnc.send_line('G21 G91 ' + cmd)
+            except:
+                print('Improper position command')
+
+
+        send_line('G21 G91 ' + cmd)
     def send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
         print('G-Code: ' + l)
@@ -98,12 +179,9 @@ def main():
         if len(user_input) > 0:
             if user_input[0] == 'X' or user_input[0] == 'Y':
                 user_distance = user_input[2:]
-                cmd = user_input[0] + user_distance + ' F' + str(cnc.get_feedrate())
-                print(cmd)
-                try:
-                    cnc.send_line('G21 G91 ' + cmd)
-                except:
-                    print('Improper position command')
+                axis = user_input[0]
+
+                cnc.send_move_cmd(axis, distance)
 
             elif user_input[0] == 'F':
                 user_feedrate = user_input[2:]
@@ -126,4 +204,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-# example:
+# example: Y -0.5
