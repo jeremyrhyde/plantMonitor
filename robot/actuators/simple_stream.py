@@ -178,13 +178,13 @@ class GRBL_Stream:
 def main():
     cnc = GRBL_Stream()
 
-    cnc.calibrate_Y()
+    #cnc.calibrate_Y()
 
     while True:
         user_input = input('Input: ')
         if len(user_input) > 0:
             if user_input[0] == 'X' or user_input[0] == 'Y':
-                user_distance = user_input[2:]
+                distance = user_input[2:]
                 axis = user_input[0]
 
                 cnc.send_move_cmd(axis, distance)
