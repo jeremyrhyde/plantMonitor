@@ -97,7 +97,7 @@ class GRBL_Stream:
 
     def calibrate_X(self):
 
-        limit_val_X = 1 #self.limit_switch_X.read_output()
+        limit_val_X = self.limit_switch_X.read_output()
 
         print('Beginning to calibrate X axis...')
 
@@ -105,7 +105,7 @@ class GRBL_Stream:
         while not limit_val_X:
             self.send_move_cmd('X', '0.1')
 
-            limit_val_X = 0 #self.limit_switch_X.read_output()
+            limit_val_X = self.limit_switch_X.read_output()
 
         self.curr_pos[0] = 0
 
@@ -115,20 +115,20 @@ class GRBL_Stream:
 
         print('Beginning to calibrate Y axis...')
 
-        limit_val_Y = 1 #self.limit_switch_Y.read_output()
+        limit_val_Y = self.limit_switch_Y.read_output()
 
         # Calibrate Y axis
         while not limit_val_Y:
             self.send_move_cmd('Y', '0.1')
 
-            limit_val_Y = 0 #self.limit_switch_Y.read_output()
+            limit_val_Y = self.limit_switch_Y.read_output()
 
         self.curr_pos[1] = 0
 
         print('Calibrate of Y axis complete!')
 
-    def send_move_cmd(self, axis, distance):
-        cmd = axis + user_distance + ' F' + str(cnc.get_feedrate())
+    def send_move_cmd(self, axis, dist):
+        cmd = axis + dist + ' F' + str(cnc.get_feedrate())
 
         print(cmd)
         try:
@@ -149,7 +149,7 @@ class GRBL_Stream:
         if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
             print('Error! Moving beyond max (' + axis + ')')
         else:
-            cmd = axis + user_dist + ' F' + str(cnc.get_feedrate())
+            cmd = axis + dist + ' F' + str(cnc.get_feedrate())
 
             print(cmd)
             try:
