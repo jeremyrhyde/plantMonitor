@@ -136,12 +136,14 @@ class GRBL_Stream:
 
     def send_move_cmd_safe(self, axis, dist):
 
+        # Set new position
         next_pos = self.curr_pos
         if axis == 'X':
             next_pos[0] = next_pos[0] + float(dist)
         if axis == 'Y':
             next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
 
+        # Check if move is safe
         if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
             print('Error! Moving beyond max (' + axis + ')')
         else:
@@ -154,7 +156,6 @@ class GRBL_Stream:
                 print('Improper position command')
 
 
-        send_line('G21 G91 ' + cmd)
     def send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
         print('G-Code: ' + l)
@@ -173,6 +174,8 @@ class GRBL_Stream:
 # Wait here until grbl is finished to close serial port and file.
 def main():
     cnc = GRBL_Stream()
+
+    cnc.calibrate_Y()
 
     while True:
         user_input = input('Input: ')

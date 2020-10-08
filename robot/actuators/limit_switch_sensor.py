@@ -32,7 +32,7 @@ class Limit_Switch_Sensor:
 
 def main():
 
-    limit_switch = Limit_Switch_Sensor(4)
+    limit_switch = Limit_Switch_Sensor(26)
 
     while True:
         input = limit_switch.read_output()
