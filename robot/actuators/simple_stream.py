@@ -66,7 +66,7 @@ class GRBL_Stream:
 
         print('Initializing limit switches (X : #1, Y : #1)')
         self.limit_switch_X = Limit_Switch_Sensor(26)
-        self.limit_switch_Y = Limit_Switch_Sensor(27)
+        self.limit_switch_Y = Limit_Switch_Sensor(26)
 
     def init(self):
         startup_file = open('startup.gcode','r');
