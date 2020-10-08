@@ -56,6 +56,7 @@ class GRBL_Stream:
 
         self.serial = serial.Serial(serial_port,baud_rate)
 
+        #self.cnc = GRBL_Stream()
         self.init_cnc()
 
         self.curr_pos = [0,0]
@@ -133,7 +134,7 @@ class GRBL_Stream:
 
         print(cmd)
         try:
-            cnc._send_line('G21 G91 ' + cmd)
+            self._send_line('G21 G91 ' + cmd)
         except Exception as e:
             print('Improper position command: ' + str(e))
 
@@ -154,7 +155,7 @@ class GRBL_Stream:
 
             print(cmd)
             try:
-                cnc._send_line('G21 G91 ' + cmd)
+                self._send_line('G21 G91 ' + cmd)
             except Exception as e:
                 print('Improper position command: ' + str(e))
 
@@ -176,8 +177,8 @@ class GRBL_Stream:
 
 # Wait here until grbl is finished to close serial port and file.
 def main():
-    cnc = GRBL_Stream()
 
+    cnc = GRBL_Stream()
     #cnc.calibrate_Y()
 
     while True:
