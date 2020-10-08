@@ -33,15 +33,15 @@ import serial
 import time
 
 # Open grbl serial port
-s = serial.Serial('/dev/ttyACM0',115200)
-
-# Open g-code file
-
-
-# Wake up grbl
-s.write("\r\n\r\n".encode())
-time.sleep(2)   # Wait for grbl to initialize
-s.flushInput()  # Flush startup text in serial input
+# s = serial.Serial('/dev/ttyACM0',115200)
+#
+# # Open g-code file
+#
+#
+# # Wake up grbl
+# s.write("\r\n\r\n".encode())
+# time.sleep(2)   # Wait for grbl to initialize
+# s.flushInput()  # Flush startup text in serial input
 
 # Stream g-code to grb
 class GRBL_Stream:
