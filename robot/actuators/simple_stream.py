@@ -157,22 +157,22 @@ class GRBL_Stream:
     def _reset(self):
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
         GPIO.output(self._RESET_PIN, GPIO.HIGH)
-        time.sleep(1)
+        time.sleep(2)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', '10.0')
-        time.sleep(3)
+        time.sleep(4)
         print('sending 1')
         self._send_line('$21=0')
-        time.sleep(3)
+        time.sleep(1)
         self._reset()
-        time.sleep(3)
+        time.sleep(1)
         self._send_line('$21=0')
-
-        self.send_move_cmd('Y', '-1.0')
-
+        time.sleep(1)
+        self.send_move_cmd('Y', '-0.2')
+        time.sleep(1)
         self._send_line('$21=1')
         # self.close()
         # self.init_cnc()
