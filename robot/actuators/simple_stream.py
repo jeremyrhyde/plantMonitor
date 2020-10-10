@@ -155,7 +155,7 @@ class GRBL_Stream:
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
 
-    def _handle_limit_hit(self, dir = 0):
+    def _handle_limit_hit(self, dir):
         print('Limit switch detected! moving off')
         time.sleep(4)
         print('sending 1')
@@ -166,10 +166,10 @@ class GRBL_Stream:
         self._send_line('$21=0')
         time.sleep(2)
         try:
-            if dir == 0:
+            if dir == 'Y':
                 state = self.send_move_cmd('Y', '-1.0')
             else:
-                state = self.send_move_cmd('Y', '1.0')
+                state = self.send_move_cmd('X', '-1.0')
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
@@ -189,9 +189,9 @@ class GRBL_Stream:
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', str(float(self.Y_max)))
-        self._handle_limit_hit()
+        self._handle_limit_hit('Y')
         self.send_move_cmd('X', str(float(self.X_max)))
-        self._handle_limit_hit()
+        self._handle_limit_hit('X')
         #time.sleep(self.Y_max/10)
         #self._handle_limit_hit()
         # self.close()
@@ -218,7 +218,7 @@ class GRBL_Stream:
             #    self._handle_limit_hit()
         print('STATE:' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-            self._handle_limit_hit()
+            self._handle_limit_hit(axis)
             return False
         return True
 
