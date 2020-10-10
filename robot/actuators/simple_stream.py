@@ -50,25 +50,25 @@ import RPi.GPIO as GPIO
 class GRBL_Stream:
 
     def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
-        
+
         print('SYSTEM STARTING UP')
         print('-------------------------')
 
-        print('Defining serial connection...')
+        print('Defining serial connection')
         self.serial_port = serial_port
         self.baud_rate = baud_rate
         self.feedrate = 100
 
         self.serial = serial.Serial(serial_port,baud_rate)
 
-        print('Setting parameters...')
+        print('Setting parameters')
         self.curr_pos = [0,0]
 
         self.X_max = 22
         self.Y_max = 106
         self.max_bonus = 0.1
 
-        print('Initializing GPIOs...')
+        print('Initializing GPIOs')
         self._RESET_PIN = 26
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
@@ -77,13 +77,15 @@ class GRBL_Stream:
 
         print('-------------------------')
 
-        print('Finalizing CNC setup...')
+        print('CNC SETUP...')
         self.init_cnc()
 
         self._send_line('$21=1')
 
         self.calibrate()
 
+        print('-------------------------')
+        print('SYSTEM SETUP COMPLETE!')
         print('-------------------------')
 
     def init_cnc(self):
@@ -116,51 +118,6 @@ class GRBL_Stream:
 
         print('Homing complete position set to (0,0)')
 
-    def calibrate_X(self):
-
-        limit_val_X = self.limit_switch_X.read_output()
-
-        print('Beginning to calibrate X axis...')
-
-        # Calibrate X axis
-        while limit_val_X:
-            self.send_move_cmd('X', '0.05')
-
-            limit_val_X = self.limit_switch_X.read_output()
-
-        self.curr_pos[0] = 0
-
-        print('Calibrate of X axis complete!')
-
-    def calibrate_Y(self):
-
-        print('Beginning to calibrate Y axis...')
-
-        limit_val_Y = self.limit_switch_Y.read_output()
-        print(limit_val_Y)
-        # Calibrate Y axis
-        while limit_val_Y:
-            print('advance')
-            self.send_move_cmd('Y', '0.1')
-
-            limit_val_Y = self.limit_switch_Y.read_output()
-
-            time.sleep(.02)
-            print(limit_val_Y)
-
-        self.curr_pos[1] = 0
-
-        print('Calibrate of Y axis complete!')
-
-    def limit_switch_process(self):
-
-        while True:
-            limit_val_Y = self.limit_switch_Y.read_output()
-
-            if not limit_val_Y:
-                self._send_line('M00')
-                break
-
     def _reset(self):
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
 
@@ -171,7 +128,7 @@ class GRBL_Stream:
 
 
     def _handle_limit_hit(self, dir):
-        print('Limit switch detected! moving off')
+        print(' - Limit switch detected! moving off')
 
         self._send_line('$21=0')
         self._reset()
@@ -201,16 +158,16 @@ class GRBL_Stream:
         self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
 
-    def calibrate(self):
-        print('SYSTEM CALIBRATION')
-        self.calibrate_Y()
-        self.calibrate_X()
+    # def calibrate(self):
+    #     print('SYSTEM CALIBRATION')
+    #     self.calibrate_Y()
+    #     self.calibrate_X()
 
     def send_move_cmd(self, axis, dist):
         dist = "%.2f" % float(dist)
         cmd = axis + dist + ' F' + str(self.get_feedrate())
 
-        print('Moving to ' + cmd)
+        print(' - Moving to ' + cmd)
         try:
             state = self._send_line('G21 G91 ' + cmd)
         except Exception as e:
