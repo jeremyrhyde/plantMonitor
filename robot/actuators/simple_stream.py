@@ -62,19 +62,13 @@ class GRBL_Stream:
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
-        #self.cnc = GRBL_Stream()
         self.init_cnc()
-        # try:
-        #     self._send_line('$21=1')
-        # except Exception as e:
-        #     print('Improper position command1: ' + str(e))
-
 
         self.curr_pos = [0,0]
 
         #self.calibrate()
-        self.X_max = 5
-        self.Y_max = 100
+        self.X_max = 20
+        self.Y_max = 106
 
         print('Initializing limit switches (X : #1, Y : #1)')
         self.limit_switch_X = Limit_Switch_Sensor(26)
@@ -195,8 +189,10 @@ class GRBL_Stream:
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', str(float(self.Y_max)))
-        time.sleep(self.Y_max/10)
-        self._handle_limit_hit()
+        #self._handle_limit_hit()
+        self.send_move_cmd('X', str(float(self.X_max)))
+        #time.sleep(self.Y_max/10)
+        #self._handle_limit_hit()
         # self.close()
         # self.init_cnc()
         # try:
@@ -214,11 +210,13 @@ class GRBL_Stream:
             state = self._send_line('G21 G91 ' + cmd)
         except Exception as e:
             print('Improper position command: ' + str(e))
+        else:
+            time.sleep(dist/5)
 
             #if 'Reset' in str(e):
             #    self._handle_limit_hit()
         print('STATE:' + str(state))
-        if 'Reset' in state or 'ALARM' in state or 'unlock' in state:
+        if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             self._handle_limit_hit()
             return False
         return True
@@ -250,6 +248,7 @@ class GRBL_Stream:
                 self._send_line('G21 G91 ' + cmd)
             except Exception as e:
                 print('Improper position command: ' + str(e))
+
 
 
     def _send_line(self, line):
