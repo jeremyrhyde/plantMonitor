@@ -168,10 +168,19 @@ class GRBL_Stream:
         self._send_line('$21=0')
         time.sleep(1)
         self._reset()
-        time.sleep(1)
+        time.sleep(3)
         self._send_line('$21=0')
         time.sleep(2)
-        self.send_move_cmd('Y', '-0.2')
+        try:
+            self.send_move_cmd('Y', '-0.2')
+        except Exception as e:
+            print('Improper2 position command: ' + str(e))
+
+            if 'Reset' in str(e):
+                print('retrying with $21 reset')
+                self._send_line('$21=0')
+                time.sleep(2)
+                self.send_move_cmd('Y', '-0.2')
         time.sleep(2)
         self._send_line('$21=1')
         # self.close()
@@ -192,11 +201,11 @@ class GRBL_Stream:
         except Exception as e:
             print('Improper position command: ' + str(e))
 
-            if 'Reset' in str(e):
-                print('retrying with $21 reset')
-                self._send_line('$21=1')
-                time.sleep(2)
-                self.send_move_cmd(axis, dist)
+            #if 'Reset' in str(e):
+            #    print('retrying with $21 reset')
+            #    self._send_line('$21=0')
+            #    time.sleep(2)
+            #    self.send_move_cmd(axis, dist)
 
 
 
