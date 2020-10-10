@@ -158,8 +158,10 @@ class GRBL_Stream:
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', '2.0')
+        time.sleep(3)
         print('sending 1')
         self._send_line('$21=1')
+        time.sleep(3)
         GPIO.setup(self._RESET_PIN, GPIO.LOW)
         time.sleep(1)
         GPIO.setup(self._RESET_PIN, GPIO.HIGH)
