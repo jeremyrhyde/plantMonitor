@@ -34,7 +34,7 @@ import time
 
 from limit_switch_sensor import Limit_Switch_Sensor
 from multiprocessing import Process
-
+import RPi.GPIO as GPIO
 # Open grbl serial port
 # s = serial.Serial('/dev/ttyACM0',115200)
 #
@@ -64,6 +64,11 @@ class GRBL_Stream:
         # except Exception as e:
         #     print('Improper position command1: ' + str(e))
 
+        self._RESET_PIN = 26
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self._RESET_PIN, GPIO.OUT)
+        GPIO.setup(self._RESET_PIN, GPIO.HIGH)
+
 
         self.curr_pos = [0,0]
 
@@ -74,6 +79,8 @@ class GRBL_Stream:
         print('Initializing limit switches (X : #1, Y : #1)')
         self.limit_switch_X = Limit_Switch_Sensor(26)
         self.limit_switch_Y = Limit_Switch_Sensor(26)
+
+        self._send_line('$21=1')
 
     def init_cnc(self):
         startup_file = open('startup.gcode','r');
@@ -151,6 +158,15 @@ class GRBL_Stream:
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', '2.0')
+        print('sending 1')
+        self._send_line('$21=1')
+        GPIO.setup(self._RESET_PIN, GPIO.LOW)
+        time.sleep(1)
+        GPIO.setup(self._RESET_PIN, GPIO.HIGH)
+        self._send_line('$21=1')
+        self._send_line('$21=1')
+
+        self.send_move_cmd('Y', '-2.0')
         # self.close()
         # self.init_cnc()
         # try:
