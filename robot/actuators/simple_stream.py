@@ -216,7 +216,7 @@ class GRBL_Stream:
 
             #if 'Reset' in str(e):
             #    self._handle_limit_hit()
-
+        print('STATE:' + str(state))
         if 'Reset' in state:
             self._handle_limit_hit()
             return False
