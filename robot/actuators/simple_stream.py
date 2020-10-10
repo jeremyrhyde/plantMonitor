@@ -184,9 +184,11 @@ class GRBL_Stream:
         if state:
             time.sleep(2)
             self._send_line('$21=1')
+            time.sleep(2)
+            self._send_line('$21=1')
 
 
-    def calibrate_Y2(self):
+    def calibrate(self):
 
         print('CALIBRATING Y')
         self.send_move_cmd('Y', str(float(self.Y_max)))
@@ -286,7 +288,7 @@ def main():
                 except:
                     print('Improper feedrate command')
             elif user_input[0] == 'C':
-                cnc.calibrate_Y2()
+                cnc.calibrate()
 
             elif user_input[0] == '$' or user_input == 'Reset':
                 cnc._reset()
