@@ -217,7 +217,7 @@ class GRBL_Stream:
             #if 'Reset' in str(e):
             #    self._handle_limit_hit()
         print('STATE:' + str(state))
-        if 'Reset' in state or 'ALARM' in state:
+        if 'Reset' in state or 'ALARM' in state or 'unlock' in state:
             self._handle_limit_hit()
             return False
         return True
