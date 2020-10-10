@@ -51,31 +51,36 @@ class GRBL_Stream:
 
     def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
 
+        print('Defining serial connection...')
         self.serial_port = serial_port
         self.baud_rate = baud_rate
         self.feedrate = 100
 
         self.serial = serial.Serial(serial_port,baud_rate)
 
+        print('Setting parameters...')
+        self.curr_pos = [0,0]
+
+        self.X_max = 22
+        self.Y_max = 106
+        self.max_bonus = 0.1
+
+        print('Initializing GPIOs...')
         self._RESET_PIN = 26
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
+        #print('Initializing limit switches (X : #1, Y : #1)...')
+        #self.limit_switch_X = Limit_Switch_Sensor(16)
+        #self.limit_switch_Y = Limit_Switch_Sensor(26)
+
+        print('Finalizing CNC setup...')
         self.init_cnc()
 
-        self.curr_pos = [0,0]
-
-        #self.calibrate()
-        self.X_max = 22
-        self.Y_max = 106
-        self.max_bonus = 0.05
-
-        print('Initializing limit switches (X : #1, Y : #1)')
-        self.limit_switch_X = Limit_Switch_Sensor(26)
-        self.limit_switch_Y = Limit_Switch_Sensor(26)
-
         self._send_line('$21=1')
+
+        self.calibrate()
 
     def init_cnc(self):
         startup_file = open('startup.gcode','r');
@@ -151,21 +156,23 @@ class GRBL_Stream:
 
     def _reset(self):
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
+
         GPIO.output(self._RESET_PIN, GPIO.HIGH)
         time.sleep(2)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
+        time.sleep(2)
 
 
     def _handle_limit_hit(self, dir):
         print('Limit switch detected! moving off')
-        time.sleep(4)
+        #time.sleep(4)
         print('sending 1')
         self._send_line('$21=0')
-        time.sleep(1)
+        #time.sleep(1)
         self._reset()
-        time.sleep(3)
+        #time.sleep(3)
         self._send_line('$21=0')
-        time.sleep(2)
+        #time.sleep(2)
         try:
             if dir == 'Y':
                 state = self.send_move_cmd('Y', '-1.0')
@@ -174,18 +181,10 @@ class GRBL_Stream:
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
-            # if 'Reset' in str(e) or '9' in str(e) or 'unlock' in str(e):
-            #     print('retrying with $21 reset')
-            #     self._send_line('$21=0')
-            #     time.sleep(2)
-            #     if dir == 0:
-            #         self.send_move_cmd('Y', '-0.2')
-            #     else:
-            #         self.send_move_cmd('Y', '0.2')
         if state:
-            time.sleep(2)
+            #time.sleep(2)
             self._send_line('$21=1')
-            time.sleep(2)
+            #time.sleep(2)
             self._send_line('$21=1')
 
     def calibrate_X(self):
@@ -204,16 +203,6 @@ class GRBL_Stream:
         print('SYSTEM CALIBRATION')
         self.calibrate_Y()
         self.calibrate_X()
-        #time.sleep(self.Y_max/10)
-        #self._handle_limit_hit()
-        # self.close()
-        # self.init_cnc()
-        # try:
-        #     self._send_line('$21=0')
-        # except Exception as e:
-        #     print('Improper position command: ' + str(e))
-        # self.close()
-        # self.init_cnc()
 
     def send_move_cmd(self, axis, dist):
         cmd = axis + dist + ' F' + str(self.get_feedrate())
@@ -271,6 +260,8 @@ class GRBL_Stream:
             state = 'Action Completed'
         else:
             state = 'Action Error: ' + grbl_out.strip()
+
+        time.sleep(2)
         print(state)
         return state
 
