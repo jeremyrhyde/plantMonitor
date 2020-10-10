@@ -292,7 +292,7 @@ def main():
                 cnc.calibrate_Y2()
 
             elif user_input[0] == '$' or user_input == 'Reset':
-                self._reset()
+                cnc._reset()
 
             elif user_input[0] == 'Q':
                 print('Closing out...')
