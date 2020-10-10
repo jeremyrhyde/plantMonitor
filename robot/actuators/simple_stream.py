@@ -173,9 +173,9 @@ class GRBL_Stream:
         time.sleep(2)
         try:
             if dir == 0:
-                state = self.send_move_cmd('Y', '-0.5')
+                state = self.send_move_cmd('Y', '-0.25')
             else:
-                state = self.send_move_cmd('Y', '0.5')
+                state = self.send_move_cmd('Y', '0.25')
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
