@@ -211,7 +211,7 @@ class GRBL_Stream:
         except Exception as e:
             print('Improper position command: ' + str(e))
         else:
-            time.sleep(dist/5)
+            time.sleep(float(dist)/5)
 
             #if 'Reset' in str(e):
             #    self._handle_limit_hit()
