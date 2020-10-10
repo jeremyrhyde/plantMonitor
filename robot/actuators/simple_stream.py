@@ -194,7 +194,7 @@ class GRBL_Stream:
 
     def calibrate_Y2(self):
 
-        self.send_move_cmd('Y', float(self.Y_max))
+        self.send_move_cmd('Y', str(float(self.Y_max)))
         time.sleep(self.Y_max/10)
         self._handle_limit_hit()
         # self.close()
