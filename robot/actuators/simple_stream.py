@@ -151,14 +151,14 @@ class GRBL_Stream:
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', '2.0')
-        self.close()
-        self.init_cnc()
-        try:
-            self._send_line('$21=0')
-        except Exception as e:
-            print('Improper position command: ' + str(e))
-        self.close()
-        self.init_cnc()
+        # self.close()
+        # self.init_cnc()
+        # try:
+        #     self._send_line('$21=0')
+        # except Exception as e:
+        #     print('Improper position command: ' + str(e))
+        # self.close()
+        # self.init_cnc()
 
     def send_move_cmd(self, axis, dist):
         cmd = axis + dist + ' F' + str(self.get_feedrate())
