@@ -160,9 +160,9 @@ class GRBL_Stream:
         time.sleep(2)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
-    def calibrate_Y2(self):
 
-        self.send_move_cmd('Y', '10.0')
+    def _handle_limit_hit(self, dir = 0):
+        print('Limit switch detected! moving off')
         time.sleep(4)
         print('sending 1')
         self._send_line('$21=0')
@@ -172,7 +172,10 @@ class GRBL_Stream:
         self._send_line('$21=0')
         time.sleep(2)
         try:
-            self.send_move_cmd('Y', '-0.2')
+            if dir == 0:
+                self.send_move_cmd('Y', '-0.2')
+            else:
+                self.send_move_cmd('Y', '0.2')
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
@@ -180,9 +183,18 @@ class GRBL_Stream:
                 print('retrying with $21 reset')
                 self._send_line('$21=0')
                 time.sleep(2)
-                self.send_move_cmd('Y', '-0.2')
+                if dir == 0:
+                    self.send_move_cmd('Y', '-0.2')
+                else:
+                    self.send_move_cmd('Y', '0.2')
         time.sleep(2)
         self._send_line('$21=1')
+
+
+    def calibrate_Y2(self):
+
+        self.send_move_cmd('Y', '10.0')
+        self._handle_limit_hit()
         # self.close()
         # self.init_cnc()
         # try:
