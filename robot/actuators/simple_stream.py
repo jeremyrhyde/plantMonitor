@@ -229,7 +229,7 @@ def main():
             elif user_input[0] == 'C':
                 cnc.calibrate_Y2()
 
-            elif user_input[0] == '$':
+            elif user_input[0] == '$' or user_input == 'Reset':
                 cnc._send_line(user_input)
 
             elif user_input[0] == 'Q':
