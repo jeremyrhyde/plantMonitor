@@ -67,7 +67,7 @@ class GRBL_Stream:
         self._RESET_PIN = 26
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
-        GPIO.setup(self._RESET_PIN, GPIO.HIGH)
+        GPIO.ouput(self._RESET_PIN, GPIO.HIGH)
 
 
         self.curr_pos = [0,0]
@@ -162,9 +162,9 @@ class GRBL_Stream:
         print('sending 1')
         self._send_line('$21=1')
         time.sleep(3)
-        GPIO.setup(self._RESET_PIN, GPIO.LOW)
+        GPIO.output(self._RESET_PIN, GPIO.LOW)
         time.sleep(1)
-        GPIO.setup(self._RESET_PIN, GPIO.HIGH)
+        GPIO.output(self._RESET_PIN, GPIO.HIGH)
         self._send_line('$21=1')
         self._send_line('$21=1')
 
