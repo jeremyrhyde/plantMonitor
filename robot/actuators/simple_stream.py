@@ -213,7 +213,8 @@ class GRBL_Stream:
         except Exception as e:
             print('Improper position command: ' + str(e))
 
-            #if 'Reset' in str(e):
+            if 'Reset' in str(e):
+                self._handle_limit_hit()
             #    print('retrying with $21 reset')
             #    self._send_line('$21=0')
             #    time.sleep(2)
