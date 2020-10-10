@@ -67,6 +67,7 @@ class GRBL_Stream:
 
         print('Initializing GPIOs...')
         self._RESET_PIN = 26
+        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
