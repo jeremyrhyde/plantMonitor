@@ -59,10 +59,10 @@ class GRBL_Stream:
 
         #self.cnc = GRBL_Stream()
         self.init_cnc()
-        try:
-            self._send_line('$21=1')
-        except Exception as e:
-            print('Improper position command1: ' + str(e))
+        # try:
+        #     self._send_line('$21=1')
+        # except Exception as e:
+        #     print('Improper position command1: ' + str(e))
 
 
         self.curr_pos = [0,0]
@@ -82,6 +82,7 @@ class GRBL_Stream:
         for line in startup_file:
             self._send_line(line)
 
+        self._send_line('$21=1')
         startup_file.close()
 
     def close(self):
@@ -209,7 +210,6 @@ class GRBL_Stream:
 def main():
 
     cnc = GRBL_Stream()
-    cnc.calibrate_Y2()
 
     while True:
         user_input = input('Input: ')
@@ -226,6 +226,8 @@ def main():
                     cnc.set_feedrate(int(user_feedrate))
                 except:
                     print('Improper feedrate command')
+            elif user_input[0] == 'C':
+                cnc.calibrate_Y2()
 
             elif user_input[0] == 'Q':
                 print('Closing out...')
