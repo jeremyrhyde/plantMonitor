@@ -203,6 +203,7 @@ class GRBL_Stream:
         self.calibrate_X()
 
     def send_move_cmd(self, axis, dist):
+        dist = "%.2f" % float(dist)
         cmd = axis + dist + ' F' + str(self.get_feedrate())
 
         print(cmd)
@@ -213,8 +214,9 @@ class GRBL_Stream:
         else:
             time.sleep(abs(float(dist))/5)
 
-        print('STATE:' + str(state))
+        #print('STATE:' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+            ('BAD STATE:' + str(state))
             self._handle_limit_hit(axis)
             return False
         return True
