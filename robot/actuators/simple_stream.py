@@ -179,7 +179,7 @@ class GRBL_Stream:
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
-            if 'Reset' in str(e):
+            if 'Reset' in str(e) or '9' in str(e) or 'unlock' in str(e):
                 print('retrying with $21 reset')
                 self._send_line('$21=0')
                 time.sleep(2)
