@@ -229,6 +229,9 @@ def main():
             elif user_input[0] == 'C':
                 cnc.calibrate_Y2()
 
+            elif user_input[0] == '$':
+                cnc._send_line(user_input)
+
             elif user_input[0] == 'Q':
                 print('Closing out...')
                 cnc.close()
