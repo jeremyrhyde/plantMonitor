@@ -60,7 +60,7 @@ class GRBL_Stream:
         self._RESET_PIN = 26
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
-        GPIO.ouput(self._RESET_PIN, GPIO.HIGH)
+        GPIO.output(self._RESET_PIN, GPIO.HIGH)
 
         #self.cnc = GRBL_Stream()
         self.init_cnc()
