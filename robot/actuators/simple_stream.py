@@ -33,6 +33,7 @@ import serial
 import time
 
 from limit_switch_sensor import Limit_Switch_Sensor
+from multiprocessing import Process
 
 # Open grbl serial port
 # s = serial.Serial('/dev/ttyACM0',115200)
