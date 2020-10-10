@@ -173,9 +173,9 @@ class GRBL_Stream:
         time.sleep(2)
         try:
             if dir == 0:
-                self.send_move_cmd('Y', '-0.2')
+                self.send_move_cmd('Y', '-0.5')
             else:
-                self.send_move_cmd('Y', '0.2')
+                self.send_move_cmd('Y', '0.5')
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
@@ -209,12 +209,15 @@ class GRBL_Stream:
 
         print(cmd)
         try:
-            self._send_line('G21 G91 ' + cmd)
+            state = self._send_line('G21 G91 ' + cmd)
         except Exception as e:
             print('Improper position command: ' + str(e))
 
-            if 'Reset' in str(e):
-                self._handle_limit_hit()
+            #if 'Reset' in str(e):
+            #    self._handle_limit_hit()
+
+        if 'Reset' in state:
+            self._handle_limit_hit()
             #    print('retrying with $21 reset')
             #    self._send_line('$21=0')
             #    time.sleep(2)
@@ -254,9 +257,11 @@ class GRBL_Stream:
         grbl_out = grbl_out_bytes.decode("UTF-8")
 
         if grbl_out.strip() == 'ok':
-            print('Action Completed')
+            state = 'Action Completed'
         else:
-            print('Action Error: ' + grbl_out.strip())
+            state = 'Action Error: ' + grbl_out.strip()
+        print(state)
+        return state
 
 
 # Wait here until grbl is finished to close serial port and file.
