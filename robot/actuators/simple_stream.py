@@ -206,7 +206,7 @@ class GRBL_Stream:
         dist = "%.2f" % float(dist)
         cmd = axis + dist + ' F' + str(self.get_feedrate())
 
-        print(cmd)
+        print('Moving to ' + cmd)
         try:
             state = self._send_line('G21 G91 ' + cmd)
         except Exception as e:
