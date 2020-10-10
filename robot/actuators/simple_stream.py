@@ -201,6 +201,8 @@ class GRBL_Stream:
 
     def calibrate(self):
         print('SYSTEM CALIBRATION')
+        self.calibrate_Y()
+        self.calibrate_X()
         #time.sleep(self.Y_max/10)
         #self._handle_limit_hit()
         # self.close()
