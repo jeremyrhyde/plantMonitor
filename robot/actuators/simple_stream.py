@@ -50,6 +50,9 @@ import RPi.GPIO as GPIO
 class GRBL_Stream:
 
     def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
+        
+        print('SYSTEM STARTING UP')
+        print('-------------------------')
 
         print('Defining serial connection...')
         self.serial_port = serial_port
@@ -72,9 +75,7 @@ class GRBL_Stream:
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
-        #print('Initializing limit switches (X : #1, Y : #1)...')
-        #self.limit_switch_X = Limit_Switch_Sensor(16)
-        #self.limit_switch_Y = Limit_Switch_Sensor(26)
+        print('-------------------------')
 
         print('Finalizing CNC setup...')
         self.init_cnc()
@@ -82,6 +83,8 @@ class GRBL_Stream:
         self._send_line('$21=1')
 
         self.calibrate()
+
+        print('-------------------------')
 
     def init_cnc(self):
         startup_file = open('startup.gcode','r');
