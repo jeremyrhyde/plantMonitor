@@ -187,15 +187,20 @@ class GRBL_Stream:
             time.sleep(2)
             self._send_line('$21=1')
 
-
-    def calibrate(self):
-
-        print('CALIBRATING Y')
-        self.send_move_cmd('Y', str(float(self.Y_max)))
-        self._handle_limit_hit('Y')
-        print('CALIBRATING X')
+    def calibrate_X(self):
+        print('Calibrating X...')
         self.send_move_cmd('X', str(float(self.X_max)))
         self._handle_limit_hit('X')
+        print('Calibrating of X complete!')
+
+    def calibrate_Y(self):
+        print('Calibrating Y...')
+        self.send_move_cmd('Y', str(float(self.Y_max)))
+        self._handle_limit_hit('Y')
+        print('Calibrating of Y complete!')
+
+    def calibrate(self):
+        print('SYSTEM CALIBRATION')
         #time.sleep(self.Y_max/10)
         #self._handle_limit_hit()
         # self.close()
