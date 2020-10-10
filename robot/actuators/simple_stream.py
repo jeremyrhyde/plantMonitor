@@ -155,6 +155,7 @@ class GRBL_Stream:
                 break
 
     def _reset(self):
+        GPIO.setup(self._RESET_PIN, GPIO.OUT)
         GPIO.output(self._RESET_PIN, GPIO.HIGH)
         time.sleep(1)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
@@ -166,7 +167,7 @@ class GRBL_Stream:
         print('sending 1')
         self._send_line('$21=0')
         time.sleep(3)
-        self.reset()
+        self._reset()
         time.sleep(3)
         self._send_line('$21=0')
 
