@@ -131,6 +131,29 @@ class GRBL_Stream:
 
         print('Calibrate of Y axis complete!')
 
+    def limit_switch_process(self):
+
+        while True:
+            limit_val_Y = self.limit_switch_Y.read_output()
+
+            if not limit_val_Y:
+                self._send_line('M00')
+                break
+
+
+    def calibrate_Y2(self):
+
+        print('Beginning to calibrate Y2 axis...')
+
+        p = Process(target=self.limit_switch_process)
+        p.start()
+
+        self.send_move_cmd('Y', '1.0')
+
+        p.join()
+
+        print('Calibrate of Y2 axis complete!')
+
     def send_move_cmd(self, axis, dist):
         cmd = axis + dist + ' F' + str(self.get_feedrate())
 
@@ -181,7 +204,7 @@ class GRBL_Stream:
 def main():
 
     cnc = GRBL_Stream()
-    cnc.calibrate_Y()
+    cnc.calibrate_Y2()
 
     while True:
         user_input = input('Input: ')
