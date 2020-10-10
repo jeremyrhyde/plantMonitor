@@ -67,8 +67,9 @@ class GRBL_Stream:
         self.curr_pos = [0,0]
 
         #self.calibrate()
-        self.X_max = 20
+        self.X_max = 22
         self.Y_max = 106
+        self.max_bonus = 0.05
 
         print('Initializing limit switches (X : #1, Y : #1)')
         self.limit_switch_X = Limit_Switch_Sensor(26)
@@ -189,13 +190,13 @@ class GRBL_Stream:
 
     def calibrate_X(self):
         print('Calibrating X...')
-        self.send_move_cmd('X', str(float(self.X_max)))
+        self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
         self._handle_limit_hit('X')
         print('Calibrating of X complete!')
 
     def calibrate_Y(self):
         print('Calibrating Y...')
-        self.send_move_cmd('Y', str(float(self.Y_max)))
+        self.send_move_cmd('Y', str(float(self.Y_max*(1 + self.max_bonus))))
         self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
 
