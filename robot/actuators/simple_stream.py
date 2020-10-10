@@ -74,7 +74,7 @@ class GRBL_Stream:
 
         #self.calibrate()
         self.X_max = 5
-        self.Y_max = 5
+        self.Y_max = 100
 
         print('Initializing limit switches (X : #1, Y : #1)')
         self.limit_switch_X = Limit_Switch_Sensor(26)
@@ -194,7 +194,8 @@ class GRBL_Stream:
 
     def calibrate_Y2(self):
 
-        self.send_move_cmd('Y', '100.0')
+        self.send_move_cmd('Y', float(self.Y_max))
+        time.sleep(self.Y_max/10)
         self._handle_limit_hit()
         # self.close()
         # self.init_cnc()
