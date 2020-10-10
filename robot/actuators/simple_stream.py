@@ -165,13 +165,15 @@ class GRBL_Stream:
         self.send_move_cmd('Y', '10.0')
         time.sleep(3)
         print('sending 1')
-        #self._send_line('$21=0')
-        #time.sleep(3)
+        self._send_line('$21=0')
+        time.sleep(3)
         self._reset()
         time.sleep(3)
         self._send_line('$21=0')
 
-        self.send_move_cmd('Y', '-2.0')
+        self.send_move_cmd('Y', '-1.0')
+
+        self._send_line('$21=1')
         # self.close()
         # self.init_cnc()
         # try:
