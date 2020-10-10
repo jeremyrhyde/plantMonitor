@@ -188,8 +188,10 @@ class GRBL_Stream:
 
     def calibrate_Y2(self):
 
+        print('CALIBRATING Y')
         self.send_move_cmd('Y', str(float(self.Y_max)))
         self._handle_limit_hit('Y')
+        print('CALIBRATING X')
         self.send_move_cmd('X', str(float(self.X_max)))
         self._handle_limit_hit('X')
         #time.sleep(self.Y_max/10)
@@ -221,12 +223,6 @@ class GRBL_Stream:
             self._handle_limit_hit(axis)
             return False
         return True
-
-            #    print('retrying with $21 reset')
-            #    self._send_line('$21=0')
-            #    time.sleep(2)
-            #    self.send_move_cmd(axis, dist)
-
 
 
     def send_move_cmd_safe(self, axis, dist):
