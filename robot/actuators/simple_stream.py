@@ -103,12 +103,14 @@ class GRBL_Stream:
 
     def calibrate(self):
 
-        print('Returning to home')
+        print('Calibrating and returning to home...')
         self.calibrate_X()
 
         time.sleep(3)
 
         self.calibrate_Y()
+
+        print('Homing complete position set to (0,0)')
 
     def calibrate_X(self):
 
@@ -141,6 +143,7 @@ class GRBL_Stream:
 
             time.sleep(.02)
             print(limit_val_Y)
+
         self.curr_pos[1] = 0
 
         print('Calibrate of Y axis complete!')
@@ -165,14 +168,11 @@ class GRBL_Stream:
 
     def _handle_limit_hit(self, dir):
         print('Limit switch detected! moving off')
-        #time.sleep(4)
-        print('sending 1')
+
         self._send_line('$21=0')
-        #time.sleep(1)
         self._reset()
-        #time.sleep(3)
         self._send_line('$21=0')
-        #time.sleep(2)
+
         try:
             if dir == 'Y':
                 state = self.send_move_cmd('Y', '-1.0')
@@ -182,9 +182,7 @@ class GRBL_Stream:
             print('Improper2 position command: ' + str(e))
 
         if state:
-            #time.sleep(2)
             self._send_line('$21=1')
-            #time.sleep(2)
             self._send_line('$21=1')
 
     def calibrate_X(self):
@@ -215,14 +213,11 @@ class GRBL_Stream:
         else:
             time.sleep(abs(float(dist))/5)
 
-            #if 'Reset' in str(e):
-            #    self._handle_limit_hit()
         print('STATE:' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             self._handle_limit_hit(axis)
             return False
         return True
-
 
     def send_move_cmd_safe(self, axis, dist):
 
@@ -245,11 +240,9 @@ class GRBL_Stream:
             except Exception as e:
                 print('Improper position command: ' + str(e))
 
-
-
     def _send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
-        print('G-Code: ' + l)
+        #print('G-Code: ' + l)
 
         l = l + '\n'
         self.serial.write(l.encode()) # Send g-code block to grbl
@@ -262,9 +255,8 @@ class GRBL_Stream:
             state = 'Action Error: ' + grbl_out.strip()
 
         time.sleep(2)
-        print(state)
+        #print(state)
         return state
-
 
 # Wait here until grbl is finished to close serial port and file.
 def main():
