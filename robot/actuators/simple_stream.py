@@ -173,22 +173,23 @@ class GRBL_Stream:
         time.sleep(2)
         try:
             if dir == 0:
-                self.send_move_cmd('Y', '-0.5')
+                state = self.send_move_cmd('Y', '-0.5')
             else:
-                self.send_move_cmd('Y', '0.5')
+                state = self.send_move_cmd('Y', '0.5')
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
-            if 'Reset' in str(e) or '9' in str(e) or 'unlock' in str(e):
-                print('retrying with $21 reset')
-                self._send_line('$21=0')
-                time.sleep(2)
-                if dir == 0:
-                    self.send_move_cmd('Y', '-0.2')
-                else:
-                    self.send_move_cmd('Y', '0.2')
-        time.sleep(2)
-        self._send_line('$21=1')
+            # if 'Reset' in str(e) or '9' in str(e) or 'unlock' in str(e):
+            #     print('retrying with $21 reset')
+            #     self._send_line('$21=0')
+            #     time.sleep(2)
+            #     if dir == 0:
+            #         self.send_move_cmd('Y', '-0.2')
+            #     else:
+            #         self.send_move_cmd('Y', '0.2')
+        if state:
+            time.sleep(2)
+            self._send_line('$21=1')
 
 
     def calibrate_Y2(self):
@@ -218,6 +219,9 @@ class GRBL_Stream:
 
         if 'Reset' in state:
             self._handle_limit_hit()
+            return False
+        return True
+
             #    print('retrying with $21 reset')
             #    self._send_line('$21=0')
             #    time.sleep(2)
