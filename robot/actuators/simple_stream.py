@@ -195,7 +195,7 @@ class GRBL_Stream:
     def calibrate_Y2(self):
 
         self.send_move_cmd('Y', '10.0')
-        self._handle_limit_hit()
+        #self._handle_limit_hit()
         # self.close()
         # self.init_cnc()
         # try:
