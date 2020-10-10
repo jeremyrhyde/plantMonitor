@@ -57,17 +57,17 @@ class GRBL_Stream:
 
         self.serial = serial.Serial(serial_port,baud_rate)
 
+        self._RESET_PIN = 26
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self._RESET_PIN, GPIO.OUT)
+        GPIO.ouput(self._RESET_PIN, GPIO.HIGH)
+
         #self.cnc = GRBL_Stream()
         self.init_cnc()
         # try:
         #     self._send_line('$21=1')
         # except Exception as e:
         #     print('Improper position command1: ' + str(e))
-
-        self._RESET_PIN = 26
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self._RESET_PIN, GPIO.OUT)
-        GPIO.ouput(self._RESET_PIN, GPIO.HIGH)
 
 
         self.curr_pos = [0,0]
