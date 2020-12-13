@@ -21,7 +21,7 @@ class PassiveLEDs:
         GPIO.output(self.led_pin, GPIO.LOW)
 
     def close(self):
-        led.turn_off()
+        self.turn_off()
         time.sleep(1)
         GPIO.cleanup()
 
