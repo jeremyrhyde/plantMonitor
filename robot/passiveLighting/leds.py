@@ -7,7 +7,7 @@ import time
 
 class LEDs:
 
-    def __init__(self, pin = 14):
+    def __init__(self, pin = 19):
         self.led_pin = pin
 
         GPIO.setmode(GPIO.BCM)
