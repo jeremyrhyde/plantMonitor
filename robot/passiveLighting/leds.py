@@ -36,7 +36,7 @@ def main():
         else:
             break
 
-        user_input = input('Enter 1 for on and 0 for off, else quit')
+        user_input = input('Enter 1 for on and 0 for off, else quit: ')
 
     print('Closing LED')
     led.close()
