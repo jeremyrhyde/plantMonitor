@@ -23,7 +23,7 @@ from .robot_config import *
 #Subcomponents
 #from .actuators import *
 #from .display import *
-#from .passiveLighting import *
+from .passiveLighting import *
 #from .activeLighting import *
 #from .piCamera import *
 #from .sensors import Lock_Sensor, Relay_Sensor, Battery_Sensor
@@ -35,11 +35,11 @@ class Robot:
     COMMANDS = {
         "TurnOnPassiveLights" : lambda self: self.passiveLightingOnOff(True),
         "TurnOffPassiveLights" : lambda self: self.passiveLightingOnOff(),
-        "TurnOnActiveLights" : lambda self: self.activeLightingOnOff(True),
-        "TurnOffActiveLights" : lambda self: self.activeLightingOnOff(),
-        "ColorActiveLights" : lambda self: self.activeLightingColor(False),
+        #"TurnOnActiveLights" : lambda self: self.activeLightingOnOff(True),
+        #"TurnOffActiveLights" : lambda self: self.activeLightingOnOff(),
         "TakeImage" : lambda self: self.takeCameraImage(),
         "T" : lambda self: self.temp(),
+        "X" : lambda self: self.close(),
         #motion
         #watering
     }
@@ -49,6 +49,7 @@ class Robot:
     def __init__(self, robot_id, logger):
         self.robot_id = robot_id
         self.logger = logger
+
         #self.uart = uart
         #self.servo = Servo()
         #self.oled = Oled()
@@ -61,6 +62,7 @@ class Robot:
         self.robot_thread = threading.Thread(target=self._robot_run)
         self.robot_thread.start()
 
+        self.passive_led = PassiveLEDs()
         #if API_YES_NO:
         #    self.api_interface = threading.Thread(target=self._api_interface)
         #    self.api_interface.start()
@@ -69,6 +71,9 @@ class Robot:
 
     # Stop threads and close out of all objects
     def close(self):
+
+        self.passive_led.close()
+
         self._stop_event.set()
 
         self.robot_thread.join() # Stop robot thread
@@ -142,7 +147,12 @@ class Robot:
     # -------------- MAIN ACTIONS ----------------------
 
     def passiveLightingOnOff(self, on = False):
-        self.logger.info('Passive Lighting')
+        if on:
+            self.passive_led.turn_on()
+            self.logger.info('Turning on Passive Lighting')
+        else
+            self.passive_led.turn_off()
+            self.logger.info('Turning off Passive Lighting')
 
     def activeLightingOnOff(self, on = False):
         self.logger.info('Active Lighting On / Off')

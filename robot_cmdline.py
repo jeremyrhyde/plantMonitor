@@ -14,7 +14,7 @@ import time
 
 # ---- Types of manual input ----
 def user_input(logger):
-    print("\nOptions: N / T / L / U / D / F / B / X")
+    print("\nOptions: On / Off / X")
 
     user_option = input("Enter option: ")
 
@@ -45,12 +45,15 @@ def main():
 
     robot_logger.info('User setup complete!')
 
-    while user_option != "X":
+    while True:
         user_option = user_input(user_logger)
 
         my_robot.queue_command(user_option)
 
         time.sleep(2)
+
+        if user_option == 'X':
+            break
 
     # Clean up
     print("Exiting program...")

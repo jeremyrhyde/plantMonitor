@@ -5,7 +5,7 @@
 import RPi.GPIO as GPIO
 import time
 
-class LEDs:
+class PassiveLEDs:
 
     def __init__(self, pin = 19):
         self.led_pin = pin
@@ -21,11 +21,13 @@ class LEDs:
         GPIO.output(self.led_pin, GPIO.LOW)
 
     def close(self):
+        led.turn_off()
+        time.sleep(1)
         GPIO.cleanup()
 
 
 def main():
-    led = LEDs()
+    led = PassiveLEDs()
 
     user_input = input('Enter 1 for on and 0 for off, else quit: ')
     while user_input == '1' or user_input == '0':
@@ -38,7 +40,6 @@ def main():
 
         user_input = input('Enter 1 for on and 0 for off, else quit: ')
 
-    led.turn_off()
     print('Closing LED')
     led.close()
 
