@@ -2,41 +2,43 @@
 """led.py
 """
 
-import random
+import RPi.GPIO as GPIO
 import time
-import board
-import neopixel
 
-class LEDS:
+class LEDs:
 
-    LED_PIN = board.D18
-    ORDER = neopixel.GRB
+    def __init__(self, pin = 14):
+        self.led_pin = pin
 
-    def __init__(self, num = 5):
-        self.num_pixels = num
-        self.pixels = neopixel.NeoPixel(self.LED_PIN, num, brightness=0.2, auto_write=False, pixel_order=self.ORDER)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.led_pin, GPIO.OUT)
 
-    def _brightness(self, percentage):
-        self.pixels.brightness(percentage)
+    def turn_on(self):
+        GPIO.output(21, GPIO.HIGH)
 
-    def set_all_red(self):
-        self.pixels.fill((255,0,0))
+    def turn_off(self):
+        GPIO.output(21, GPIO.HIGH)
 
-    def set_grow_lights(self):
-
-        for i in range(0, self.num_pixels):
-            r = random.random()
-            if r > 0.7:
-                self.pixels[i] = (0,0,255)
-            elif r > 0.5:
-                self.pixels[i] = (0,255,0)
-            else:
-                self.pixels[i] = (255,0,0)
+    def close(self):
+        self.gpio.cleanup()
 
 
 def main():
-    led = LEDS(5)
-    led.set_all_red()
+    led = LEDs()
 
+    user_input = input('Enter 1 for on and 0 for off, else quit')
+    while user_input == '1' or user_input == '0':
+        if user_input == '1':
+            led.turn_on()
+        elif user_input == '0':
+            led.turn_off()
+        else:
+            break
+
+        user_input = input('Enter 1 for on and 0 for off, else quit')
+
+    print('Closing LED')
+    led.close()
+    
 if __name__ == "__main__":
     main()
