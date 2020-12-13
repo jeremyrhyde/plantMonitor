@@ -59,10 +59,10 @@ def main():
     print("Exiting program...")
     logger.close()
 
-    if log_file:
-        log_uart.close()
-    if serial_port or serial_file:
-        uart.close()
+    # if log_file:
+    #     log_uart.close()
+    # if serial_port or serial_file:
+    #     uart.close()
 
     sched.close()
     my_robot.close()
