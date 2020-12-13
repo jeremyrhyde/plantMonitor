@@ -11,7 +11,6 @@ update_command="
 
   echo 'Finished pulling from git';
 
-  sudo rm /etc/systemd/system/serial.service;
   sudo cp /home/pi/plantMonitor/robot.service /etc/systemd/system/;
 
   sudo systemctl enable robot;
