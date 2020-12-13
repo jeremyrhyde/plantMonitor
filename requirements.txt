@@ -2,4 +2,4 @@ RPi.GPIO==0.7.0
 Pillow==5.3.0
 pyserial==3.4
 pytz==2018.7
-screen=1.0.1
+screen==1.0.1
