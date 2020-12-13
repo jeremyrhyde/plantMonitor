@@ -4,8 +4,6 @@ update_command="
   sudo systemctl disable robot;
   sudo systemctl stop robot;
 
-  cd /home/pi/robot_testing/The_*/logs;
-
   echo 'Archiving Finished! Updating...';
 
   cd /home/pi/robot_testing/;
