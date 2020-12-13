@@ -12,15 +12,16 @@ class LEDs:
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.led_pin, GPIO.OUT)
+        self.turn_off()
 
     def turn_on(self):
-        GPIO.output(21, GPIO.HIGH)
+        GPIO.output(self.led_pin, GPIO.HIGH)
 
     def turn_off(self):
-        GPIO.output(21, GPIO.HIGH)
+        GPIO.output(self.led_pin, GPIO.LOW)
 
     def close(self):
-        self.gpio.cleanup()
+        GPIO.cleanup()
 
 
 def main():
@@ -39,6 +40,6 @@ def main():
 
     print('Closing LED')
     led.close()
-    
+
 if __name__ == "__main__":
     main()
