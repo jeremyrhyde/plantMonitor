@@ -33,9 +33,9 @@ def main():
     robot_id = "000"
     robot_logger = logger.init("ROBOT", robot_id, config)
 
-    my_robot = Robot(robot_id, robot_logger)
+    robot = Robot(robot_id, robot_logger)
     sched = Robot_Scheduler(my_robot)
-    my_robot.register_scheduler(sched)
+    robot.register_scheduler(sched)
 
 
     # ----- Manual User Loop -------
@@ -48,12 +48,11 @@ def main():
     while True:
         user_option = user_input(user_logger)
 
-        my_robot.queue_command(user_option)
+        robot.queue_command(user_option)
 
         if user_option == 'X':
             break
 
-    time.sleep(5)
     # Clean up
     print("Exiting program...")
     logger.close()
@@ -64,7 +63,7 @@ def main():
     #     uart.close()
 
     sched.close()
-    my_robot.close()
+    robot.close()
 
 
 if __name__ == "__main__":
