@@ -6,12 +6,12 @@ update_command="
 
   echo 'Archiving Finished! Updating...';
 
-  cd /home/pi/robot_testing/;
+  cd /home/pi/plantmonitor/;
   git pull;
 
   echo 'Finished pulling from git';
 
-  sudo cp /home/pi/plantMonitor/robot.service /etc/systemd/system/;
+  sudo cp /home/pi/plantmonitor/robot.service /etc/systemd/system/;
 
   sudo systemctl enable robot;
   sudo systemctl start robot;
