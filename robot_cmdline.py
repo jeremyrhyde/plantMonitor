@@ -50,11 +50,10 @@ def main():
 
         my_robot.queue_command(user_option)
 
-        time.sleep(2)
-
         if user_option == 'X':
             break
 
+    time.sleep(5)
     # Clean up
     print("Exiting program...")
     logger.close()
