@@ -1,5 +1,5 @@
-from .oled import Oled
+from .passiveLEDs import PassiveLEDs
 
-__author__ = "Sharan Juangphanich"
-__copyright__ = "Copyright 2018, Latchables, Inc."
-__credits__ = ["Sharan Juangphanich", "Aaron Sirken"]
+__author__ = "Jeremy Hyde"
+__copyright__ = "Copyright 2020"
+__credits__ = ["Jeremy Hyde"]
