@@ -1,8 +1,8 @@
 #!/bin/bash
 
 update_command="
-  sudo systemctl disable robot;
-  sudo systemctl stop robot;
+  sudo systemctl disable robot.service;
+  sudo systemctl stop robot.service;
 
   echo 'Archiving Finished! Updating...';
 
@@ -13,8 +13,8 @@ update_command="
 
   sudo cp /home/pi/plantmonitor/robot.service /etc/systemd/system/;
 
-  sudo systemctl enable robot;
-  sudo systemctl start robot;
+  sudo systemctl enable robot.service;
+  sudo systemctl start robot.service;
   "
 
 reboot_robots="
