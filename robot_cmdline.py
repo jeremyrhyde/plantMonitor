@@ -3,10 +3,10 @@
 This application provides a CLI for the robots
 """
 
-from docopt import docopt
 from robot import Robot_Scheduler
 from robot.Robot import Robot
 from robot.robot_config import *
+
 from subprocess import Popen, PIPE
 from util import Logger
 import time
