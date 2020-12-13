@@ -33,8 +33,8 @@ class Robot:
     sched = None
 
     COMMANDS = {
-        "TurnOnPassiveLights" : lambda self: self.passiveLightingOnOff(True),
-        "TurnOffPassiveLights" : lambda self: self.passiveLightingOnOff(),
+        "On" : lambda self: self.passiveLightingOnOff(True),
+        "Off" : lambda self: self.passiveLightingOnOff(),
         #"TurnOnActiveLights" : lambda self: self.activeLightingOnOff(True),
         #"TurnOffActiveLights" : lambda self: self.activeLightingOnOff(),
         "TakeImage" : lambda self: self.takeCameraImage(),
@@ -150,7 +150,7 @@ class Robot:
         if on:
             self.passive_led.turn_on()
             self.logger.info('Turning on Passive Lighting')
-        else
+        else:
             self.passive_led.turn_off()
             self.logger.info('Turning off Passive Lighting')
 
