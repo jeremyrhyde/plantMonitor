@@ -11,6 +11,8 @@ class PassiveLEDs:
         self.led_pin = pin
 
         GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
+
         GPIO.setup(self.led_pin, GPIO.OUT)
         self.turn_off()
 
@@ -22,7 +24,7 @@ class PassiveLEDs:
 
     def close(self):
         self.turn_off()
-        time.sleep(1)
+        time.sleep(2)
         GPIO.cleanup()
 
 
