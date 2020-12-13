@@ -76,8 +76,8 @@ class Robot:
 
         self._stop_event.set()
 
-        self.robot_thread.join() # Stop robot thread
-        self.api_interface.join() # Stop oled thread
+        #self.robot_thread.join() # Stop robot thread
+        #self.api_interface.join() # Stop oled thread
 
         #self.oled.close()
         #self.servo.close()
