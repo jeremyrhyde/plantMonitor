@@ -34,14 +34,13 @@ def main():
     robot_logger = logger.init("ROBOT", robot_id, config)
 
     robot = Robot(robot_id, robot_logger)
-    sched = Robot_Scheduler(my_robot)
+    sched = Robot_Scheduler(robot)
     robot.register_scheduler(sched)
 
 
     # ----- Manual User Loop -------
     user_id = "000"
     user_logger = logger.init("USER", user_id)
-    user_option = ""
 
     robot_logger.info('User setup complete!')
 
