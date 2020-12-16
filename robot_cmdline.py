@@ -22,6 +22,27 @@ def user_input(logger):
 
     return user_option
 
+def cnc_motion_input(logger):
+    print("\nMotion Options: X 00 / Y 00")
+
+    cnc_option = input("Enter option: ")
+
+    logger.info("CNC input - {}".format(cnc_option))
+
+    if cnc_option[0] != 'X' and cnc_option[0] != 'Y':
+        logger.warn("Error bad input for cnc motion')
+    else:
+        return cnc_option
+
+def cnc_feeedrate_input(logger):
+    print("\nFeedrate Options: 00")
+
+    cnc_option = input("Enter option: ")
+
+    logger.info("CNC input - {}".format(cnc_option))
+
+    return cnc_option
+
 def main():
 
     config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
@@ -45,9 +66,18 @@ def main():
     robot_logger.info('User setup complete!')
 
     while True:
-        user_option = user_input(user_logger)
+        user_option = user_input(user_logger).upper()
 
-        robot.queue_command(user_option)
+        if user_option == 'CNC_MOTION':
+            cnc_option = cnc_motion_input(user_logger)
+            robot.queue_command(user_option, cnc_option)
+
+        elif user_option == 'CNC_FEEDRATE':
+            cnc_option = cnc_feedrate_input(user_logger)
+            robot.queue_command(user_option, cnc_option)
+
+        else:
+            robot.queue_command(user_option)
 
         if user_option == 'X':
             break

@@ -26,13 +26,16 @@ class Camera:
     def start_preview(self):
         self.camera.start_preview()
 
-    def capture(self, file):
+    def image_capture(self, file):
         self.camera.capture(file)
 
     def preview_5s(self):
         self.camera.start_preview()
         time.sleep(5)
         self.camera.stop_preview()
+
+    def close(self):
+        self.camera.close()
 
 
 

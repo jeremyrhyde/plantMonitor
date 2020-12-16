@@ -32,28 +32,30 @@ class Robot:
 
     sched = None
 
+    cnc_direction = ''
+    cnc_dist = ''
+    cnc_feedrate = ''
+
     COMMANDS = {
-        "On" : lambda self: self.passiveLightingOnOff(True),
-        "Off" : lambda self: self.passiveLightingOnOff(),
+        "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
+        "PREVIEW_IMAGE" : lambda self: self.previewImage(),
+        "ON" : lambda self: self.passiveLightingOnOff(True),
+        "OFF" : lambda self: self.passiveLightingOnOff(),
         #"TurnOnActiveLights" : lambda self: self.activeLightingOnOff(True),
         #"TurnOffActiveLights" : lambda self: self.activeLightingOnOff(),
-        "TakeImage" : lambda self: self.takeCameraImage(),
-        "PreviewImage" : lambda self: self.previewImage(),
-        "T" : lambda self: self.temp(),
+        "CNC_MOTION" : lambda self: self.move_cnc(self.cnc_direction, self.cnc_dist),
+        "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
         "X" : lambda self: self.close(),
-        #motion
         #watering
     }
 
-    # -------------- INITALIZATION ----------------------
+    # --------------------------------------------------------------------------
+    # ----------------------------- INITALIZATION ------------------------------
+    # --------------------------------------------------------------------------
 
     def __init__(self, robot_id, logger):
         self.robot_id = robot_id
         self.logger = logger
-
-        #self.uart = uart
-        #self.servo = Servo()
-        #self.oled = Oled()
 
         #  ----- Initalize threading: Robot, API Interface ------
         self._q = Queue()
@@ -63,8 +65,15 @@ class Robot:
         self.robot_thread = threading.Thread(target=self._robot_run)
         self.robot_thread.start()
 
+        # Initialize components
         self.passive_led = PassiveLEDs()
+
         self.camera = Camera()
+
+        self.cnc = CNC_Controller()
+        self.cnc_feedrate = str(self.cnc.get_feedrate())
+
+        # Begin API
         #if API_YES_NO:
         #    self.api_interface = threading.Thread(target=self._api_interface)
         #    self.api_interface.start()
@@ -74,15 +83,15 @@ class Robot:
     # Stop threads and close out of all objects
     def close(self):
 
+        self.cnc.close()
         self.passive_led.close()
+        self.camera.close()
 
         self._stop_event.set()
 
         #self.robot_thread.join() # Stop robot thread
         #self.api_interface.join() # Stop oled thread
 
-        #self.oled.close()
-        #self.servo.close()
 
     # Define scheduler
     def register_scheduler(self, sched):
@@ -92,7 +101,9 @@ class Robot:
     def get_robot_id(self):
         return self.robot_id
 
-    # -------------- THREADED FUNCTIONS ----------------------
+    # --------------------------------------------------------------------------
+    # -------------------------- THREADED FUNCTIONS ----------------------------
+    # --------------------------------------------------------------------------
 
     # This is the thread run function
     def _robot_run(self):
@@ -125,8 +136,9 @@ class Robot:
             time.sleep(1)
 
 
-    # -------------- COMMAND & QUEUE FUNCTIONS ----------------------
-
+    # --------------------------------------------------------------------------
+    # ------------------------ COMMAND & QUEUE FUNCTIONS -----------------------
+    # --------------------------------------------------------------------------
     # Run the commmand immediately
     def command(self, command):
         for key, value in self.COMMANDS.items():
@@ -135,7 +147,14 @@ class Robot:
                 break
 
     # Queue a command under the threaded function
-    def queue_command(self, command):
+    def queue_command(self, command, para = ''):
+        if command == 'CNC_MOTION':
+            self.cnc_direction = para[0]
+            self.cnc_dist = para[2:]
+
+        if command == 'CNC_FEEDRATE':
+            self.cnc_feedrate = para
+
         self._q.put(command)
 
     # Adds api input to schedule csv
@@ -146,7 +165,25 @@ class Robot:
             scheduler = csv.writer(schedule_file)#, delimiter=',')
             scheduler.writerow([date, command])
 
-    # -------------- MAIN ACTIONS ----------------------
+    # --------------------------------------------------------------------------
+    # ------------------------------ MAIN ACTIONS ------------------------------
+    # --------------------------------------------------------------------------
+
+
+    # --------------------------------- CAMERA ---------------------------------
+
+    # Take image
+    def takeCameraImage(self):
+        self.camera.capture('foo.jpg')
+        self.logger.info('Image captured from picamera')
+
+    # View preview for 5 seconds
+    def previewImage(self):
+        self.camera.preview_5s()
+        self.logger.info('Previewing Image from picamera')
+
+
+    # ---------------------------- PASSIVE LIGHTING ----------------------------
 
     def passiveLightingOnOff(self, on = False):
         if on:
@@ -156,16 +193,37 @@ class Robot:
             self.passive_led.turn_off()
             self.logger.info('Turning off Passive Lighting')
 
-    def activeLightingOnOff(self, on = False):
-        self.logger.info('Active Lighting On / Off')
 
-    def activeLightingColor(self):
-        self.logger.info('Active Lighting Color')
+    # ----------------------------- ACTIVE LIGHTING ----------------------------
 
-    def takeCameraImage(self):
-        self.camera.capture('foo.jpg')
-        self.logger.info('Image captured from picamera')
+    # def activeLightingOnOff(self, on = False):
+    #     self.logger.info('Active Lighting On / Off')
+    #
+    # def activeLightingColor(self):
+    #     self.logger.info('Active Lighting Color')
 
-    def previewImage(self):
-        self.camera.preview_5s()
-        self.logger.info('Previewing Image from picamera')
+
+    # ----------------------------------- CNC ----------------------------------
+
+    def move_cnc(self, cnc_direction, cnc_dist):
+        cmd = cnc_direction + cnc_dist + '.0 F' + str(self.cnc_feedrate)
+
+        self.logger.info('COMMAND: ' + str(cmd))
+
+        try:
+            self.cnc.send_line('G21 G91 ' + cmd)
+        except:
+            self.logger.warn('Improper position command')
+
+    def set_feedrate_cnc(self, cnc_feedrate):
+        user_feedrate = input
+
+        try:
+            self.cnc.set_feedrate(cnc_feedrate)
+            self.cnc_feedrate = cnc_feedrate
+        except:
+            self.logger.warn('Improper feedrate command')
+
+    # def close_cnc(self):
+    #     self.logger.info('Closing out...')
+    #     self.cnc.close()

@@ -38,7 +38,7 @@ sys.path.append('/Users/pi/plantMonitor/robot')
 from .robot_config import *
 
 # Stream g-code to grb
-class GRBL_Stream:
+class CNC_Controller:
 
     def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
 
@@ -173,7 +173,7 @@ class GRBL_Stream:
 
 # Wait here until grbl is finished to close serial port and file.
 def main():
-    cnc = GRBL_Stream()
+    cnc = CNC_Controller()
 
     while True:
         user_input = input('Input: ')
