@@ -38,6 +38,7 @@ class Robot:
         #"TurnOnActiveLights" : lambda self: self.activeLightingOnOff(True),
         #"TurnOffActiveLights" : lambda self: self.activeLightingOnOff(),
         "TakeImage" : lambda self: self.takeCameraImage(),
+        "PreviewImage" : lambda self: self.previewImage(),
         "T" : lambda self: self.temp(),
         "X" : lambda self: self.close(),
         #motion
@@ -165,6 +166,6 @@ class Robot:
         self.camera.capture('foo.jpg')
         self.logger.info('Image captured from picamera')
 
-    def takeCameraImage(self):
+    def previewImage(self):
         self.camera.preview_5s()
         self.logger.info('Previewing Image from picamera')
