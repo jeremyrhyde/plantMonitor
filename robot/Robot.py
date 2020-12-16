@@ -15,7 +15,7 @@ import datetime
 import threading
 
 from os import path
-from queue import Queue
+from queue import *
 from subprocess import check_output, Popen, PIPE
 
 from .robot_config import *
