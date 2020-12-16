@@ -1,4 +1,4 @@
-from .camera import PiCamera
+from .camera import Camera
 
 __author__ = "Jeremy Hyde"
 __copyright__ = "Copyright 2020"
