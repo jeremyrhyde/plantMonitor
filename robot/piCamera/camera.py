@@ -16,32 +16,32 @@ __author__ = "Jeremy Hyde"
 __copyright__ = "Copyright 2020"
 __credits__ = ["Jeremy Hyde"]
 
-class Camera:
+class PiCamera:
 
     def __init__(self):
 
         self.camera = PiCamera()
         self.camera.resolution = (1024, 768)
 
-    def _start_preview(self):
+    def start_preview(self):
         self.camera.start_preview()
 
-    def _capture(self, file):
+    def capture(self, file):
         self.camera.capture(file)
 
 
 
 
 def main():
-    cam = Camera()
+    cam = PiCamera()
 
-    cam._start_preview()
+    cam.start_preview()
     time.sleep(2)
 
     while True:
         user_input = input('Type X to take a picture: ')
 
-        cam._capture('foo.jpg')
+        cam.capture('foo.jpg')
 
         img=mpimg.imread('foo.jpg')
         imgplot = plt.imshow(img)

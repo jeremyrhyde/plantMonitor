@@ -25,7 +25,7 @@ from .robot_config import *
 #from .display import *
 from .passiveLighting import *
 #from .activeLighting import *
-#from .piCamera import *
+from .piCamera import *
 #from .sensors import Lock_Sensor, Relay_Sensor, Battery_Sensor
 
 class Robot:
@@ -63,6 +63,7 @@ class Robot:
         self.robot_thread.start()
 
         self.passive_led = PassiveLEDs()
+        self.camera = PiCamera()
         #if API_YES_NO:
         #    self.api_interface = threading.Thread(target=self._api_interface)
         #    self.api_interface.start()
@@ -161,7 +162,8 @@ class Robot:
         self.logger.info('Active Lighting Color')
 
     def takeCameraImage(self):
-        self.logger.info('PiCamera')
+        self.camera.capture('foo.jpg')
+        self.logger.info('Image captured from picamera')
 
     def temp(self):
         self.logger.info('Action T performed!')
