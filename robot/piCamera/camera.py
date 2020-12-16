@@ -16,7 +16,7 @@ __author__ = "Jeremy Hyde"
 __copyright__ = "Copyright 2020"
 __credits__ = ["Jeremy Hyde"]
 
-class PiCamera:
+class Camera:
 
     def __init__(self):
 
@@ -33,7 +33,7 @@ class PiCamera:
 
 
 def main():
-    cam = PiCamera()
+    cam = Camera()
 
     cam.start_preview()
     time.sleep(2)

@@ -63,7 +63,7 @@ class Robot:
         self.robot_thread.start()
 
         self.passive_led = PassiveLEDs()
-        self.camera = PiCamera()
+        self.camera = Camera()
         #if API_YES_NO:
         #    self.api_interface = threading.Thread(target=self._api_interface)
         #    self.api_interface.start()
@@ -164,6 +164,3 @@ class Robot:
     def takeCameraImage(self):
         self.camera.capture('foo.jpg')
         self.logger.info('Image captured from picamera')
-
-    def temp(self):
-        self.logger.info('Action T performed!')
