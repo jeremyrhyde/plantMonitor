@@ -29,6 +29,10 @@ class Camera:
     def capture(self, file):
         self.camera.capture(file)
 
+    def preview_5s(self):
+        self.camera.start_preview()
+        time.sleep(5)
+        self.camera.stop_preview()
 
 
 

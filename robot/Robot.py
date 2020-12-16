@@ -164,3 +164,7 @@ class Robot:
     def takeCameraImage(self):
         self.camera.capture('foo.jpg')
         self.logger.info('Image captured from picamera')
+
+    def takeCameraImage(self):
+        self.camera.preview_5s()
+        self.logger.info('Previewing Image from picamera')
