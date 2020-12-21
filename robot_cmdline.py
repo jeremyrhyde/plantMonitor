@@ -29,7 +29,7 @@ def cnc_motion_input(logger):
 
     logger.info("CNC input - {}".format(cnc_option))
 
-    if cnc_option and cnc_option[0] != 'X' and cnc_option[0] != 'Y':
+    if cnc_option != 'CNC_MOTION' and cnc_option[0] != 'X' and cnc_option[0] != 'Y':
         logger.warn("Error bad input for cnc motion")
     else:
         return cnc_option
@@ -68,7 +68,7 @@ def main():
     robot_logger.info('User setup complete!')
 
     while True:
-        robot_logger.info(CNC_MOTION)
+        print(CNC_MOTION)
         if CNC_MOTION:
             cnc_option = cnc_motion_input(user_logger)
             if cnc_option == 'CNC_MOTION':
