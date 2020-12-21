@@ -25,7 +25,7 @@ def user_input(logger):
 def cnc_motion_input(logger):
     print("\nMotion Options: X 00 / Y 00")
 
-    cnc_option = input("Enter option: ")
+    cnc_option = input("Enter motion option: ")
 
     logger.info("CNC input - {}".format(cnc_option))
 
