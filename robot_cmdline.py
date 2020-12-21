@@ -68,6 +68,7 @@ def main():
     robot_logger.info('User setup complete!')
 
     while True:
+        if not CNC_MOTION:
         user_option = user_input(user_logger).upper()
 
         if user_option == 'CNC_MOTION':
