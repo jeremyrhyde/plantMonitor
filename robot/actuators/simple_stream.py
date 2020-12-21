@@ -229,7 +229,10 @@ def main():
 
     cnc = GRBL_Stream()
 
+    cnc.calibrate_X()
+
     while True:
+        break
         user_input = input('Input: ')
         if len(user_input) > 0:
             if user_input[0] == 'X' or user_input[0] == 'Y':
