@@ -61,7 +61,7 @@ class GRBL_Stream:
         self.baud_rate = baud_rate
         self.feedrate = 100
 
-        self.serial = serial.Serial(serial_port,baud_rate)
+        self.serial = serial.Serial(serial_port,baud_rate, timeout=10)
 
         print('Setting parameters')
         self.curr_pos = [0,0]
