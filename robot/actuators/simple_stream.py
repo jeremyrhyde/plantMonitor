@@ -89,7 +89,7 @@ class GRBL_Stream:
         print('-------------------------')
 
     def init_cnc(self):
-        startup_file = open('startup.gcode','r');
+        startup_file = open('home/pi/plantmonitor/actuators/startup.gcode','r');
 
         print('Sending initializating command...')
         for line in startup_file:
