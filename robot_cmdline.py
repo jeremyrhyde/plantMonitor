@@ -76,7 +76,6 @@ def main():
         if CNC_MOTION:
             cnc_option = cnc_motion_input(user_logger)
             robot.queue_command(user_option, cnc_option)
-        if CNC
 
         elif user_option == 'CNC_FEEDRATE':
             cnc_option = cnc_feedrate_input(user_logger)
