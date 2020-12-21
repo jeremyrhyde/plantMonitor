@@ -83,7 +83,7 @@ class GRBL_Stream:
 
         self._send_line('$21=1')
 
-        self.calibrate()
+        #self.calibrate()
 
         print('-------------------------')
         print('SYSTEM SETUP COMPLETE!')
@@ -175,6 +175,15 @@ class GRBL_Stream:
 
 
     def send_move_cmd(self, axis, dist):
+
+        # Set new position
+        next_pos = self.curr_pos
+        if axis == 'X':
+            next_pos[0] = next_pos[0] + float(dist)
+        if axis == 'Y':
+            next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
+        print(str(next_pos))
+
         dist = "%.2f" % float(dist)
         cmd = axis + dist + ' F' + str(self.get_feedrate())
 
