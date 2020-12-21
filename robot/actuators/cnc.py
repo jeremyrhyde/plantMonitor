@@ -31,9 +31,9 @@ THE SOFTWARE.
 
 import serial
 import time
-import sys
+#import sys
 
-sys.path.append('/Users/pi/plantMonitor/robot')
+#sys.path.append('/Users/pi/plantMonitor/robot')
 
 #from .robot_config import *
 
@@ -58,7 +58,7 @@ class CNC_Controller:
         self.curr_pos = [0,0]
 
     def init(self):
-        startup_file = open('startup.gcode','r');
+        startup_file = open('plantmonitor/actuators/startup.gcode','r');
 
         print('Sending initializating command...')
         for line in startup_file:
