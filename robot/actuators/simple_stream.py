@@ -80,8 +80,6 @@ class GRBL_Stream:
         print('-------------------------')
         self._reset()
 
-        time.sleep(10)
-
         print('CNC SETUP...')
         self.init_cnc()
 
