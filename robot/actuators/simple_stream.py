@@ -153,14 +153,14 @@ class GRBL_Stream:
 
     def calibrate_X(self):
         print('Calibrating X...')
-        self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
+        self.send_move_cmd('X', str('10'))#float(self.X_max*(1 + self.max_bonus))))
         #self._handle_limit_hit('X')
         print('Calibrating of X complete!')
 
 
     def calibrate_Y(self):
         print('Calibrating Y...')
-        self.send_move_cmd('Y', str(float(self.Y_max*(1 + self.max_bonus))))
+        self.send_move_cmd('Y', str('10'))#, str(float(self.Y_max*(1 + self.max_bonus))))
         #self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
 
