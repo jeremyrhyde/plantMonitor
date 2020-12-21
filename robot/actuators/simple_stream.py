@@ -183,15 +183,17 @@ class GRBL_Stream:
             state = self._send_line('G21 G91 ' + cmd)
         except Exception as e:
             print('Improper position command: ' + str(e))
-        else:
-            time.sleep(abs(float(dist))/5)
+        #else:
+        #    time.sleep(abs(float(dist))/5)
 
-        print('STATE:' + str(state))
-        if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-            ('BAD STATE:' + str(state))
-            self._handle_limit_hit(axis)
-            return False
-        return True
+        for i in range(0,10):
+            print('STATE:' + str(state))
+            if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+                print('BAD STATE:' + str(state))
+                #self._handle_limit_hit(axis)
+                #return False
+            #return True
+            time.sleep(0.1)
 
 
     def send_move_cmd_safe(self, axis, dist):
