@@ -81,6 +81,9 @@ class GRBL_Stream:
         print('CNC SETUP...')
         self.init_cnc()
 
+        self._reset()
+        time.sleep(5)
+
         self._send_line('$21=1')
 
         #self.calibrate()
@@ -204,7 +207,7 @@ class GRBL_Stream:
         print('STATE:' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             print('BAD STATE:' + str(state))
-            self._handle_limit_hit(axis)
+            #self._handle_limit_hit(axis)
             return False, next_pos
         return True, next_pos
 

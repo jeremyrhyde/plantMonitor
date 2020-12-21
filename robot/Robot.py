@@ -71,7 +71,7 @@ class Robot:
         self.camera = Camera()
 
         self.cnc = GRBL_Stream()
-        self.cnc_feedrate = str(self.cnc.get_feedrate())
+        #self.cnc_feedrate = str(self.cnc.get_feedrate())
 
         # Begin API
         #if API_YES_NO:
