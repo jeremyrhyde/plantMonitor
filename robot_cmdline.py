@@ -73,7 +73,7 @@ def main():
 
         if user_option == 'CNC_MOTION':
             CNC_MOTION = not CNC_MOTION
-        if CNC_MOTION:
+        elif CNC_MOTION:
             cnc_option = cnc_motion_input(user_logger)
             robot.queue_command(user_option, cnc_option)
 
