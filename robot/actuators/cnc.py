@@ -58,7 +58,7 @@ class CNC_Controller:
         self.curr_pos = [0,0]
 
     def init(self):
-        startup_file = open('plantmonitor/actuators/startup.gcode','r');
+        startup_file = open('home/pi/plantmonitor/actuators/startup.gcode','r');
 
         print('Sending initializating command...')
         for line in startup_file:
