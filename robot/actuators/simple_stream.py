@@ -83,7 +83,6 @@ class GRBL_Stream:
         self.init_cnc()
 
         self._reset()
-        time.sleep(5)
 
         self._send_line('$21=1')
 
@@ -127,7 +126,7 @@ class GRBL_Stream:
 
 
     def _reset(self):
-        GPIO.setup(self._RESET_PIN, GPIO.OUT)
+        #GPIO.setup(self._RESET_PIN, GPIO.OUT)
 
         GPIO.output(self._RESET_PIN, GPIO.HIGH)
         time.sleep(2)
@@ -192,8 +191,8 @@ class GRBL_Stream:
             next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
         print(str(next_pos))
 
-        dist = "%.2f" % float(dist)
-        cmd = axis + dist + ' F' + str(self.get_feedrate())
+        #dist = ":.2f/" % float(dist)
+        cmd = axis + ' {} F {}'.format(float(dist),self.get_feedrate())
 
         print(' - Moving to ' + cmd)
         try:
