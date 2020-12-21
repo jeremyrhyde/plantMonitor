@@ -121,6 +121,7 @@ class GRBL_Stream:
 
         print('Homing complete position set to (0,0)')
 
+
     def _reset(self):
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
 
@@ -139,7 +140,7 @@ class GRBL_Stream:
 
         try:
             if dir == 'Y':
-                state = self.send_move_cmd('Y', '-1.0')
+                state = self.send_move_cmd('Y', '-1.0') #Direction
             else:
                 state = self.send_move_cmd('X', '-1.0')
         except Exception as e:
@@ -149,22 +150,26 @@ class GRBL_Stream:
             self._send_line('$21=1')
             self._send_line('$21=1')
 
+
     def calibrate_X(self):
         print('Calibrating X...')
         self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
-        self._handle_limit_hit('X')
+        #self._handle_limit_hit('X')
         print('Calibrating of X complete!')
+
 
     def calibrate_Y(self):
         print('Calibrating Y...')
         self.send_move_cmd('Y', str(float(self.Y_max*(1 + self.max_bonus))))
-        self._handle_limit_hit('Y')
+        #self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
+
 
     # def calibrate(self):
     #     print('SYSTEM CALIBRATION')
     #     self.calibrate_Y()
     #     self.calibrate_X()
+
 
     def send_move_cmd(self, axis, dist):
         dist = "%.2f" % float(dist)
@@ -184,6 +189,7 @@ class GRBL_Stream:
             self._handle_limit_hit(axis)
             return False
         return True
+
 
     def send_move_cmd_safe(self, axis, dist):
 
@@ -206,6 +212,7 @@ class GRBL_Stream:
             except Exception as e:
                 print('Improper position command: ' + str(e))
 
+
     def _send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
         #print('G-Code: ' + l)
@@ -221,8 +228,9 @@ class GRBL_Stream:
             state = 'Action Error: ' + grbl_out.strip()
 
         time.sleep(2)
-        #print(state)
+        print(state)
         return state
+
 
 # Wait here until grbl is finished to close serial port and file.
 def main():
