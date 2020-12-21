@@ -89,6 +89,8 @@ class GRBL_Stream:
         print('-------------------------')
 
     def init_cnc(self):
+        h = os.popen('pwd').read()
+        print(h)
         startup_file = open('home/pi/plantmonitor/robot/actuators/startup.gcode','r');
 
         print('Sending initializating command...')
