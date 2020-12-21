@@ -115,9 +115,9 @@ class GRBL_Stream:
         print('Calibrating and returning to home...')
         self.calibrate_X()
 
-        time.sleep(3)
+        #time.sleep(3)
 
-        self.calibrate_Y()
+        #self.calibrate_Y()
 
         print('Homing complete position set to (0,0)')
 
@@ -229,40 +229,37 @@ def main():
 
     cnc = GRBL_Stream()
 
-    cnc.calibrate_X()
-
-    while True:
-        break
-        user_input = input('Input: ')
-        if len(user_input) > 0:
-            if user_input[0] == 'X' or user_input[0] == 'Y':
-                distance = user_input[2:]
-                axis = user_input[0]
-
-                cnc.send_move_cmd(axis, distance)
-
-            elif user_input[0] == 'F':
-                user_feedrate = user_input[2:]
-                try:
-                    cnc.set_feedrate(int(user_feedrate))
-                except:
-                    print('Improper feedrate command')
-            elif user_input[0] == 'C':
-                cnc.calibrate()
-
-            elif user_input[0] == '$' or user_input == 'Reset':
-                cnc._reset()
-
-            elif user_input[0] == 'Q':
-                print('Closing out...')
-                cnc.close()
-                break
-            else:
-                print(user_input)
-        else:
-            print('Closing out...')
-            cnc.close()
-            break
+    # while True:
+    #     user_input = input('Input: ')
+    #     if len(user_input) > 0:
+    #         if user_input[0] == 'X' or user_input[0] == 'Y':
+    #             distance = user_input[2:]
+    #             axis = user_input[0]
+    #
+    #             cnc.send_move_cmd(axis, distance)
+    #
+    #         elif user_input[0] == 'F':
+    #             user_feedrate = user_input[2:]
+    #             try:
+    #                 cnc.set_feedrate(int(user_feedrate))
+    #             except:
+    #                 print('Improper feedrate command')
+    #         elif user_input[0] == 'C':
+    #             cnc.calibrate()
+    #
+    #         elif user_input[0] == '$' or user_input == 'Reset':
+    #             cnc._reset()
+    #
+    #         elif user_input[0] == 'Q':
+    #             print('Closing out...')
+    #             cnc.close()
+    #             break
+    #         else:
+    #             print(user_input)
+    #     else:
+    #         print('Closing out...')
+    #         cnc.close()
+    #         break
 
 if __name__ == "__main__":
     main()
