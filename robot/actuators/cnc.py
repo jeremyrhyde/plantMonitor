@@ -35,7 +35,7 @@ import sys
 
 sys.path.append('/Users/pi/plantMonitor/robot')
 
-from .robot_config import *
+#from .robot_config import *
 
 # Stream g-code to grb
 class CNC_Controller:
