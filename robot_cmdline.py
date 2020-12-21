@@ -12,6 +12,8 @@ from util import Logger
 import time
 
 
+CNC_MOTION = False
+
 # ---- Types of manual input ----
 def user_input(logger):
     print("\nOptions: On / Off / X")
@@ -69,8 +71,11 @@ def main():
         user_option = user_input(user_logger).upper()
 
         if user_option == 'CNC_MOTION':
+            CNC_MOTION = not CNC_MOTION
+        if CNC_MOTION:
             cnc_option = cnc_motion_input(user_logger)
             robot.queue_command(user_option, cnc_option)
+        if CNC
 
         elif user_option == 'CNC_FEEDRATE':
             cnc_option = cnc_feedrate_input(user_logger)
