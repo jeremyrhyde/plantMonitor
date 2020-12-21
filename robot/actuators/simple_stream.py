@@ -190,7 +190,7 @@ class GRBL_Stream:
             print('STATE:' + str(state))
             if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
                 print('BAD STATE:' + str(state))
-                #self._handle_limit_hit(axis)
+                self._handle_limit_hit(axis)
                 #return False
             #return True
             time.sleep(0.1)
