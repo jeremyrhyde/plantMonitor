@@ -21,8 +21,8 @@ from subprocess import check_output, Popen, PIPE
 from .robot_config import *
 
 #Subcomponents
-#from .actuators import *
-#from .display import *
+from .actuators import *
+#from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *
 from .piCamera import *
