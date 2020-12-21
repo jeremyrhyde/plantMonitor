@@ -92,7 +92,7 @@ class GRBL_Stream:
     def init_cnc(self):
     #h = os.popen('pwd').read()
         #print(h)
-        startup_file = open('./robot/actuators/startup.gcode','r');
+        startup_file = open('startup.gcode','r')#'./robot/actuators/startup.gcode','r');
 
         print('Sending initializating command...')
         for line in startup_file:
