@@ -21,7 +21,7 @@ from subprocess import check_output, Popen, PIPE
 from .robot_config import *
 
 #Subcomponents
-from .actuators import *
+from .actuators import CNC_Controller
 #from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *

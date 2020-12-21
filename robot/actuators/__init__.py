@@ -1,1 +1,1 @@
-from .cnc import cnc
+from .cnc import CNC_Controller
