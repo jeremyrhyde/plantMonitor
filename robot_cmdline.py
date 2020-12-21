@@ -12,8 +12,6 @@ from util import Logger
 import time
 
 
-CNC_MOTION = False
-
 # ---- Types of manual input ----
 def user_input(logger):
     print("\nOptions: On / Off / X")
@@ -46,6 +44,8 @@ def cnc_feeedrate_input(logger):
     return cnc_option
 
 def main():
+
+    CNC_MOTION = False
 
     config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
 
