@@ -70,10 +70,10 @@ def main():
     while True:
         if CNC_MOTION:
             cnc_option = cnc_motion_input(user_logger)
-            if user_option == 'CNC_MOTION':
+            if cnc_option == 'CNC_MOTION':
                 CNC_MOTION = not CNC_MOTION
             else:
-                print(user_option, cnc_option)
+                #print(user_option, cnc_option)
                 robot.queue_command(user_option, cnc_option)
 
         else:
