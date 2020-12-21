@@ -126,7 +126,7 @@ class GRBL_Stream:
 
     def _reset(self):
         #GPIO.setup(self._RESET_PIN, GPIO.OUT)
-
+        print('Reseting CNC')
         GPIO.output(self._RESET_PIN, GPIO.HIGH)
         time.sleep(2)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
