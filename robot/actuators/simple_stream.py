@@ -205,8 +205,10 @@ class GRBL_Stream:
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             print('BAD STATE:' + str(state))
             self._handle_limit_hit(axis)
-            #return False
-        #return Tru
+            return False, next_pos
+        return True, next_pos
+
+
 
 
     def send_move_cmd_safe(self, axis, dist):

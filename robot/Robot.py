@@ -211,9 +211,12 @@ class Robot:
         self.logger.info('COMMAND: ' + str(cmd))
 
         try:
-            self.cnc.send_move_command('G21 G91 ' + cmd)
+            state, pos = self.cnc.send_move_command('G21 G91 ' + cmd)
+
         except:
             self.logger.warn('Improper position command')
+
+        self.logger.info(str(pos))
 
     def set_feedrate_cnc(self, cnc_feedrate):
         user_feedrate = input
