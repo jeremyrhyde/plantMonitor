@@ -208,12 +208,12 @@ class Robot:
     # ----------------------------------- CNC ----------------------------------
 
     def move_cnc(self, cnc_direction, cnc_dist):
-        cmd = cnc_direction + ' {:.2f/} F '.format(cnc_dist, self.cnc_feedrate)
+        #cmd = cnc_direction + ' {:.2f/} F '.format(cnc_dist, self.cnc_feedrate)
 
-        self.logger.info('COMMAND: ' + str(cmd))
+        #self.logger.info('COMMAND: ' + str(cmd))
 
         try:
-            state, pos = self.cnc.send_move_command('G21 G91 ' + cmd)
+            state, pos = send_move_cmd(cnc_direction, cnc_dist)#self.cnc.send_move_command('G21 G91 ' + cmd)
             self.curr_camera_pos = pos
         except:
             self.logger.warn('Improper position command')
