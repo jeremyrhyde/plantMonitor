@@ -70,7 +70,9 @@ class Robot:
 
         self.camera = Camera()
 
+        self.curr_camera_pos = [0,0]
         self.cnc = GRBL_Stream()
+
         #self.cnc_feedrate = str(self.cnc.get_feedrate())
 
         # Begin API
@@ -212,11 +214,11 @@ class Robot:
 
         try:
             state, pos = self.cnc.send_move_command('G21 G91 ' + cmd)
-
+            self.curr_camera_pos = pos
         except:
             self.logger.warn('Improper position command')
 
-        self.logger.info(str(pos))
+        self.logger.info(str(self.curr_camera_pos))
 
     def set_feedrate_cnc(self, cnc_feedrate):
         user_feedrate = input
