@@ -31,6 +31,7 @@ THE SOFTWARE.
 
 import serial
 import time
+import os
 
 from limit_switch_sensor import Limit_Switch_Sensor
 from multiprocessing import Process
