@@ -73,6 +73,7 @@ def main():
             if user_option == 'CNC_MOTION':
                 CNC_MOTION = not CNC_MOTION
             else:
+                print(user_option, cnc_option)
                 robot.queue_command(user_option, cnc_option)
 
         else:
