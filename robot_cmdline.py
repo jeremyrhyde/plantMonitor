@@ -30,7 +30,7 @@ def cnc_motion_input(logger):
     logger.info("CNC input - {}".format(cnc_option))
 
     if cnc_option[0] != 'X' and cnc_option[0] != 'Y':
-        logger.warn("Error bad input for cnc motion')
+        logger.warn("Error bad input for cnc motion")
     else:
         return cnc_option
 
