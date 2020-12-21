@@ -196,6 +196,11 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5)
 
+        for i in range(0,100):
+            self._send_line('$10')
+
+
+
         print('STATE:' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             print('BAD STATE:' + str(state))
