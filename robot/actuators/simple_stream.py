@@ -78,11 +78,12 @@ class GRBL_Stream:
         GPIO.output(self._RESET_PIN, GPIO.LOW)
 
         print('-------------------------')
+        self._reset()
+
+        time.sleep(10)
 
         print('CNC SETUP...')
         self.init_cnc()
-
-        self._reset()
 
         self._send_line('$21=1')
 
