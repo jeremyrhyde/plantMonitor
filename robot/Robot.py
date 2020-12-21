@@ -21,7 +21,7 @@ from subprocess import check_output, Popen, PIPE
 from .robot_config import *
 
 #Subcomponents
-from .actuators import CNC_Controller
+from .actuators import GRBL_Stream
 #from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *
@@ -70,7 +70,7 @@ class Robot:
 
         self.camera = Camera()
 
-        self.cnc = CNC_Controller()
+        self.cnc = GRBL_Stream()
         self.cnc_feedrate = str(self.cnc.get_feedrate())
 
         # Begin API
@@ -211,7 +211,7 @@ class Robot:
         self.logger.info('COMMAND: ' + str(cmd))
 
         try:
-            self.cnc.send_line('G21 G91 ' + cmd)
+            self.cnc.send_move_command('G21 G91 ' + cmd)
         except:
             self.logger.warn('Improper position command')
 

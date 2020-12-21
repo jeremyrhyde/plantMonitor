@@ -132,6 +132,9 @@ class GRBL_Stream:
 
 
     def _handle_limit_hit(self, dir):
+
+        for i in range(0,100):
+            self._send_line('$10')
         print(' - Limit switch detected! moving off')
 
         self._send_line('$21=0')
@@ -194,10 +197,7 @@ class GRBL_Stream:
         except Exception as e:
             print('Improper position command: ' + str(e))
         #else:
-        #    time.sleep(abs(float(dist))/5)
-
-        for i in range(0,100):
-            self._send_line('$10')
+        #    time.sleep(abs(float(dist))/5
 
 
 

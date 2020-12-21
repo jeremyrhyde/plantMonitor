@@ -1,1 +1,1 @@
-from .cnc import CNC_Controller
+from .simple_stream import GRBL_Stream
