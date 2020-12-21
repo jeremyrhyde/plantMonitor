@@ -52,6 +52,7 @@ class GRBL_Stream:
 
     def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
 
+        print('-------------------------')
         print('SYSTEM STARTING UP')
         print('-------------------------')
 
@@ -199,6 +200,7 @@ class GRBL_Stream:
             state = self._send_line('G21 G91 ' + cmd)
         except Exception as e:
             print('Improper position command: ' + str(e))
+            pos = ['']
         #else:
         #    time.sleep(abs(float(dist))/5
 
