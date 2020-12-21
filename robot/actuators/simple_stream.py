@@ -153,7 +153,10 @@ class GRBL_Stream:
 
     def calibrate_X(self):
         print('Calibrating X...')
-        self.send_move_cmd('X', str('10'))#float(self.X_max*(1 + self.max_bonus))))
+        for i in range(0,10):
+            self.send_move_cmd('X', str('.5'))
+
+        #self.send_move_cmd('X', str('10'))#float(self.X_max*(1 + self.max_bonus))))
         #self._handle_limit_hit('X')
         print('Calibrating of X complete!')
 
@@ -183,7 +186,7 @@ class GRBL_Stream:
         else:
             time.sleep(abs(float(dist))/5)
 
-        #print('STATE:' + str(state))
+        print('STATE:' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             ('BAD STATE:' + str(state))
             self._handle_limit_hit(axis)
