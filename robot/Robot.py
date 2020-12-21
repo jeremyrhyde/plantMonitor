@@ -208,7 +208,7 @@ class Robot:
     # ----------------------------------- CNC ----------------------------------
 
     def move_cnc(self, cnc_direction, cnc_dist):
-        cmd = cnc_direction + ' {:.2f} F '.format(cnc_dist, self.cnc_feedrate)
+        cmd = cnc_direction + ' {:.2f/} F '.format(cnc_dist, self.cnc_feedrate)
 
         self.logger.info('COMMAND: ' + str(cmd))
 
