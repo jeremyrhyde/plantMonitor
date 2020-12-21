@@ -136,6 +136,7 @@ class GRBL_Stream:
 
         self._send_line('$21=0')
         self._reset()
+        print('resetting')
         self._send_line('$21=0')
 
         try:
@@ -195,14 +196,12 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5)
 
-        for i in range(0,10):
-            print('STATE:' + str(state))
-            if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-                print('BAD STATE:' + str(state))
-                self._handle_limit_hit(axis)
-                #return False
-            #return True
-            time.sleep(0.1)
+        print('STATE:' + str(state))
+        if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+            print('BAD STATE:' + str(state))
+            self._handle_limit_hit(axis)
+            #return False
+        #return Tru
 
 
     def send_move_cmd_safe(self, axis, dist):
@@ -213,7 +212,7 @@ class GRBL_Stream:
             next_pos[0] = next_pos[0] + float(dist)
         if axis == 'Y':
             next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
-
+        print('POS: ' + str(next_pos))
         # Check if move is safe
         if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
             print('Error! Moving beyond max (' + axis + ')')
@@ -229,7 +228,7 @@ class GRBL_Stream:
 
     def _send_line(self, line):
         l = line.strip() # Strip all EOL characters for consistency
-        #print('G-Code: ' + l)
+        print('G-Code: ' + l)
 
         l = l + '\n'
         self.serial.write(l.encode()) # Send g-code block to grbl
@@ -285,5 +284,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 # example: Y -0.5
