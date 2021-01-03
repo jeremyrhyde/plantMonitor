@@ -190,7 +190,7 @@ class Plant_GUI(tk.Frame):
         #                             self.movement_arrows[0]+int(diameter/2), self.movement_arrows[1]+int(diameter/2),
         #                             fill = 'darkgrey')
 
-        sel.main_window.pack()
+        #self.main_window.pack()
         self.arrow_keys()
 
 
