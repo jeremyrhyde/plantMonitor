@@ -37,7 +37,7 @@ class Plant_GUI(tk.Frame):
 
         # Lighting box
         self.lighting_pos = [self.x_mid1, 3*self.border]
-        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + self.border)]
+        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + int(1.5*self.border))]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
         self.lighting_buttons()
@@ -185,18 +185,19 @@ class Plant_GUI(tk.Frame):
 
     def movement_inputs(self):
         self.movement_arrows = [860,380]
-        diameter = 75
-        oval_per = 0.2
 
         self.main_window.create_line(self.movement_pos[0]+ int(self.m_dim[0]*0.5), self.movement_pos[1] + 20,
                                      self.movement_pos[0]+ int(self.m_dim[0]*0.5), self.movement_pos[1] + self.m_dim[1] - 20,
                                      fill = 'darkgrey')
-
         self.main_window.pack()
-        self.arrow_keys(diameter)
+
+        self.arrow_keys()
+        self.manural_movement_input()
 
 
-    def arrow_keys(self, diameter):
+    def arrow_keys(self):
+        diameter = 75
+
         self.downButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
         self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + diameter)
 
@@ -210,6 +211,31 @@ class Plant_GUI(tk.Frame):
         self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - diameter)
 
 
+    def manural_movement_input(self):
+
+        # X
+        self.xInputLabel = tk.Label(text='X')
+        self.xInputLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
+                                     bg='black',
+                                     fg='white')
+        self.yInputLabel.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
+
+        self.xInputEntry = tf.Entry()
+        self.xInputEntry.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
+
+        # Y
+        self.yInputLabel = tk.Label(text='Y')
+        self.yInputLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
+                                     bg='black',
+                                     fg='white')
+        self.xInputEntry.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
+
+        self.yInputEntry = tf.Entry()
+        self.xInputEntry.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
+
+        # Go
+        self.goButton = tk.Button(text='GO', command=self.passive_button_command, width=4, height=1)
+        self.goButton.place(x = self.movement_pos[0] + int(self.m_dim[0]*0.2), y = self.movement_pos[1] + int(self.m_dim[1]*.8))
 
 root = tk.Tk()
 app = Plant_GUI(master=root)
