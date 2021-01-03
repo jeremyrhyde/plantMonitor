@@ -37,7 +37,7 @@ class Plant_GUI(tk.Frame):
 
         # Lighting box
         self.lighting_pos = [self.x_mid1, 3*self.border]
-        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + int(1.5*self.border))]
+        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + int(0.5*self.border))]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
         self.lighting_buttons()
@@ -200,8 +200,7 @@ class Plant_GUI(tk.Frame):
         self.posTextLabel.config(font=(self.lighting_font, 24,'normal'),
                                      bg='green',
                                      fg='white')
-        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 30)
-
+        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 60)
 
 
     def arrow_keys(self):
