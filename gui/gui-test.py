@@ -196,7 +196,7 @@ class Plant_GUI(tk.Frame):
 
     def arrow_keys(self):
         self.downButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
-        self.downButton.place(x = self.movement_arrows[0] 0, y = self.movement_arrows[1] - 25)
+        self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - 25)
 
         self.leftButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
         self.leftButton.place(x = self.movement_arrows[0] - 25, y = self.movement_arrows[1])
