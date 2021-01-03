@@ -48,20 +48,42 @@ class Plant_GUI(tk.Frame):
 
 
     def draw_rect(self, x0y0, dim, color):
-        self.main_window.create_line(x0y0[0], x0y0[1], x0y0[0] + dim[0] , x0y0[1],
-                                     fill = color)
-        self.main_window.create_line(x0y0[0] + dim[0] , x0y0[1], x0y0[0] + dim[0] , x0y0[1] + dim[1],
-                                     fill = color)
-        self.main_window.create_line(x0y0[0] + dim[0] , x0y0[1] + dim[1], x0y0[0], x0y0[1] + dim[1],
-                                     fill = color)
-        self.main_window.create_line(x0y0[0], x0y0[1], x0y0[0], x0y0[1] + dim[1],
-                                     fill = color)
+        self.main_window.create_line(x0y0[0], x0y0[1], x0y0[0] + dim[0] , x0y0[1], fill = color)
+        self.main_window.create_line(x0y0[0] + dim[0] , x0y0[1], x0y0[0] + dim[0] , x0y0[1] + dim[1], fill = color)
+        self.main_window.create_line(x0y0[0] + dim[0] , x0y0[1] + dim[1], x0y0[0], x0y0[1] + dim[1], fill = color)
+        self.main_window.create_line(x0y0[0], x0y0[1], x0y0[0], x0y0[1] + dim[1], fill = color)
     ## TABS
 
     def menu_tabs(self):
-        pass
-        #self.passiveLightButton = tk.Button(text='Hi', command=self.toggle_button)
-        #self.passiveLightButton.place(x = 50, y = 300)
+
+        self.main_window.create_line(0, 25, WIDTH , 25, fill = 'darkgrey')
+        self.main_window.create_line(0, 30, WIDTH , 30, fill = 'darkgrey')
+
+        self.main_window.pack()
+
+        self.menu_font = 'Hevetica'
+        self.menu_font_size = 14
+
+        # Control Menu
+        self.controlMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
+        self.controlMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
+        self.controlMenuButton.place(x = 0, y = 0)
+
+        # Display Menu
+        self.displayMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
+        self.displayMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
+        self.displayMenuButton.place(x = 0, y = 0)
+
+        # Environmental Data Menu
+        self.envMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
+        self.envMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
+        self.envMenuButton.place(x = 0, y = 0)
+
+        # Information Data Menu
+        self.envMenuButton = tk.Button(text='Information',command=self.active_toggle_button, width=10, height=1)
+        self.envMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
+        self.envMenuButton.place(x = 0, y = 0)
+
 
     ## IMAGE
 
