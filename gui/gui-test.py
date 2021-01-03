@@ -14,6 +14,8 @@ class Plant_GUI(tk.Frame):
         self.passive_index = 0
         self.pack()
 
+        self.master.title("Simple Prog")
+
         self.main_window()
         self.menu_tabs()
         self.lighting_buttons()
