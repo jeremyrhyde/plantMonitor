@@ -24,20 +24,23 @@ class Plant_GUI(tk.Frame):
         self.main_window = tk.Canvas(master = self.master, width = WIDTH, height=HEIGHT, bg='black')
 
         self.border = int(WIDTH*0.025)
+        self.x_mid1 = int(WIDTH*0.475)
+        self.y_mid1 = int(HEIGHT*0.3)
+
         # Camera box
         self.camera_pos = [self.border, 100]
-        self.c_dim = [int(WIDTH*0.475) - 2*self.border, int(WIDTH*0.35)]
+        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.35)]
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
 
         # Lighting box
-        self.lighting_pos = [int(WIDTH*0.475), 50]
-        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), 110]
+        self.lighting_pos = [self.x_mid1, 2*self.border]
+        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + self.border)]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
 
         # Movement box
-        self.movement_pos = [self.lighting_pos[0], 185]
-        self.m_dim = [self.l_dim[0], 250]
+        self.movement_pos = [self.lighting_pos[0], self.y_mid1 + self.border]
+        self.m_dim = [self.l_dim[0], self.y_mid1 - 2*self.border]
         self.draw_rect(self.movement_pos, self.m_dim, 'darkgrey')
         self.draw_rect((self.movement_pos[0]+5, self.movement_pos[1]-5), self.m_dim, 'darkgrey')
 
