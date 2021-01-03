@@ -186,11 +186,11 @@ class Plant_GUI(tk.Frame):
         self.movement_arrows = [750,400]
         diameter = 50
 
-        #self.main_window.create_oval(self.movement_arrows[0]-int(diameter/2), self.movement_arrows[1]-int(diameter/2),
-        #                             self.movement_arrows[0]+int(diameter/2), self.movement_arrows[1]+int(diameter/2),
-        #                             fill = 'darkgrey')
+        self.main_window.create_oval(self.movement_arrows[0], self.movement_arrows[1],
+                                     self.movement_arrows[0]+diameter, self.movement_arrows[1]+diameter,
+                                     fill = 'darkgrey')
 
-        #self.main_window.pack()
+        self.main_window.pack()
         self.arrow_keys(diameter)
 
 
