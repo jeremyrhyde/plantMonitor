@@ -134,7 +134,7 @@ class Plant_GUI(tk.Frame):
         # BUTTON
         self.passiveLightButton = tk.Button(text='OFF', command=self.passive_toggle_button, width=10, height=1)
         self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
-                                       bg='green',
+                                       bg='darkgrey',
                                        fg='black')
 
         self.passiveLightButton.place(x = self.passive_lighting_pos[0] + 300, y = self.passive_lighting_pos[1] - 10)
