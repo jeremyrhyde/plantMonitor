@@ -82,8 +82,8 @@ class Plant_GUI(tk.Frame):
     def lighting_buttons(self):
         self.lighting_font = 'Courier'
         self.lighting_font_size = 14
-        self.active_lighting_pos = [self.lighting_pos[0] + 15, self.lighting_pos[1] + 20]
-        self.passive_lighting_pos = [self.lighting_pos[0] + 15, self.active_lighting_pos[1] + 50]
+        self.active_lighting_pos = [self.lighting_pos[0] + 20, self.lighting_pos[1] + 20]
+        self.passive_lighting_pos = [self.lighting_pos[0] + 20, self.active_lighting_pos[1] + 55]
 
 
         self.active_lighting_button()
