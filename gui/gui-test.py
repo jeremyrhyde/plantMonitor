@@ -188,7 +188,7 @@ class Plant_GUI(tk.Frame):
         oval_per = 0.2
 
         self.main_window.create_line(self.movement_pos[0]+ int(self.m_dim[0]*0.5), self.movement_pos[1] + 20),
-                                     self.movement_pos[0]+ int(self.m_dim[0]*0.5), self.movement_pos[1] + self.m_dim[1] - 20),
+                                     self.movement_pos[0]+ int(self.m_dim[0]*0.5), self.movement_pos[1] + self.m_dim[1] - 20,
                                      fill = 'darkgrey')
 
         self.main_window.pack()
