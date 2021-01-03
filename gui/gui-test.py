@@ -190,12 +190,12 @@ class Plant_GUI(tk.Frame):
                                      self.movement_pos[0]+ int(self.m_dim[0]*0.5), self.movement_pos[1] + self.m_dim[1] - 20,
                                      fill = 'darkgrey')
 
-        self.main_window.create_line(self.movement_arrows[0], self.movement_arrows[1]+100,
-                                     self.movement_arrows[0], self.movement_arrows[1]-100,
+        self.main_window.create_line(self.movement_arrows[0]+30, self.movement_arrows[1]+100,
+                                     self.movement_arrows[0]+30, self.movement_arrows[1]-50,
                                      fill = 'darkgrey')
 
-        self.main_window.create_line(self.movement_arrows[0]+100, self.movement_arrows[1],
-                                     self.movement_arrows[0]-100, self.movement_arrows[1],
+        self.main_window.create_line(self.movement_arrows[0]+100, self.movement_arrows[1]+20,
+                                     self.movement_arrows[0]-50, self.movement_arrows[1]+20,
                                      fill = 'darkgrey')
         self.main_window.pack()
 
