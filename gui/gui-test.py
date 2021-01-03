@@ -196,7 +196,7 @@ class Plant_GUI(tk.Frame):
         self.manual_movement_input()
 
     def postion_text(self):
-        self.posTextLabel = tk.Label(text='Current Position:   0, 0  ')
+        self.posTextLabel = tk.Label(text='Current Position:   0, 0   ')
         self.posTextLabel.config(font=(self.lighting_font, 22,'normal'),
                                      bg='green',
                                      fg='white')
