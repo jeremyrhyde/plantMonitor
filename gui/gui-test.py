@@ -1,7 +1,7 @@
 import tkinter as tk
 
-HEIGHT = 500
-WIDTH = 800
+HEIGHT = 600
+WIDTH = 1080
 
 border_effects = {"flat" : tk.FLAT, "sunken" : tk.SUNKEN, "raised" : tk.RAISED, "groove" : tk.GROOVE, "ridge" : tk.RIDGE}
 
