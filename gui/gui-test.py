@@ -185,9 +185,10 @@ class Plant_GUI(tk.Frame):
     def movement_inputs(self):
         self.movement_arrows = [850,360]
         diameter = 50
+        oval_per = 0.2
 
-        self.main_window.create_oval(self.movement_arrows[0], self.movement_arrows[1],
-                                     self.movement_arrows[0]+diameter, self.movement_arrows[1]+diameter,
+        self.main_window.create_oval(self.movement_arrows[0] - int(diamter*oval_per), self.movement_arrows[1] - int(diamter*oval_per),
+                                     self.movement_arrows[0] + int(diamter*(1-oval_per)), self.movement_arrows[1] + int(diamter*(1-oval_per)),
                                      fill = 'darkgrey')
 
         self.main_window.pack()
@@ -195,16 +196,16 @@ class Plant_GUI(tk.Frame):
 
 
     def arrow_keys(self, diameter):
-        self.downButton = tk.Button(text='v', command=self.passive_button_command, width=1, height=1)
+        self.downButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
         self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + diameter)
 
-        self.leftButton = tk.Button(text='<', command=self.passive_button_command, width=1, height=1)
+        self.leftButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
         self.leftButton.place(x = self.movement_arrows[0] - diameter, y = self.movement_arrows[1])
 
-        self.rightButton = tk.Button(text='>', command=self.passive_button_command, width=1, height=1)
+        self.rightButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
         self.rightButton.place(x = self.movement_arrows[0] + diameter, y = self.movement_arrows[1])
 
-        self.upButton = tk.Button(text='^', command=self.passive_button_command, width=1, height=1)
+        self.upButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
         self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - diameter)
 
 
