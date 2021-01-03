@@ -19,8 +19,8 @@ class Plant_GUI(tk.Frame):
 
         self.menu_tabs()
         self.overview_window()
-        self.lighting_buttons()
-        self.image_viewer()
+        #self.lighting_buttons()
+        #self.image_viewer()
 
 
     def overview_window(self):
@@ -32,18 +32,21 @@ class Plant_GUI(tk.Frame):
         self.camera_pos = [self.border, 3*self.border]
         self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.36)]
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
+        self.image_viewer()
 
         # Lighting box
         self.lighting_pos = [self.x_mid1, 3*self.border]
         self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + self.border)]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
+        self.lighting_buttons()
 
         # Movement box
         self.movement_pos = [self.lighting_pos[0], self.y_mid1]
         self.m_dim = [self.l_dim[0], HEIGHT - (self.y_mid1 + 3.5*self.border)]
         self.draw_rect(self.movement_pos, self.m_dim, 'darkgrey')
         self.draw_rect((self.movement_pos[0]+5, self.movement_pos[1]-5), self.m_dim, 'darkgrey')
+        self.movement_inputs()
 
         self.main_window.pack()
 
@@ -125,14 +128,14 @@ class Plant_GUI(tk.Frame):
         self.activeLightLabel.place(x = self.active_lighting_pos[0], y = self.active_lighting_pos[1])
 
         # Active lighting button
-        self.activeLightButton = tk.Button(text='OFF',command=self.active_toggle_button, width=10, height=1)
+        self.activeLightButton = tk.Button(text='OFF',command=self.active_button_command, width=10, height=1)
         self.activeLightButton.config(font=(self.lighting_font, self.lighting_font_size+2, 'bold'),
                                      bg='darkgrey',
                                      fg='black')
 
         self.activeLightButton.place(x = self.active_lighting_pos[0] + 290, y = self.active_lighting_pos[1] - 10)
 
-    def active_toggle_button(self):
+    def active_button_command(self):
         if self.active_index:
             self.activeLightButton.config(text='ON')
             self.activeLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
@@ -157,14 +160,14 @@ class Plant_GUI(tk.Frame):
         self.passiveLightLabel.place(x = self.passive_lighting_pos[0], y = self.passive_lighting_pos[1])
 
         # BUTTON
-        self.passiveLightButton = tk.Button(text='OFF', command=self.passive_toggle_button, width=10, height=1)
+        self.passiveLightButton = tk.Button(text='OFF', command=self.passive_button_command, width=10, height=1)
         self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
                                        bg='darkgrey',
                                        fg='black')
 
         self.passiveLightButton.place(x = self.passive_lighting_pos[0] + 290, y = self.passive_lighting_pos[1] - 10)
 
-    def passive_toggle_button(self):
+    def passive_button_command(self):
         if self.passive_index:
             self.passiveLightButton.config(text='ON')
             self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
@@ -178,17 +181,32 @@ class Plant_GUI(tk.Frame):
 
         self.passive_index = not self.passive_index
 
-    def create_widgets(self):
-        camera_preview = tk.Label(text = 'hello', width = 20, height = 20)
-        camera_preview.place(x = 10, y = 200)
 
-    def create_button(self):
-        button = tk.Button(text = 'hello', width = 10, height = 1, bg='blue')
-        button.place(x = 75, y = 75)
+    def movement_inputs(self):
+        self.movement_arrows = [400,800]
+        diameter = 25
+
+        #self.main_window.create_oval(self.movement_arrows[0]-int(diameter/2), self.movement_arrows[1]-int(diameter/2),
+        #                             self.movement_arrows[0]+int(diameter/2), self.movement_arrows[1]+int(diameter/2),
+        #                             fill = 'darkgrey')
+
+        sel.main_window.pack()
+        self.arrow_keys()
 
 
-#c = tk.Frame(master = window, width = WIDTH, height=HEIGHT, bg='black')
-#c#.pack()
+    def arrow_keys(self):
+        self.downButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
+        self.downButton.place(x = self.movement_arrows[0] 0, y = self.movement_arrows[1] - 25)
+
+        self.leftButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
+        self.leftButton.place(x = self.movement_arrows[0] - 25, y = self.movement_arrows[1])
+
+        self.rightButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
+        self.rightButton.place(x = self.movement_arrows[0] + 25, y = self.movement_arrows[1])
+
+        self.upButton = tk.Button(text='', command=self.passive_button_command, width=1, height=1)
+        self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + 25)
+
 
 
 root = tk.Tk()
