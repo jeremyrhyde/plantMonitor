@@ -97,10 +97,10 @@ class Plant_GUI(tk.Frame):
                                      bg='black',
                                      fg='white')
 
-        self.activeLightLabel.place(x = self.active_lighting_pos[0], y = self.active_lighting_pos[1]+10)
+        self.activeLightLabel.place(x = self.active_lighting_pos[0], y = self.active_lighting_pos[1] + 8)
 
         # Active lighting button
-        self.activeLightButton = tk.Button(text='OFF',command=self.active_toggle_button, width=10, height=2)
+        self.activeLightButton = tk.Button(text='OFF',command=self.active_toggle_button, width=10, height=1)
         self.activeLightButton.config(font=(self.lighting_font, self.lighting_font_size+2, 'bold'),
                                      bg='green',
                                      fg='black')
@@ -129,10 +129,10 @@ class Plant_GUI(tk.Frame):
                                       bg='black',
                                       fg='white')
 
-        self.passiveLightLabel.place(x = self.passive_lighting_pos[0], y = self.passive_lighting_pos[1]+10)
+        self.passiveLightLabel.place(x = self.passive_lighting_pos[0], y = self.passive_lighting_pos[1] + 8)
 
         # BUTTON
-        self.passiveLightButton = tk.Button(text='OFF', command=self.passive_toggle_button, width=10, height=2)
+        self.passiveLightButton = tk.Button(text='OFF', command=self.passive_toggle_button, width=10, height=1)
         self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
                                        bg='green',
                                        fg='black')
