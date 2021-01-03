@@ -191,21 +191,21 @@ class Plant_GUI(tk.Frame):
         #                             fill = 'darkgrey')
 
         #self.main_window.pack()
-        self.arrow_keys()
+        self.arrow_keys(diameter)
 
 
-    def arrow_keys(self):
+    def arrow_keys(self, diameter):
         self.downButton = tk.Button(text='v', command=self.passive_button_command, width=1, height=1)
-        self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + 25)
+        self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + diameter)
 
         self.leftButton = tk.Button(text='<', command=self.passive_button_command, width=1, height=1)
-        self.leftButton.place(x = self.movement_arrows[0] - 25, y = self.movement_arrows[1])
+        self.leftButton.place(x = self.movement_arrows[0] - diameter, y = self.movement_arrows[1])
 
         self.rightButton = tk.Button(text='>', command=self.passive_button_command, width=1, height=1)
-        self.rightButton.place(x = self.movement_arrows[0] + 25, y = self.movement_arrows[1])
+        self.rightButton.place(x = self.movement_arrows[0] + diameter, y = self.movement_arrows[1])
 
         self.upButton = tk.Button(text='^', command=self.passive_button_command, width=1, height=1)
-        self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - 25)
+        self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - diameter)
 
 
 
