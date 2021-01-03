@@ -183,7 +183,7 @@ class Plant_GUI(tk.Frame):
 
 
     def movement_inputs(self):
-        self.movement_arrows = [750,400]
+        self.movement_arrows = [850,360]
         diameter = 50
 
         self.main_window.create_oval(self.movement_arrows[0], self.movement_arrows[1],
