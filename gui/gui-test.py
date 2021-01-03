@@ -25,7 +25,7 @@ class Plant_GUI(tk.Frame):
 
         self.border = int(WIDTH*0.025)
         self.x_mid1 = int(WIDTH*0.475)
-        self.y_mid1 = int(HEIGHT*0.375)
+        self.y_mid1 = int(HEIGHT*0.35)
 
         # Camera box
         self.camera_pos = [self.border, 100]
@@ -102,7 +102,7 @@ class Plant_GUI(tk.Frame):
         # Active lighting button
         self.activeLightButton = tk.Button(text='OFF',command=self.active_toggle_button, width=10, height=1)
         self.activeLightButton.config(font=(self.lighting_font, self.lighting_font_size+2, 'bold'),
-                                     bg='green',
+                                     bg='darkgrey',
                                      fg='black')
 
         self.activeLightButton.place(x = self.active_lighting_pos[0] + 300, y = self.active_lighting_pos[1] - 10)
@@ -111,12 +111,12 @@ class Plant_GUI(tk.Frame):
         if self.active_index:
             self.activeLightButton.config(text='ON')
             self.activeLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
-                                         bg='black',
-                                         fg='green')
+                                         bg='green',
+                                         fg='black')
         else:
             self.activeLightButton.config(text='OFF')
             self.activeLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
-                                         bg='green',
+                                         bg='darkgrey',
                                          fg='black')
 
         self.active_index = not self.active_index
@@ -143,12 +143,12 @@ class Plant_GUI(tk.Frame):
         if self.passive_index:
             self.passiveLightButton.config(text='ON')
             self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
-                                           bg='black',
-                                           fg='green')
+                                           bg='green',
+                                           fg='black')
         else:
             self.passiveLightButton.config(text='OFF')
             self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
-                                           bg='green',
+                                           bg='darkgrey',
                                            fg='black')
 
         self.passive_index = not self.passive_index
