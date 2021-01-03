@@ -31,7 +31,7 @@ class Plant_GUI(tk.Frame):
 
         # Camera box
         self.camera_pos = [self.border, 3*self.border-5]
-        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.36)+5]
+        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.36)+15]
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
         self.image_viewer()
 
