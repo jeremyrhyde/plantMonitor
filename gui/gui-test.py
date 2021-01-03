@@ -56,33 +56,35 @@ class Plant_GUI(tk.Frame):
 
     def menu_tabs(self):
 
-        self.main_window.create_line(0, 23, WIDTH , 23, fill = 'darkgrey')
-        self.main_window.create_line(0, 25, WIDTH , 25, fill = 'darkgrey')
+        self.main_window.create_line(0, 30, WIDTH , 23, fill = 'darkgrey')
+        self.main_window.create_line(0, 32, WIDTH , 25, fill = 'darkgrey')
 
         self.main_window.pack()
 
         self.menu_font = 'Hevetica'
         self.menu_font_size = 14
 
+        menu_width = 160
+
         # Control Menu
         self.controlMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
         self.controlMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
-        self.controlMenuButton.place(x = 0, y = 2)
+        self.controlMenuButton.place(x = 0, y = 5)
 
         # Display Menu
         self.displayMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
         self.displayMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
-        self.displayMenuButton.place(x = 200, y = 2)
+        self.displayMenuButton.place(x = menu_width+2, y = 5)
 
         # Environmental Data Menu
         self.envMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
         self.envMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
-        self.envMenuButton.place(x = 400, y = 2)
+        self.envMenuButton.place(x = 2*(menu_width+2), y = 5)
 
         # Information Data Menu
         self.envMenuButton = tk.Button(text='Information',command=self.active_toggle_button, width=10, height=1)
         self.envMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
-        self.envMenuButton.place(x = 600, y = 2)
+        self.envMenuButton.place(x = 3*(menu_width+2), y = 5)
 
 
     ## IMAGE
