@@ -102,7 +102,7 @@ class Plant_GUI(tk.Frame):
                                      bg='green',
                                      fg='black')
 
-        self.activeLightButton.place(x = self.active_lighting_pos[0] + 215, y = self.active_lighting_pos[1] - 10)
+        self.activeLightButton.place(x = self.active_lighting_pos[0] + 250, y = self.active_lighting_pos[1] - 10)
 
     def active_toggle_button(self):
         if self.active_index:
@@ -134,7 +134,7 @@ class Plant_GUI(tk.Frame):
                                        bg='green',
                                        fg='black')
 
-        self.passiveLightButton.place(x = self.passive_lighting_pos[0] + 215, y = self.passive_lighting_pos[1] - 10)
+        self.passiveLightButton.place(x = self.passive_lighting_pos[0] + 250, y = self.passive_lighting_pos[1] - 10)
 
     def passive_toggle_button(self):
         if self.passive_index:
