@@ -220,7 +220,7 @@ class Plant_GUI(tk.Frame):
                                      fg='white')
         self.xInputLabel.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
 
-        self.xInputEntry = tf.Entry()
+        self.xInputEntry = tk.Entry()
         self.xInputEntry.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
 
         # Y
@@ -230,7 +230,7 @@ class Plant_GUI(tk.Frame):
                                      fg='white')
         self.yInputLabel.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
 
-        self.yInputEntry = tf.Entry()
+        self.yInputEntry = tk.Entry()
         self.yInputEntry.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
 
         # Go
