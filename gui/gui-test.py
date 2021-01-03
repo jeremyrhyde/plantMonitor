@@ -29,7 +29,7 @@ class Plant_GUI(tk.Frame):
 
         # Camera box
         self.camera_pos = [self.border, 3*self.border]
-        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.35)]
+        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.36)]
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
 
         # Lighting box
