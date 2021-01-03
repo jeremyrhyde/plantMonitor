@@ -31,7 +31,7 @@ class Plant_GUI(tk.Frame):
 
         # Camera box
         self.camera_pos = [self.border, 3*self.border-5]
-        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.36)+15]
+        self.c_dim = [self.x_mid1 - 2*self.border, int(WIDTH*0.36)+5]
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
         self.image_viewer()
 
@@ -44,7 +44,7 @@ class Plant_GUI(tk.Frame):
 
         # Movement box
         self.movement_pos = [self.lighting_pos[0], self.y_mid2]
-        self.m_dim = [self.l_dim[0], HEIGHT - (self.y_mid2 + 3*self.border)]
+        self.m_dim = [self.l_dim[0], HEIGHT - (self.y_mid2 + 3*self.border)-10]
         self.draw_rect(self.movement_pos, self.m_dim, 'darkgrey')
         self.draw_rect((self.movement_pos[0]+5, self.movement_pos[1]-5), self.m_dim, 'darkgrey')
         self.movement_inputs()
