@@ -196,11 +196,11 @@ class Plant_GUI(tk.Frame):
         self.manual_movement_input()
 
     def postion_text(self):
-        self.posTextLabel = tk.Label(text='Current Position:     0, 0')
-        self.posTextLabel.config(font=(self.lighting_font, 24,'normal'),
+        self.posTextLabel = tk.Label(text='Current Position:   0, 0 ')
+        self.posTextLabel.config(font=(self.lighting_font, 22,'normal'),
                                      bg='green',
                                      fg='white')
-        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 60)
+        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 50)
 
 
     def arrow_keys(self):
