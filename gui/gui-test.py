@@ -191,8 +191,17 @@ class Plant_GUI(tk.Frame):
                                      fill = 'darkgrey')
         self.main_window.pack()
 
+        self.postion_text()
         self.arrow_keys()
-        self.manural_movement_input()
+        self.manual_movement_input()
+
+    def postion_text(self):
+        self.posTextLabel = tk.Label(text='Current Position:     0, 0')
+        self.posTextLabel.config(font=(self.lighting_font, 24,'normal'),
+                                     bg='green',
+                                     fg='white')
+        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 30)
+
 
 
     def arrow_keys(self):
@@ -211,14 +220,14 @@ class Plant_GUI(tk.Frame):
         self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - diameter)
 
 
-    def manural_movement_input(self):
+    def manual_movement_input(self):
 
         # X
         self.xInputLabel = tk.Label(text='X - POS')
         self.xInputLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
                                      bg='black',
                                      fg='white')
-        self.xInputLabel.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
+        self.xInputLabel.place(x = self.movement_pos[0] + 20, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
 
         self.xInputEntry = tk.Entry(width = 4)
         self.xInputEntry.place(x = self.movement_pos[0] + 150, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
@@ -228,7 +237,7 @@ class Plant_GUI(tk.Frame):
         self.yInputLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
                                      bg='black',
                                      fg='white')
-        self.yInputLabel.place(x = self.movement_pos[0] + 10, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
+        self.yInputLabel.place(x = self.movement_pos[0] + 20, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
 
         self.yInputEntry = tk.Entry(width = 4)
         self.yInputEntry.place(x = self.movement_pos[0] + 150, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
