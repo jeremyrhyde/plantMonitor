@@ -25,7 +25,7 @@ class Plant_GUI(tk.Frame):
 
         self.border = int(WIDTH*0.025)
         self.x_mid1 = int(WIDTH*0.475)
-        self.y_mid1 = int(HEIGHT*0.4)
+        self.y_mid1 = int(HEIGHT*0.375)
 
         # Camera box
         self.camera_pos = [self.border, 100]
@@ -93,7 +93,7 @@ class Plant_GUI(tk.Frame):
 
         # Active lighting label
         self.activeLightLabel = tk.Label(text='Active Lighting')
-        self.activeLightLabel.config(font=(self.lighting_font, self.lighting_font_size + 6,'normal'),
+        self.activeLightLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
                                      bg='black',
                                      fg='white')
 
@@ -125,7 +125,7 @@ class Plant_GUI(tk.Frame):
 
         # LABEL
         self.passiveLightLabel = tk.Label(text='Passive Lighting')
-        self.passiveLightLabel.config(font=(self.lighting_font,self.lighting_font_size + 6,'normal'),
+        self.passiveLightLabel.config(font=(self.lighting_font,self.lighting_font_size + 4,'normal'),
                                       bg='black',
                                       fg='white')
 
