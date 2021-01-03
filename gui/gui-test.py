@@ -71,22 +71,22 @@ class Plant_GUI(tk.Frame):
         menu_width = 160
 
         # Control Menu
-        self.controlMenuButton = tk.Button(text='Overiew',command=self.active_toggle_button, width=10, height=1)
+        self.controlMenuButton = tk.Button(text='Overiew',command=self.active_button_command, width=10, height=1)
         self.controlMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
         self.controlMenuButton.place(x = 0, y = 5)
 
         # Display Menu
-        self.displayMenuButton = tk.Button(text='Display',command=self.active_toggle_button, width=10, height=1)
+        self.displayMenuButton = tk.Button(text='Display',command=self.active_button_command, width=10, height=1)
         self.displayMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
         self.displayMenuButton.place(x = menu_width+2, y = 5)
 
         # Environmental Data Menu
-        self.envMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
+        self.envMenuButton = tk.Button(text='Control',command=self.active_button_command, width=10, height=1)
         self.envMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
         self.envMenuButton.place(x = 2*(menu_width+2), y = 5)
 
         # Information Data Menu
-        self.envMenuButton = tk.Button(text='Information',command=self.active_toggle_button, width=10, height=1)
+        self.envMenuButton = tk.Button(text='Information',command=self.active_button_command, width=10, height=1)
         self.envMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
         self.envMenuButton.place(x = 3*(menu_width+2), y = 5)
 
