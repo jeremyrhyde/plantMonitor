@@ -18,12 +18,12 @@ class Plant_GUI(tk.Frame):
         self.main_window = tk.Canvas(master = self.master, width = WIDTH, height=HEIGHT, bg='black')
 
         self.menu_tabs()
-        self.main_window()
+        self.overview_window()
         self.lighting_buttons()
         self.image_viewer()
 
 
-    def main_window(self):
+    def overview_window(self):
         self.border = int(WIDTH*0.025)
         self.x_mid1 = int(WIDTH*0.475)
         self.y_mid1 = int(HEIGHT*0.375)
