@@ -24,8 +24,8 @@ class Plant_GUI(tk.Frame):
         self.main_window = tk.Canvas(master = self.master, width = WIDTH, height=HEIGHT, bg='black')
 
         # Camera box
-        self.camera_pos = [15, 50]
-        self.c_dim = [int(WIDTH*0.5), int(WIDTH*0.5)]
+        self.camera_pos = [15, 100]
+        self.c_dim = [int(WIDTH*0.33), int(WIDTH*0.33)]
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
 
         # Lighting box
