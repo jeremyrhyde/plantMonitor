@@ -31,7 +31,7 @@ class Plant_GUI(tk.Frame):
 
         # Lighting box
         self.lighting_pos = [int(WIDTH*0.475), 50]
-        self.l_dim = [WIDTH - (self.lighting_pos[0] + 4*self.border), 110]
+        self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), 110]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
 
