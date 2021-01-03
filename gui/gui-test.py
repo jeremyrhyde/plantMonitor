@@ -184,7 +184,7 @@ class Plant_GUI(tk.Frame):
 
     def movement_inputs(self):
         self.movement_arrows = [700,500]
-        diameter = 25
+        diameter = 50
 
         #self.main_window.create_oval(self.movement_arrows[0]-int(diameter/2), self.movement_arrows[1]-int(diameter/2),
         #                             self.movement_arrows[0]+int(diameter/2), self.movement_arrows[1]+int(diameter/2),
@@ -196,7 +196,7 @@ class Plant_GUI(tk.Frame):
 
     def arrow_keys(self):
         self.downButton = tk.Button(text='v', command=self.passive_button_command, width=1, height=1)
-        self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - 25)
+        self.downButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + 25)
 
         self.leftButton = tk.Button(text='<', command=self.passive_button_command, width=1, height=1)
         self.leftButton.place(x = self.movement_arrows[0] - 25, y = self.movement_arrows[1])
@@ -205,7 +205,7 @@ class Plant_GUI(tk.Frame):
         self.rightButton.place(x = self.movement_arrows[0] + 25, y = self.movement_arrows[1])
 
         self.upButton = tk.Button(text='^', command=self.passive_button_command, width=1, height=1)
-        self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] + 25)
+        self.upButton.place(x = self.movement_arrows[0], y = self.movement_arrows[1] - 25)
 
 
 
