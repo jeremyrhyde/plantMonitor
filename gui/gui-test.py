@@ -23,9 +23,14 @@ class Plant_GUI(tk.Frame):
     def main_window(self):
         self.main_window = tk.Canvas(master = self.master, width = WIDTH, height=HEIGHT, bg='black')
 
+        # Camera box
+        self.camera_pos = [15, 50]
+        self.c_dim = [int(WIDTH*0.5), int(WIDTH*0.5)]
+        self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
+
         # Lighting box
-        self.lighting_pos = [430, 50]
-        self.l_dim = [350, 110]
+        self.lighting_pos = [int(WIDTH*0.55), 50]
+        self.l_dim = [int(WIDTH*0.4), 110]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
 
@@ -34,11 +39,6 @@ class Plant_GUI(tk.Frame):
         self.m_dim = [self.l_dim[0], 250]
         self.draw_rect(self.movement_pos, self.m_dim, 'darkgrey')
         self.draw_rect((self.movement_pos[0]+5, self.movement_pos[1]-5), self.m_dim, 'darkgrey')
-
-        # Camera box
-        self.camera_pos = [15, 50]
-        self.c_dim = [356, 356]
-        self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
 
         self.main_window.pack()
 
