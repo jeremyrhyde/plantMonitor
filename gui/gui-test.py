@@ -67,7 +67,7 @@ class Plant_GUI(tk.Frame):
         self.show_image()
 
     def take_image(self):
-        self.takeImage = tk.Button(text='Take Image', width=50, height=1)
+        self.takeImage = tk.Button(text='Take Image', width=48, height=1)
         self.takeImage.place(x = self.camera_pos[0],
                              y = self.camera_pos[1] + self.c_dim[1]+8)
 
