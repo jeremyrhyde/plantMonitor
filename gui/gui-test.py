@@ -25,7 +25,7 @@ class Plant_GUI(tk.Frame):
 
         self.border = int(WIDTH*0.025)
         self.x_mid1 = int(WIDTH*0.475)
-        self.y_mid1 = int(HEIGHT*0.35)
+        self.y_mid1 = int(HEIGHT*0.375)
 
         # Camera box
         self.camera_pos = [self.border, 100]
@@ -33,7 +33,7 @@ class Plant_GUI(tk.Frame):
         self.draw_rect(self.camera_pos, self.c_dim, 'darkgrey')
 
         # Lighting box
-        self.lighting_pos = [self.x_mid1, 2*self.border]
+        self.lighting_pos = [self.x_mid1, 3*self.border]
         self.l_dim = [WIDTH - (self.lighting_pos[0] + 3*self.border), self.y_mid1 - (self.lighting_pos[1] + self.border)]
         self.draw_rect(self.lighting_pos, self.l_dim, 'darkgrey')
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
@@ -67,12 +67,12 @@ class Plant_GUI(tk.Frame):
         menu_width = 160
 
         # Control Menu
-        self.controlMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
+        self.controlMenuButton = tk.Button(text='Overiew',command=self.active_toggle_button, width=10, height=1)
         self.controlMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
         self.controlMenuButton.place(x = 0, y = 5)
 
         # Display Menu
-        self.displayMenuButton = tk.Button(text='Control',command=self.active_toggle_button, width=10, height=1)
+        self.displayMenuButton = tk.Button(text='Display',command=self.active_toggle_button, width=10, height=1)
         self.displayMenuButton.config(font=(self.menu_font, self.menu_font_size, 'bold'), bg='darkgrey', fg='black')
         self.displayMenuButton.place(x = menu_width+2, y = 5)
 
