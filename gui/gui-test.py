@@ -39,7 +39,7 @@ class Plant_GUI(tk.Frame):
         self.draw_rect((self.lighting_pos[0]+5, self.lighting_pos[1]-5), self.l_dim, 'darkgrey')
 
         # Movement box
-        self.movement_pos = [self.lighting_pos[0], self.y_mid1 + self.border]
+        self.movement_pos = [self.lighting_pos[0], self.y_mid1]
         self.m_dim = [self.l_dim[0], HEIGHT - (self.y_mid1 + 3*self.border)]
         self.draw_rect(self.movement_pos, self.m_dim, 'darkgrey')
         self.draw_rect((self.movement_pos[0]+5, self.movement_pos[1]-5), self.m_dim, 'darkgrey')
