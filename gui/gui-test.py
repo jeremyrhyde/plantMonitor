@@ -111,7 +111,7 @@ class Plant_GUI(tk.Frame):
     def lighting_buttons(self):
         self.lighting_font = 'Courier'
         self.lighting_font_size = 14
-        self.active_lighting_pos = [self.lighting_pos[0] + 20, self.lighting_pos[1] + 20]
+        self.active_lighting_pos = [self.lighting_pos[0] + 20, self.lighting_pos[1] + 25]
         self.passive_lighting_pos = [self.lighting_pos[0] + 20, self.active_lighting_pos[1] + 55]
 
 
@@ -208,7 +208,7 @@ class Plant_GUI(tk.Frame):
         self.posTextLabel.config(font=(self.lighting_font, 22,'normal'),
                                      bg='green',
                                      fg='white')
-        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 50)
+        self.posTextLabel.place(x = self.movement_pos[0], y = self.movement_pos[1] - 55)
 
 
     def arrow_keys(self):
