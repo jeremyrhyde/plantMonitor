@@ -56,8 +56,8 @@ class Plant_GUI(tk.Frame):
 
     def menu_tabs(self):
 
-        self.main_window.create_line(0, 38, WIDTH , 23, fill = 'darkgrey')
-        self.main_window.create_line(0, 40, WIDTH , 25, fill = 'darkgrey')
+        self.main_window.create_line(0, 38, WIDTH , 38, fill = 'darkgrey')
+        self.main_window.create_line(0, 40, WIDTH , 40, fill = 'darkgrey')
 
         self.main_window.pack()
 
