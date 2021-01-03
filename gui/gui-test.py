@@ -234,24 +234,24 @@ class Plant_GUI(tk.Frame):
         self.xInputLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
                                      bg='black',
                                      fg='white')
-        self.xInputLabel.place(x = self.movement_pos[0] + 20, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
+        self.xInputLabel.place(x = self.movement_pos[0] + 20, y = self.movement_pos[1] + int(self.m_dim[1]*.25))
 
         self.xInputEntry = tk.Entry(width = 4)
-        self.xInputEntry.place(x = self.movement_pos[0] + 150, y = self.movement_pos[1] + int(self.m_dim[1]*.3))
+        self.xInputEntry.place(x = self.movement_pos[0] + 150, y = self.movement_pos[1] + int(self.m_dim[1]*.25))
 
         # Y
         self.yInputLabel = tk.Label(text='Y - POS')
         self.yInputLabel.config(font=(self.lighting_font, self.lighting_font_size + 4,'normal'),
                                      bg='black',
                                      fg='white')
-        self.yInputLabel.place(x = self.movement_pos[0] + 20, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
+        self.yInputLabel.place(x = self.movement_pos[0] + 20, y = self.movement_pos[1] + int(self.m_dim[1]*.45))
 
         self.yInputEntry = tk.Entry(width = 4)
-        self.yInputEntry.place(x = self.movement_pos[0] + 150, y = self.movement_pos[1] + int(self.m_dim[1]*.5))
+        self.yInputEntry.place(x = self.movement_pos[0] + 150, y = self.movement_pos[1] + int(self.m_dim[1]*.45))
 
         # Go
         self.goButton = tk.Button(text='GO', command=self.passive_button_command, width=4, height=1)
-        self.goButton.place(x = self.movement_pos[0] + int(self.m_dim[0]*0.2), y = self.movement_pos[1] + int(self.m_dim[1]*.8))
+        self.goButton.place(x = self.movement_pos[0] + int(self.m_dim[0]*0.2), y = self.movement_pos[1] + int(self.m_dim[1]*.7))
 
 root = tk.Tk()
 app = Plant_GUI(master=root)
