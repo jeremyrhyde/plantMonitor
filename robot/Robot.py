@@ -119,23 +119,19 @@ class Robot:
 
         self.logger.info('Connecting to API...')
 
-        while(True):
-            # Monitor action list
-            action_cmd = 'curl -X GET http://localhost:5002/action/'
-            action_result = check_output(action_cmd, stdin=PIPE, stderr=PIPE, shell = True)
-            action_r = action_result.decode("utf-8")
-            action_json = json.loads(action_r)
-
-            # Process action either immediately or add to schedule
-            if action_json['Action'] != '':
-                print(action_json)
-                if action_json['Date'] == '':
-                    self.queue_command_plus(action_json['Action'])
-                else:
-                    self.add_command_to_schedule(action_json['Date'], action_json['Action'])
-
-            # Pause before pinging api
-            time.sleep(1)
+        # while(True):
+        #     # Monitor action list
+        #     action_cmd = 'curl -X GET http://localhost:5002/command/'
+        #     action_result = check_output(action_cmd, stdin=PIPE, stderr=PIPE, shell = True)
+        #     action_r = action_result.decode("utf-8")
+        #     action_json = json.loads(action_r)
+        #
+        #     # Process action either immediately or add to schedule
+        #     if action_json['command'] != '':
+        #         self.queue_command_plus(action_json['command'])
+        #
+        #     # Pause before pinging api
+        #     time.sleep(1)
 
 
     # --------------------------------------------------------------------------
