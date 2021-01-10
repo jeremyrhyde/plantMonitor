@@ -47,7 +47,7 @@ def main():
 
     CNC_MOTION = False
 
-    config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
+    #config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
 
     # Logging
     log_file = 'first_logfile.log'
