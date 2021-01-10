@@ -125,10 +125,8 @@ class Robot:
             # Retrieve command values
             resp, content = self.h.request("http://0.0.0.0:5002/command/", "GET")
             command = json.loads(content.decode("utf-8"))
-            self.logger.info(str(command))
             if command['command'] != '':
                 self.queue_command(command['command'], command['para'])
-                self.logger.info('HIIIIIIIII' + str(command))
             time.sleep(1)
 
 
