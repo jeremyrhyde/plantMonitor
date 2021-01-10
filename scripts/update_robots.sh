@@ -2,7 +2,9 @@
 
 update_command="
   sudo systemctl disable robot.service;
+  sudo systemctl disable api.service;
   sudo systemctl stop robot.service;
+  sudo systemctl stop api.service;
 
   echo 'Archiving Finished! Updating...';
 
@@ -12,9 +14,12 @@ update_command="
   echo 'Finished pulling from git';
 
   sudo cp /home/pi/plantmonitor/robot.service /etc/systemd/system/;
+  sudo cp /home/pi/plantmonitor/api.service /etc/systemd/system/;
 
   sudo systemctl enable robot.service;
+  sudo systemctl enable api.service;
   sudo systemctl start robot.service;
+  sudo systemctl start api.service;
   "
 
 reboot_robots="
