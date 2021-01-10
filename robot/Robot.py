@@ -124,10 +124,10 @@ class Robot:
 
             # Retrieve command values
             resp, content = self.h.request("http://0.0.0.0:5002/command/", "GET")
-            content = t.decode("utf-8")
+            command = content.decode("utf-8")
 
-            if content['command'] != '':
-                self.queue_command(content['command'], content['para'])
+            if command['command'] != '':
+                self.queue_command(command['command'], command['para'])
             time.sleep(1)
 
 
