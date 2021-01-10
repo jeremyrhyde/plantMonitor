@@ -14,19 +14,19 @@ def home():
     return {'Robot API Homepage!':'Go to: BLE, ACTION, or DATE'}
 
 # ACTION
-@app.route('/action/', methods=['GET','POST'])
+@app.route('/command/', methods=['GET','POST'])
 def action():
 
     if request.method == 'POST':
         data = request.data
-        action = {'Date': '', 'Action': data['action']}
+        action = {'Date': '', 'command': data['command']}
         action_list.append(action)
-        return {'Action':'response'}
+        return {'command':'response'}
 
     if len(action_list) > 0:
         action_item = action_list.pop(0)
     else:
-        action_item = {'Date':'','Action':''}
+        action_item = {'Date':'','command':''}
 
     return action_item
 

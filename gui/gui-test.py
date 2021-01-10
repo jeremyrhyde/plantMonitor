@@ -7,6 +7,8 @@ border_effects = {"flat" : tk.FLAT, "sunken" : tk.SUNKEN, "raised" : tk.RAISED, 
 
 class Plant_GUI(tk.Frame):
 
+    h = httplib2.Http()
+
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
@@ -170,11 +172,14 @@ class Plant_GUI(tk.Frame):
 
     def passive_button_command(self):
         if self.passive_index:
+            command_text = 'ON'
             self.passiveLightButton.config(text='ON')
             self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
                                            bg='green',
                                            fg='black')
+
         else:
+            command_text = 'OFF'
             self.passiveLightButton.config(text='OFF')
             self.passiveLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
                                            bg='darkgrey',
@@ -182,6 +187,9 @@ class Plant_GUI(tk.Frame):
 
         self.passive_index = not self.passive_index
 
+        data = {'command' : command_text, 'para' : ''}
+        data_json = json.dumps(data)
+        resp, content = self.h.request("http://0.0.0.0:5002/command/", "POST", data_json, {"content-type":"application/json"})
 
     def movement_inputs(self):
         self.movement_arrows = [860,380]
