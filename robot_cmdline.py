@@ -51,8 +51,8 @@ def main():
 
     # Logging
     logger = Logger('temp.log')
-    logger_robot = logger.init('ROBOT', robot_id)
-    
+    robot_logger = logger.init('ROBOT', robot_id)
+
     robot = Robot(robot_id, robot_logger)
 
     sched = Robot_Scheduler(robot)
