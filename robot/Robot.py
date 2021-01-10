@@ -76,9 +76,8 @@ class Robot:
         self.cnc_feedrate = 100#str(self.cnc.get_feedrate())
 
         # Begin API
-        #if API_YES_NO:
-        #    self.api_interface = threading.Thread(target=self._api_interface)
-        #    self.api_interface.start()
+        self.api_interface = threading.Thread(target=self._api_interface)
+        self.api_interface.start()
 
         self.logger.info('Robot setup complete!')
 
@@ -88,11 +87,10 @@ class Robot:
         self.cnc.close()
         self.passive_led.close()
         self.camera.close()
+        self.api_interface.join() # Stop api thread
 
         self._stop_event.set()
 
-        #self.robot_thread.join() # Stop robot thread
-        #self.api_interface.join() # Stop oled thread
 
 
     # Define scheduler
