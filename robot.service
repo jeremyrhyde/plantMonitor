@@ -1,6 +1,6 @@
 [Unit]
 Description=Robot Program
-After=network.target
+After=network.target api.service
 
 [Service]
 Type=forking

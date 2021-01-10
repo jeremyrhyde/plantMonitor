@@ -19,14 +19,14 @@ def action():
 
     if request.method == 'POST':
         data = request.data
-        action = {'Date': '', 'command': data['command']}
+        action = {'date': '', 'command': data['command'], 'para': data['para']}
         action_list.append(action)
         return {'command':'response'}
 
     if len(action_list) > 0:
         action_item = action_list.pop(0)
     else:
-        action_item = {'Date':'','command':''}
+        action_item = {'date':'','command':'', 'para':''}
 
     return action_item
 
