@@ -71,7 +71,7 @@ class Robot:
         self.camera = Camera()
 
         self.curr_camera_pos = [0,0]
-        self.cnc = GRBL_Stream()
+        #self.cnc = GRBL_Stream()
 
         self.cnc_feedrate = 100#str(self.cnc.get_feedrate())
 
