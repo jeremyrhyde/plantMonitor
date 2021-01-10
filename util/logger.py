@@ -16,9 +16,9 @@ class Logger:
         #     self.Log_Config.FILE_LOG: lambda self: self._get_file_handler(),
         # }
 
-    def init(self, log_name, level=logging.INFO):
+    def init(self, log_name, log_id, level=logging.INFO):
 
-        FORMAT = '%(asctime)s [' + log_name + '] %(levelname)s - %(message)s'
+        FORMAT = '%(asctime)s [' + log_name + '] [' + log_id + '] %(levelname)s - %(message)s'
         formatter = logging.Formatter(FORMAT)
 
         handler = logging.FileHandler(self.log_file)
