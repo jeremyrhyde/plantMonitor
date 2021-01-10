@@ -128,7 +128,7 @@ class Robot:
 
             if command['command'] != '':
                 self.queue_command(command['command'], command['para'])
-                sle.logger.info(str(command))
+                self.logger.info(str(command))
             time.sleep(1)
 
 
