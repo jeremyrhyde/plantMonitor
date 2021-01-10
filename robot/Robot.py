@@ -32,6 +32,8 @@ class Robot:
 
     sched = None
 
+    h = httplib2.Http()
+
     cnc_direction = ''
     cnc_dist = ''
     cnc_feedrate = ''
