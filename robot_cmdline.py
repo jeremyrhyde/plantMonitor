@@ -46,14 +46,15 @@ def cnc_feeedrate_input(logger):
 def main():
 
     CNC_MOTION = False
-
+    robot_id = '000'
     #config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
 
     # Logging
     logger = Logger('temp.log')
-    logger_robot = logger.init('ROBOT')
-
+    logger_robot = logger.init('ROBOT', robot_id)
+    
     robot = Robot(robot_id, robot_logger)
+
     sched = Robot_Scheduler(robot)
     robot.register_scheduler(sched)
 
