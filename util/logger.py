@@ -2,9 +2,13 @@ import logging
 import os
 
 class Logger:
-    def __init__(self, log_type, log_id):
-        self.log_type = log_type
-        self.log_id = log_id
+
+    def __init__(self, log_file):
+        self.log_file = log_file
+
+        self.clear_log_file()
+        #self.log_type = log_type
+        #self.log_id = log_id
 
         # self._log_methods = {
         #     #self.Log_Config.PARSE_STREAM_LOG: lambda self: self._get_stream_handler(True),
@@ -12,12 +16,12 @@ class Logger:
         #     self.Log_Config.FILE_LOG: lambda self: self._get_file_handler(),
         # }
 
-    def init(self, log_name, log_file, level=logging.INFO):
+    def init(self, log_name, level=logging.INFO):
 
-        FORMAT = '%(asctime)s [' + self.log_type + '] [' + self.log_id + '] %(levelname)s - %(message)s'
+        FORMAT = '%(asctime)s [' + log_name + '] %(levelname)s - %(message)s'
         formatter = logging.Formatter(FORMAT)
 
-        handler = logging.FileHandler(log_file)
+        handler = logging.FileHandler(self.log_file)
         handler.setFormatter(formatter)
 
         logger = logging.getLogger(log_name)
@@ -28,21 +32,14 @@ class Logger:
 
         return logger
 
-    def clear_log_file(self, log_file):
+    def clear_log_file(self):
 
-        if os.path.isfile(log_file):
-            os.system('rm ' + log_file)
-        os.system('touch ' + log_file)
+        if os.path.isfile(self.log_file):
+            os.system('rm ' + self.log_file)
+        os.system('touch ' + self.log_file)
 
 if __name__ == '__main__':
-    # first file logger
-    log_file = 'first_logfile.log'
-    logger = Logger('PHONE', '0003030')
 
-    logger.clear_log_file(log_file)
-    logger_DUT = logger.init('first_logger', 'first_logfile.log')
-    logger_DUT.info('This is just info messa2ge')
-
-    # second file logger
-    logger_DUT_super = logger.init('second_logger', 'second_logfile.log')
-    logger_DUT_super.error('This is an error messag2e')
+    logger = Logger('temp.log')
+    log = logger.init('ROBOT')
+    log.info('logger message')
