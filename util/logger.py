@@ -21,12 +21,16 @@ class Logger:
         FORMAT = '%(asctime)s [' + log_name + '] [' + log_id + '] %(levelname)s - %(message)s'
         formatter = logging.Formatter(FORMAT)
 
-        handler = logging.FileHandler(self.log_file)
-        handler.setFormatter(formatter)
+        handler_file = logging.FileHandler(self.log_file)
+        handler_file.setFormatter(formatter)
+
+        handler_stream = logging.StreamHandler()
+        handler_stream.setFormatter(formatter)
 
         logger = logging.getLogger(log_name)
         logger.setLevel(level)
-        logger.addHandler(handler)
+        logger.addHandler(handler_file)
+        logger.addHandler(handler_stream)
 
         #logger.propagate = False
 
@@ -41,5 +45,5 @@ class Logger:
 if __name__ == '__main__':
 
     logger = Logger('temp.log')
-    log = logger.init('ROBOT')
+    log = logger.init('ROBOT', '000')
     log.info('logger message')
