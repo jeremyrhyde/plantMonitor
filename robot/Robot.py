@@ -119,19 +119,15 @@ class Robot:
 
         self.logger.info('Connecting to API...')
 
-        # while(True):
-        #     # Monitor action list
-        #     action_cmd = 'curl -X GET http://localhost:5002/command/'
-        #     action_result = check_output(action_cmd, stdin=PIPE, stderr=PIPE, shell = True)
-        #     action_r = action_result.decode("utf-8")
-        #     action_json = json.loads(action_r)
-        #
-        #     # Process action either immediately or add to schedule
-        #     if action_json['command'] != '':
-        #         self.queue_command_plus(action_json['command'])
-        #
-        #     # Pause before pinging api
-        #     time.sleep(1)
+        while(True):
+
+            # Retrieve command values
+            resp, content = self.h.request("http://0.0.0.0:5002/command/", "GET")
+            content = t.decode("utf-8")
+
+            if content['command'] != '':
+                self.queue_command(content['command'], content['para'])
+            time.sleep(1)
 
 
     # --------------------------------------------------------------------------

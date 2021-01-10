@@ -141,22 +141,25 @@ class Plant_GUI(tk.Frame):
         self.activeLightButton.place(x = self.active_lighting_pos[0] + 290, y = self.active_lighting_pos[1] - 10)
 
     def active_button_command(self):
-        data = {'command' : 'hi', 'para' : ''}
-        data_json = json.dumps(data)
-        resp, content = self.h.request("http://0.0.0.0:5002/command/", "POST", data_json, {"content-type":"application/json"})
 
         if self.active_index:
+            command_text = 'ON'
             self.activeLightButton.config(text='ON')
             self.activeLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
                                          bg='green',
                                          fg='black')
         else:
+            command_text = 'OFF'
             self.activeLightButton.config(text='OFF')
             self.activeLightButton.config(font=(self.lighting_font,self.lighting_font_size+2,'bold'),
                                          bg='darkgrey',
                                          fg='black')
 
         self.active_index = not self.active_index
+
+        data = {'command' : command_text, 'para' : ''}
+        data_json = json.dumps(data)
+        resp, content = self.h.request("http://0.0.0.0:5002/command/", "POST", data_json, {"content-type":"application/json"})
 
     def passive_lighting_button(self):
 
