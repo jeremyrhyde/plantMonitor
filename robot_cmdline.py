@@ -50,11 +50,13 @@ def main():
     config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
 
     # Logging
-    logger = Logger()
+    log_file = 'first_logfile.log'
+    logger = Logger('ROBOT', '000')
+    #logger = Logger()
 
     # Robot
     robot_id = "000"
-    robot_logger = logger.init("ROBOT", robot_id, config)
+    robot_logger = logger.init("ROBOT", robot_id)
 
     robot = Robot(robot_id, robot_logger)
     sched = Robot_Scheduler(robot)
