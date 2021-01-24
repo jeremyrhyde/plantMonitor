@@ -29,21 +29,21 @@ class WaterPump:
 
 
 def main():
-    led = PassiveLEDs()
+    pump = WaterPump()
 
     user_input = input('Enter 1 for on and 0 for off, else quit: ')
     while user_input == '1' or user_input == '0':
         if user_input == '1':
-            led.turn_on()
+            pump.turn_on()
         elif user_input == '0':
-            led.turn_off()
+            pump.turn_off()
         else:
             break
 
         user_input = input('Enter 1 for on and 0 for off, else quit: ')
 
     print('Closing LED')
-    led.close()
+    pump.close()
 
 if __name__ == "__main__":
     main()

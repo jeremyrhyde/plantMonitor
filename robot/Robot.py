@@ -27,6 +27,7 @@ from .actuators import GRBL_Stream
 from .passiveLighting import *
 #from .activeLighting import *
 from .piCamera import *
+from .waterMechanism import *
 #from .sensors import Lock_Sensor, Relay_Sensor, Battery_Sensor
 
 class Robot:
