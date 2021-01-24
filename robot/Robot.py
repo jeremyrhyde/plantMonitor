@@ -69,7 +69,8 @@ class Robot:
         self.robot_thread.start()
 
         # Initialize components
-        self.passive_led = PassiveLEDs()
+        self.passive_led = PassiveLEDs(RELAY_PIN_PL)
+        self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
 
         self.camera = Camera()
 

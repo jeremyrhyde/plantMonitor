@@ -5,9 +5,9 @@
 import RPi.GPIO as GPIO
 import time
 
-class PassiveLEDs:
+class WaterPump:
 
-    def __init__(self, pin = 17):
+    def __init__(self, pin = 22):
         self.led_pin = pin
 
         GPIO.setmode(GPIO.BCM)

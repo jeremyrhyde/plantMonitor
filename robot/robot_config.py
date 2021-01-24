@@ -23,6 +23,11 @@ Y_MIN = -1
 Y_MAX = 1
 
 
+RELAY_PIN_PL = 17
+RELAY_PIN_WATER = 22
+RELAY_PIN_CNC = 8
+
+
 
 
 
