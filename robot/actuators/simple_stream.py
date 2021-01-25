@@ -205,9 +205,9 @@ class GRBL_Stream:
         next_pos = self.curr_pos
 
         if axis == 'X':
-            next_pos[0] = next_pos[0] - dist
+            next_pos[0] = self.curr_pos[0] - dist
         if axis == 'Y':
-            next_pos[1] = next_pos[1] - dist #since neg otherwsie switch pos
+            next_pos[1] = self.curr_pos[1] - dist #since neg otherwsie switch pos
         print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
 
@@ -219,6 +219,7 @@ class GRBL_Stream:
 
             try:
                 state = self._send_line('G21 G91 ' + cmd)
+                self.curr_pos = next_pos
             except Exception as e:
                 print('Improper position command: ' + str(e))
         #else:
