@@ -145,12 +145,11 @@ class GRBL_Stream:
 
         try:
             if dir == 'Y':
-                if check: dist = '-5.0'
-                else: dist = '-0.5'
+                dist = '6.0'
+
                 state = self.send_move_cmd('Y', dist, False) #Direction
             else:
-                if check: dist = '-1.2'
-                else: dist = '-0.1'
+                dist = '1.2'
                 state = self.send_move_cmd('X', dist, False)
         except Exception as e:
             print('Improper2 position command: ' + str(e))
@@ -165,14 +164,14 @@ class GRBL_Stream:
         #for i in range(0,10):
         #    self.send_move_cmd('X', str('5'))
 
-        no_limit_hit, pos = self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
+        no_limit_hit, pos = self.send_move_cmd('X', str(float(-1*self.X_max*(1 + self.max_bonus))))
         if no_limit_hit: self._handle_limit_hit('X')
         print('Calibrating of X complete!')
 
 
     def calibrate_Y(self):
         print('Calibrating Y...')
-        no_limit_hit, pos = self.send_move_cmd('Y', str(float(self.Y_max*(1 + self.max_bonus))))
+        no_limit_hit, pos = self.send_move_cmd('Y', str(float(-1*self.Y_max*(1 + self.max_bonus))))
         if no_limit_hit: self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
 
@@ -182,15 +181,36 @@ class GRBL_Stream:
     #     self.calibrate_Y()
     #     self.calibrate_X()
 
+    def limit_cycle(self):
+
+        state = ''
+        val = True
+
+        while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+            print('BAD STATE: ' + str(state))
+            val = False
+
+            self._handle_limit_hit(axis, check)
+
+
+            try:
+                state = self._send_line('$10=3')
+            except Exception as e:
+                print('Improper command: ' + str(e))
+                state = 'NONE'
+                print('BAD STATE: ' + str(state))
+
+        return val
+
 
     def send_move_cmd(self, axis, dist, check=True):
 
         # Set new position
         next_pos = self.curr_pos
         if axis == 'X':
-            next_pos[0] = next_pos[0] + float(dist)
+            next_pos[0] = next_pos[0] - float(dist)
         if axis == 'Y':
-            next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
+            next_pos[1] = next_pos[1] + float(dist) #since neg otherwsie switch pos
         print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
         #dist = ":.2f/" % float(dist)
@@ -205,12 +225,14 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5
 
-        print('STATE: ' + str(state))
-        if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-            print('BAD STATE: ' + str(state))
-
-            #if check:
-            self._handle_limit_hit(axis, check)
+        self.limit_cycle()
+        return val, next_pos
+        # print('STATE: ' + str(state))
+        # if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+        #     print('BAD STATE: ' + str(state))
+        #
+        #     #if check:
+        #     self._handle_limit_hit(axis, check)
             #return False, next_pos
 
                 # while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
@@ -220,9 +242,10 @@ class GRBL_Stream:
                 #     except Exception as e:
                 #         print('Improper position command: ' + str(e))
                 #         pos = ['']
-            return False, next_pos
 
-        return True, next_pos
+            #return val, next_pos
+
+        #return True, next_pos
 
 
 
@@ -234,7 +257,7 @@ class GRBL_Stream:
         if axis == 'X':
             next_pos[0] = next_pos[0] + float(dist)
         if axis == 'Y':
-            next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
+            next_pos[1] = next_pos[1] + float(dist) #since neg otherwsie switch pos
         print('POS: ' + str(next_pos))
         # Check if move is safe
         if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
@@ -297,6 +320,7 @@ def main():
 
             elif user_input[0] == '$':
                 cnc._send_line(user_input)
+
             elif user_input == 'Reset':
                 cnc._reset()
 
