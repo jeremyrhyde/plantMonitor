@@ -112,15 +112,17 @@ class GRBL_Stream:
     def get_feedrate(self):
         return self.feedrate
 
-    def calibrate(self):
+    def get_pos(self):
+        return self.curr_pos
 
-        print('Calibrating and returning to home...')
+    def set_pos(self, pos):
+        diff = [pos[0]- self.curr_pos[0], pos[1]- self.curr_pos[1]]
 
-        self.calibrate_X()
-        time.sleep(3)
-        self.calibrate_Y()
+        self.send_move_cmd('X', str(float(diff[0])))
 
-        print('Homing complete position set to (0,0)')
+        self.send_move_cmd('Y', str(float(diff[1])))
+
+        print('position set to ' + str(pos))
 
 
     def _reset(self):
@@ -174,6 +176,15 @@ class GRBL_Stream:
         if no_limit_hit: self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
 
+    def calibrate(self):
+
+        print('Calibrating and returning to home...')
+
+        self.calibrate_X()
+        time.sleep(3)
+        self.calibrate_Y()
+
+        print('Homing complete position set to (0,0)')
 
     def limit_cycle(self, axis):
 
