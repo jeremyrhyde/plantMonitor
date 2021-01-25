@@ -129,7 +129,7 @@ class GRBL_Stream:
         GPIO.output(self._RESET_PIN, GPIO.HIGH)
         time.sleep(2)
         GPIO.output(self._RESET_PIN, GPIO.LOW)
-        time.sleep(2)
+        time.sleep(4)
 
 
     def _handle_limit_hit(self, dir, check = True):
