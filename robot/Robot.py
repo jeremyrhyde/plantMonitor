@@ -39,6 +39,7 @@ class Robot:
     cnc_direction = ''
     cnc_dist = ''
     cnc_feedrate = ''
+    new_pos = ''
 
     COMMANDS = {
         "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
@@ -50,6 +51,7 @@ class Robot:
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
         "CNC_MOTION" : lambda self: self.move_cnc(self.cnc_direction, self.cnc_dist),
+        "CNC_POS" : lambda self: self.move_cnc(self.new_pos),
         "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
         "X" : lambda self: self.close(),
         #watering
@@ -92,6 +94,7 @@ class Robot:
 
         self.cnc.close()
         self.passive_led.close()
+        self.cnc.close()
         self.camera.close()
         self.api_interface.join() # Stop api thread
 
@@ -149,6 +152,9 @@ class Robot:
             self.cnc_direction = para[0]
             self.cnc_dist = para[2:]
 
+        if command == 'CNC_POS':
+            self.new_pos = para[1:-1].split(',')
+
         if command == 'CNC_FEEDRATE':
             self.cnc_feedrate = para
 
@@ -202,6 +208,7 @@ class Robot:
 
     # ---------------------------- PASSIVE LIGHTING ----------------------------
 
+    # Turn watering system on or off
     def waterSystemOnOff(self, on = False):
         if on:
             self.watering_mechanism.turn_on()
@@ -213,28 +220,30 @@ class Robot:
 
     # ----------------------------------- CNC ----------------------------------
 
+    # Move central mount a certain direction and distance
     def move_cnc(self, cnc_direction, cnc_dist):
-        #cmd = cnc_direction + ' {:.2f/} F '.format(cnc_dist, self.cnc_feedrate)
-
-        #self.logger.info('COMMAND: ' + str(cmd))
-
         try:
             state, pos = self.cnc.send_move_cmd(cnc_direction, cnc_dist)#self.cnc.send_move_command('G21 G91 ' + cmd)
         except:
             self.logger.warn('Improper position command')
 
         self.curr_pos = self.cnc.get_pos()
-        self.logger.info(str(self.curr_pos))
+        self.logger.info('Current position: ' + str(self.curr_pos))
 
+    # Move central mount a certain direction and distance
+    def set_pos_cnc(self, new_pos):
+        try:
+            state, pos = self.cnc.set_pos(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
+        except:
+            self.logger.warn('Improper position command')
+
+        self.curr_pos = self.cnc.get_pos()
+        self.logger.info('Current position: ' + str(self.curr_pos))
+
+    # Set feedrate for cnc
     def set_feedrate_cnc(self, cnc_feedrate):
-        user_feedrate = input
-
         try:
             self.cnc.set_feedrate(cnc_feedrate)
             self.cnc_feedrate = cnc_feedrate
         except:
             self.logger.warn('Improper feedrate command')
-
-    # def close_cnc(self):
-    #     self.logger.info('Closing out...')
-    #     self.cnc.close()

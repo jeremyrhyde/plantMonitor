@@ -116,7 +116,7 @@ class GRBL_Stream:
         return self.curr_pos
 
     def set_pos(self, pos):
-        diff = [pos[0]- self.curr_pos[0], pos[1]- self.curr_pos[1]]
+        diff = [float(pos[0])- self.curr_pos[0], flaot(pos[1])- self.curr_pos[1]]
 
         self.send_move_cmd('X', str(float(diff[0])))
 
