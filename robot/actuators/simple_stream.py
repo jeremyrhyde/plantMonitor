@@ -202,7 +202,7 @@ class GRBL_Stream:
         # Set new position
         state = ''
         dist = -1*float(dist)
-        next_pos = self.curr_pos
+        next_pos = [0,0]
 
         if axis == 'X':
             next_pos[0] = self.curr_pos[0] - dist
