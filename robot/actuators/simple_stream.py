@@ -132,7 +132,7 @@ class GRBL_Stream:
         time.sleep(2)
 
 
-    def _handle_limit_hit(self, dir):
+    def _handle_limit_hit(self, dir, check):
 
         #for i in range(0,100):
         #    self._send_line('$10')
@@ -143,11 +143,14 @@ class GRBL_Stream:
         print('resetting')
         self._send_line('$21=0')
 
+        if check: dist = '-1.0'
+        else: dist = '-0.1'
+
         try:
             if dir == 'Y':
-                state = self.send_move_cmd('Y', '-1.0', False) #Direction
+                state = self.send_move_cmd('Y', dist, False) #Direction
             else:
-                state = self.send_move_cmd('X', '-1.0', False)
+                state = self.send_move_cmd('X', dist, False)
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
@@ -206,7 +209,7 @@ class GRBL_Stream:
             print('BAD STATE: ' + str(state))
 
             #if check:
-            self._handle_limit_hit(axis)
+            self._handle_limit_hit(axis, check)
             #return False, next_pos
 
                 # while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
