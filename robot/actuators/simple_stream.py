@@ -190,7 +190,7 @@ class GRBL_Stream:
         print(str(next_pos))
 
         #dist = ":.2f/" % float(dist)
-        cmd = axis + ' {} F {}'.format(float(dist),self.get_feedrate())
+        cmd = axis + ' {:.1f} F {}'.format(float(dist),self.get_feedrate())
 
         print(' - Moving to ' + cmd)
         try:
