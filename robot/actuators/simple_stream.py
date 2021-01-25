@@ -205,13 +205,13 @@ class GRBL_Stream:
     def send_move_cmd(self, axis, dist, check=True):
 
         # Set new position
+        dist = -1*float(dist)
         next_pos = self.curr_pos
         if axis == 'X':
-            dist = -1*float(dist)
             next_pos[0] = next_pos[0] - dist
         if axis == 'Y':
             dist = float(dist)
-            next_pos[1] = next_pos[1] + dist #since neg otherwsie switch pos
+            next_pos[1] = next_pos[1] - dist #since neg otherwsie switch pos
         print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
         #dist = ":.2f/" % float(dist)
