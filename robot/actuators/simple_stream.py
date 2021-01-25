@@ -116,7 +116,7 @@ class GRBL_Stream:
         return self.curr_pos
 
     def set_pos(self, pos):
-        diff = [float(pos[0])- self.curr_pos[0], flaot(pos[1])- self.curr_pos[1]]
+        diff = [float(pos[0])- self.curr_pos[0], float(pos[1])- self.curr_pos[1]]
 
         self.send_move_cmd('X', str(float(diff[0])))
 
@@ -238,28 +238,6 @@ class GRBL_Stream:
 
         val = self.limit_cycle(axis)
         return val, next_pos
-        # print('STATE: ' + str(state))
-        # if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-        #     print('BAD STATE: ' + str(state))
-        #
-        #     #if check:
-        #     self._handle_limit_hit(axis, check)
-            #return False, next_pos
-
-                # while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-                #     cmd = axis + ' {} F {}'.format(float(-1),self.get_feedrate())
-                #     try:
-                #         state = self._send_line('G21 G91 ' + cmd)
-                #     except Exception as e:
-                #         print('Improper position command: ' + str(e))
-                #         pos = ['']
-
-            #return val, next_pos
-
-        #return True, next_pos
-
-
-
 
     def send_move_cmd_safe(self, axis, dist):
 
