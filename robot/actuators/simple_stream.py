@@ -161,7 +161,7 @@ class GRBL_Stream:
         #for i in range(0,10):
         #    self.send_move_cmd('X', str('5'))
 
-        self.send_move_cmd('X', float(self.X_max*(1 + self.max_bonus))))
+        self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
         #self._handle_limit_hit('X')
         print('Calibrating of X complete!')
 
