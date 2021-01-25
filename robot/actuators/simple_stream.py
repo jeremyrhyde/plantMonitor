@@ -143,13 +143,14 @@ class GRBL_Stream:
         print('resetting')
         self._send_line('$21=0')
 
-        if check: dist = '-2.0'
-        else: dist = '-0.1'
-
         try:
             if dir == 'Y':
+                if check: dist = '-5.0'
+                else: dist = '-0.5'
                 state = self.send_move_cmd('Y', dist, False) #Direction
             else:
+                if check: dist = '-2.0'
+                else: dist = '-0.1'
                 state = self.send_move_cmd('X', dist, False)
         except Exception as e:
             print('Improper2 position command: ' + str(e))
