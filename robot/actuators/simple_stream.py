@@ -148,7 +148,7 @@ class GRBL_Stream:
                 dist = '6.0'
                 state = self.send_move_cmd('Y', dist, False) #Direction
             else:
-                dist = '1.2'
+                dist = '2'
                 state = self.send_move_cmd('X', dist, False)
         except Exception as e:
             print('Improper2 position command: ' + str(e))
