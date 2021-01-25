@@ -214,7 +214,7 @@ class GRBL_Stream:
                 except Exception as e:
                     print('Improper position command: ' + str(e))
                     pos = ['']
-
+            return False, next_pos
 
         return True, next_pos
 
