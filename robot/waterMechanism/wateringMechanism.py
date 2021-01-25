@@ -8,19 +8,19 @@ import time
 class WaterPump:
 
     def __init__(self, pin = 22):
-        self.led_pin = pin
+        self.water_pin = pin
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
 
-        GPIO.setup(self.led_pin, GPIO.OUT)
+        GPIO.setup(self.water_pin, GPIO.OUT)
         self.turn_off()
 
     def turn_on(self):
-        GPIO.output(self.led_pin, GPIO.HIGH)
+        GPIO.output(self.water_pin, GPIO.HIGH)
 
     def turn_off(self):
-        GPIO.output(self.led_pin, GPIO.LOW)
+        GPIO.output(self.water_pin, GPIO.LOW)
 
     def close(self):
         self.turn_off()
