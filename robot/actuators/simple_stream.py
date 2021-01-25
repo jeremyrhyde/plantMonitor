@@ -143,7 +143,7 @@ class GRBL_Stream:
         print('resetting')
         self._send_line('$21=0')
 
-        if check: dist = '-1.0'
+        if check: dist = '-2.0'
         else: dist = '-0.1'
 
         try:
