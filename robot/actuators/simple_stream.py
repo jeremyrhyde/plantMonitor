@@ -115,10 +115,9 @@ class GRBL_Stream:
     def calibrate(self):
 
         print('Calibrating and returning to home...')
+
         self.calibrate_X()
-
         time.sleep(3)
-
         self.calibrate_Y()
 
         print('Homing complete position set to (0,0)')
@@ -135,8 +134,8 @@ class GRBL_Stream:
 
     def _handle_limit_hit(self, dir):
 
-        for i in range(0,100):
-            self._send_line('$10')
+        #for i in range(0,100):
+        #    self._send_line('$10')
         print(' - Limit switch detected! moving off')
 
         self._send_line('$21=0')
@@ -146,9 +145,9 @@ class GRBL_Stream:
 
         try:
             if dir == 'Y':
-                state = self.send_move_cmd('Y', '-1.0') #Direction
+                state = self.send_move_cmd('Y', '-5.0') #Direction
             else:
-                state = self.send_move_cmd('X', '-1.0')
+                state = self.send_move_cmd('X', '-5.0')
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
@@ -204,9 +203,9 @@ class GRBL_Stream:
 
 
 
-        print('STATE:' + str(state))
+        print('STATE: ' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-            print('BAD STATE:' + str(state))
+            print('BAD STATE: ' + str(state))
             self._handle_limit_hit(axis)
             return False, next_pos
         return True, next_pos
