@@ -183,7 +183,7 @@ class GRBL_Stream:
 
     def limit_cycle(self):
 
-        state = ''
+        state = self._send_line('$10=3')
         val = True
 
         while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
