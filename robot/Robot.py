@@ -43,10 +43,12 @@ class Robot:
     COMMANDS = {
         "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
         "PREVIEW_IMAGE" : lambda self: self.previewImage(),
-        "ON" : lambda self: self.passiveLightingOnOff(True),
-        "OFF" : lambda self: self.passiveLightingOnOff(),
-        #"TurnOnActiveLights" : lambda self: self.activeLightingOnOff(True),
-        #"TurnOffActiveLights" : lambda self: self.activeLightingOnOff(),
+        "ON_PL" : lambda self: self.passiveLightingOnOff(True),
+        "OFF_PL" : lambda self: self.passiveLightingOnOff(),
+        #"ON_AL" : lambda self: self.activeLightingOnOff(True),
+        #"OFF_AL" : lambda self: self.activeLightingOnOff(),
+        "ON_W" : lambda self: self.waterSystemOnOff(True),
+        "OFF_W" : lambda self: self.waterSystemOnOff(),
         "CNC_MOTION" : lambda self: self.move_cnc(self.cnc_direction, self.cnc_dist),
         "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
         "X" : lambda self: self.close(),
@@ -176,7 +178,7 @@ class Robot:
     # View preview for 5 seconds
     def previewImage(self):
         self.camera.preview_5s()
-        self.logger.info('Previewing Image from picamera')
+        self.logger.info('Previewing image from picamera')
 
 
     # ---------------------------- PASSIVE LIGHTING ----------------------------
@@ -184,10 +186,10 @@ class Robot:
     def passiveLightingOnOff(self, on = False):
         if on:
             self.passive_led.turn_on()
-            self.logger.info('Turning on Passive Lighting')
+            self.logger.info('Turning on passive lighting')
         else:
             self.passive_led.turn_off()
-            self.logger.info('Turning off Passive Lighting')
+            self.logger.info('Turning off passive lighting')
 
 
     # ----------------------------- ACTIVE LIGHTING ----------------------------
@@ -197,6 +199,17 @@ class Robot:
     #
     # def activeLightingColor(self):
     #     self.logger.info('Active Lighting Color')
+
+
+    # ---------------------------- PASSIVE LIGHTING ----------------------------
+
+    def waterSystemOnOff(self, on = False):
+        if on:
+            self.watering_mechanism.turn_on()
+            self.logger.info('Turning on watering system')
+        else:
+            self.watering_mechanism.turn_off()
+            self.logger.info('Turning off watering system')
 
 
     # ----------------------------------- CNC ----------------------------------
