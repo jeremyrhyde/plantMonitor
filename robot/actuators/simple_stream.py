@@ -50,7 +50,7 @@ import RPi.GPIO as GPIO
 # Stream g-code to grb
 class GRBL_Stream:
 
-    def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
+    def __init__(self, reset_pin, X_MAX, Y_MAX, serial_port = '/dev/ttyACM0', baud_rate = 115200):
 
         print('-------------------------')
         print('SYSTEM STARTING UP')
@@ -66,12 +66,12 @@ class GRBL_Stream:
         print('Setting parameters')
         self.curr_pos = [0,0]
 
-        self.X_max = 22
-        self.Y_max = 106
+        self.X_max = X_MAX
+        self.Y_max = Y_MAX
         self.max_bonus = 0.1
 
         print('Initializing GPIOs')
-        self._RESET_PIN = 26
+        self._RESET_PIN = reset_pin
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self._RESET_PIN, GPIO.OUT)
@@ -258,7 +258,11 @@ class GRBL_Stream:
 # Wait here until grbl is finished to close serial port and file.
 def main():
 
-    cnc = GRBL_Stream()
+    X_MAX = 22
+    Y_MAX = 106
+    reset_pin = 26
+
+    cnc = GRBL_Stream(reset_pin, X_MAX, Y_MAX)
 
     while True:
         user_input = input('Input: ')
