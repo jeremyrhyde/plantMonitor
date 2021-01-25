@@ -145,9 +145,9 @@ class GRBL_Stream:
 
         try:
             if dir == 'Y':
-                state = self.send_move_cmd('Y', '-5.0') #Direction
+                state = self.send_move_cmd('Y', '-1.0', False) #Direction
             else:
-                state = self.send_move_cmd('X', '-5.0')
+                state = self.send_move_cmd('X', '-1.0', False)
         except Exception as e:
             print('Improper2 position command: ' + str(e))
 
@@ -179,7 +179,7 @@ class GRBL_Stream:
     #     self.calibrate_X()
 
 
-    def send_move_cmd(self, axis, dist):
+    def send_move_cmd(self, axis, dist, check=True):
 
         # Set new position
         next_pos = self.curr_pos
@@ -204,16 +204,18 @@ class GRBL_Stream:
         print('STATE: ' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             print('BAD STATE: ' + str(state))
-            self._handle_limit_hit(axis)
+
+            if check:
+                self._handle_limit_hit(axis)
             #return False, next_pos
 
-            while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-                cmd = axis + ' {} F {}'.format(float(0),self.get_feedrate())
-                try:
-                    state = self._send_line('G21 G91 ' + cmd)
-                except Exception as e:
-                    print('Improper position command: ' + str(e))
-                    pos = ['']
+                while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+                    cmd = axis + ' {} F {}'.format(float(0),self.get_feedrate())
+                    try:
+                        state = self._send_line('G21 G91 ' + cmd)
+                    except Exception as e:
+                        print('Improper position command: ' + str(e))
+                        pos = ['']
             return False, next_pos
 
         return True, next_pos
