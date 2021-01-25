@@ -146,7 +146,6 @@ class GRBL_Stream:
         try:
             if dir == 'Y':
                 dist = '6.0'
-
                 state = self.send_move_cmd('Y', dist, False) #Direction
             else:
                 dist = '1.2'
@@ -190,7 +189,7 @@ class GRBL_Stream:
             print('BAD STATE: ' + str(state))
             val = False
 
-            self._handle_limit_hit(axis, check)
+            self._handle_limit_hit(axis)
 
 
             try:
