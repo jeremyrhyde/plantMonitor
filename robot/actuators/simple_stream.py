@@ -332,6 +332,10 @@ def main():
             elif user_input[0] == '$':
                 cnc._send_line(user_input)
 
+            elif user_input[0] == '[':
+                new_pos = user_input[1:-1].split(',')
+                cnc.set_pos(new_pos)
+
             elif user_input == 'Reset':
                 cnc._reset()
 
