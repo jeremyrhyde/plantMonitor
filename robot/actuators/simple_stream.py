@@ -187,7 +187,7 @@ class GRBL_Stream:
             next_pos[0] = next_pos[0] + float(dist)
         if axis == 'Y':
             next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
-        print(str(" {:.1f}".format(next_pos)))
+        print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
         #dist = ":.2f/" % float(dist)
         cmd = axis + ' {:.1f} F {}'.format(float(dist), self.get_feedrate())
