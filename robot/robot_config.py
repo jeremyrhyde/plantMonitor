@@ -17,15 +17,12 @@ OLED_INTERVAL = 1
 # Define cnc
 USBSERIAL_CNC = '/dev/ttylACMO' #can switch to auto if needed
 
-X_MIN = 30
-X_MAX =  -30
-Y_MIN = -1
-Y_MAX = 1
-
+X_MAX =  22
+Y_MAX = 106
 
 RELAY_PIN_PL = 17
 RELAY_PIN_WATER = 22
-RELAY_PIN_CNC = 8
+RELAY_PIN_CNC = 26
 
 
 

@@ -76,11 +76,10 @@ class Robot:
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
 
         self.camera = Camera()
-
         self.curr_camera_pos = [0,0]
-        #self.cnc = GRBL_Stream()
 
-        self.cnc_feedrate = 100#str(self.cnc.get_feedrate())
+        self.cnc = GRBL_Stream(RELAY_PIN_CNC, X_MAX, Y_MAX)
+        self.cnc_feedrate = self.cnc.get_feedrate()
 
         # Begin API
         self.api_interface = threading.Thread(target=self._api_interface)
