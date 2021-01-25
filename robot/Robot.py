@@ -51,7 +51,7 @@ class Robot:
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
         "CNC_MOTION" : lambda self: self.move_cnc(self.cnc_direction, self.cnc_dist),
-        "CNC_POS" : lambda self: self.move_cnc(self.new_pos),
+        "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos),
         "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
         "X" : lambda self: self.close(),
         #watering
