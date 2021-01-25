@@ -175,11 +175,6 @@ class GRBL_Stream:
         print('Calibrating of Y complete!')
 
 
-    # def calibrate(self):
-    #     print('SYSTEM CALIBRATION')
-    #     self.calibrate_Y()
-    #     self.calibrate_X()
-
     def limit_cycle(self, axis):
 
         state = self._send_line('$10=3')
@@ -205,24 +200,27 @@ class GRBL_Stream:
     def send_move_cmd(self, axis, dist, check=True):
 
         # Set new position
+        state = ''
         dist = -1*float(dist)
         next_pos = self.curr_pos
+
         if axis == 'X':
             next_pos[0] = next_pos[0] - dist
         if axis == 'Y':
-            dist = float(dist)
             next_pos[1] = next_pos[1] - dist #since neg otherwsie switch pos
         print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
-        #dist = ":.2f/" % float(dist)
-        cmd = axis + ' {:.1f} F {}'.format(dist, self.get_feedrate())
 
-        print(' - Moving to ' + cmd)
-        try:
-            state = self._send_line('G21 G91 ' + cmd)
-        except Exception as e:
-            print('Improper position command: ' + str(e))
-            pos = ['']
+        if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
+            print('Error! Moving beyond max (' + axis + ')')
+        else:
+            cmd = axis + ' {:.1f} F {}'.format(dist, self.get_feedrate())
+            print(' - Moving to ' + cmd)
+
+            try:
+                state = self._send_line('G21 G91 ' + cmd)
+            except Exception as e:
+                print('Improper position command: ' + str(e))
         #else:
         #    time.sleep(abs(float(dist))/5
 
