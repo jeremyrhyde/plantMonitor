@@ -201,13 +201,21 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5
 
-
-
         print('STATE: ' + str(state))
         if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
             print('BAD STATE: ' + str(state))
             self._handle_limit_hit(axis)
-            return False, next_pos
+            #return False, next_pos
+
+            while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
+                cmd = axis + ' {} F {}'.format(float(0),self.get_feedrate())
+                try:
+                    state = self._send_line('G21 G91 ' + cmd)
+                except Exception as e:
+                    print('Improper position command: ' + str(e))
+                    pos = ['']
+
+
         return True, next_pos
 
 
