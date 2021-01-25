@@ -161,15 +161,15 @@ class GRBL_Stream:
         #for i in range(0,10):
         #    self.send_move_cmd('X', str('5'))
 
-        self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
-        #self._handle_limit_hit('X')
+        no_limit_hit, pos = self.send_move_cmd('X', str(float(self.X_max*(1 + self.max_bonus))))
+        if no_limit_hit: self._handle_limit_hit('X')
         print('Calibrating of X complete!')
 
 
     def calibrate_Y(self):
         print('Calibrating Y...')
-        self.send_move_cmd('Y', str(float(self.Y_max*(1 + self.max_bonus))))
-        #self._handle_limit_hit('Y')
+        no_limit_hit, pos = self.send_move_cmd('Y', str(float(self.Y_max*(1 + self.max_bonus))))
+        if no_limit_hit: self._handle_limit_hit('Y')
         print('Calibrating of Y complete!')
 
 
@@ -187,7 +187,7 @@ class GRBL_Stream:
             next_pos[0] = next_pos[0] + float(dist)
         if axis == 'Y':
             next_pos[1] = next_pos[1] - float(dist) #since neg otherwsie switch pos
-        print(str(next_pos))
+        print(str(" {:.1f}".format(next_pos))
 
         #dist = ":.2f/" % float(dist)
         cmd = axis + ' {:.1f} F {}'.format(float(dist),self.get_feedrate())
