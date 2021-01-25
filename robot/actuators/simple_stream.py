@@ -132,7 +132,7 @@ class GRBL_Stream:
         time.sleep(2)
 
 
-    def _handle_limit_hit(self, dir, check):
+    def _handle_limit_hit(self, dir, check = True):
 
         #for i in range(0,100):
         #    self._send_line('$10')
