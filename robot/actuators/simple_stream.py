@@ -208,6 +208,7 @@ class GRBL_Stream:
         # Set new position
         next_pos = self.curr_pos
         if axis == 'X':
+            dist = -1*dist
             next_pos[0] = next_pos[0] - float(dist)
         if axis == 'Y':
             next_pos[1] = next_pos[1] + float(dist) #since neg otherwsie switch pos
@@ -225,7 +226,7 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5
 
-        self.limit_cycle()
+        val = self.limit_cycle()
         return val, next_pos
         # print('STATE: ' + str(state))
         # if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
