@@ -296,7 +296,7 @@ def main():
                 cnc.calibrate()
 
             elif user_input[0] == '$':
-                cnc.send_line(user_input)
+                cnc._send_line(user_input)
             elif user_input == 'Reset':
                 cnc._reset()
 
