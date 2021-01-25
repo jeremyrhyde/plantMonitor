@@ -149,7 +149,7 @@ class GRBL_Stream:
                 else: dist = '-0.5'
                 state = self.send_move_cmd('Y', dist, False) #Direction
             else:
-                if check: dist = '-2.0'
+                if check: dist = '-1.2'
                 else: dist = '-0.1'
                 state = self.send_move_cmd('X', dist, False)
         except Exception as e:
@@ -295,7 +295,9 @@ def main():
             elif user_input[0] == 'C':
                 cnc.calibrate()
 
-            elif user_input[0] == '$' or user_input == 'Reset':
+            elif user_input[0] == '$':
+                cnc.send_line(user_input)
+            elif user_input == 'Reset':
                 cnc._reset()
 
             elif user_input[0] == 'Q':
