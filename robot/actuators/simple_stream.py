@@ -181,7 +181,7 @@ class GRBL_Stream:
     #     self.calibrate_Y()
     #     self.calibrate_X()
 
-    def limit_cycle(self):
+    def limit_cycle(self, axis):
 
         state = self._send_line('$10=3')
         val = True
@@ -227,7 +227,7 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5
 
-        val = self.limit_cycle()
+        val = self.limit_cycle(axis)
         return val, next_pos
         # print('STATE: ' + str(state))
         # if 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
