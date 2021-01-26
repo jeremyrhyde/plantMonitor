@@ -263,7 +263,8 @@ class GRBL_Stream:
         print('POS: ' + str(next_pos))
         # Check if move is safe
         if next_pos[0] > self.X_max or next_pos[1] > self.Y_max:
-            print('Error! Moving beyond max (' + axis + ')')
+
+            print('Error! Moving beyond max (' + axis + '): [{},{}]'.foramt(next_pos[0], next_pos[1]))
         else:
             cmd = axis + dist + ' F' + str(self.get_feedrate())
 
