@@ -262,7 +262,7 @@ class GRBL_Stream:
             next_pos[1] = next_pos[1] + float(dist) #since neg otherwsie switch pos
         print('POS: ' + str(next_pos))
         # Check if move is safe
-        if next_pos[0] >= self.X_max or next_pos[1] >= self.Y_max:
+        if next_pos[0] > self.X_max or next_pos[1] > self.Y_max:
             print('Error! Moving beyond max (' + axis + ')')
         else:
             cmd = axis + dist + ' F' + str(self.get_feedrate())
