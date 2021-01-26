@@ -258,7 +258,7 @@ class Robot:
         dx = 100
         dy = 20
 
-        while True
+        while True:
             while pos_perc[0] <= 100:
                  self.cnc.set_pos_absolute(pos_perc)
 
