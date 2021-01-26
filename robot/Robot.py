@@ -177,8 +177,8 @@ class Robot:
     # --------------------------------- CAMERA ---------------------------------
 
     # Take image
-    def takeCameraImage(self):
-        self.camera.capture('foo.jpg')
+    def takeCameraImage(self, image_file='foo.png'):
+        self.camera.capture(image_file)
         self.logger.info('Image captured from picamera')
 
     # View preview for 5 seconds
@@ -292,4 +292,4 @@ class Robot:
 
     def route_action(self, pos_perc, i, j):
         image_file = '/home/pi/plantmonitor/images/route_z_{}_{}.png'.format(i,j)
-        takeCameraImage(image_file)
+        self.takeCameraImage(image_file)
