@@ -228,7 +228,9 @@ class GRBL_Stream:
 
         if axis == 'X':
             next_pos[0] = self.curr_pos[0] - dist
+            next_pos[1] = self.curr_pos[1]
         if axis == 'Y':
+            next_pos[0] = self.curr_pos[0]
             next_pos[1] = self.curr_pos[1] - dist #since neg otherwsie switch pos
         print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
