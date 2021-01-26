@@ -232,14 +232,19 @@ class Robot:
         self.logger.info('Current position: ' + str(self.curr_pos))
 
     # Move central mount a certain direction and distance
-    def set_pos_cnc(self, new_pos):
+    def set_pos_cnc(self, new_pos, abs = True):
         try:
-            state, pos = self.cnc.set_pos(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
+            if abs:
+                state, pos = self.cnc.set_pos_absolute(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
+            else:
+                state, pos = self.cnc.set_pos(new_pos)
         except:
             self.logger.warn('Improper position command')
 
         self.curr_pos = self.cnc.get_pos()
         self.logger.info('Current position: ' + str(self.curr_pos))
+
+
 
     # Set feedrate for cnc
     def set_feedrate_cnc(self, cnc_feedrate):
@@ -253,26 +258,20 @@ class Robot:
     # ---------------------------------- ROUTE ---------------------------------
 
     def route_zigzag(self):
-        pos_perc = [0,0]
+        bound = 2.5
+        pos_perc = [bound,bound]
 
-        dx = 100
-        dy = 20
+        x_steps = 1
+        y_steps = 5
 
-        while True:
-            while pos_perc[0] <= 100:
-                 self.cnc.set_pos_absolute(pos_perc)
+        dir = 0
 
-                 pos_perc[0]  = pos_perc[0] + dx
+        for j in range(0, y_steps):
+            for i in range(0, x_steps):
+                pos_perc[0] = float(i)/x_steps*(100.0-2*bound) + bound
+                pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
-            pos_perc[1] = pos_perc[1] + dy
+                self.set_pos_cnc(pos_perc)
 
-            if pos_perc[1] > 100: break
-
-            while pos_perc[0] >= 0:
-                 self.cnc.set_pos_absolute(pos_perc)
-
-                 pos_perc[0]  = pos_perc[0] - dx
-
-            pos_perc[1] = pos_perc[1] + dy
-
-            if pos_perc[1] > 100: break
+                self.curr_pos = self.cnc.get_pos()
+                self.logger.info('Current position: ' + str(self.curr_pos))
