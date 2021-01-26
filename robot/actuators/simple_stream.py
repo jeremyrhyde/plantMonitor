@@ -116,7 +116,18 @@ class GRBL_Stream:
         return self.curr_pos
 
     def set_pos(self, pos):
-        diff = [float(pos[0])- self.curr_pos[0], float(pos[1])- self.curr_pos[1]]
+        diff = [float(pos[0])- self.curr_pos[0],
+                float(pos[1])- self.curr_pos[1]]
+
+        self.send_move_cmd('X', str(float(diff[0])))
+
+        self.send_move_cmd('Y', str(float(diff[1])))
+
+        print('position set to ' + str(pos))
+
+    def set_pos_absolute(self, pos_abs):
+        diff = [float(pos_abs[0])/100*self.X_max - self.curr_pos[0],
+                float(pos_abs[1])/100*self.Y_max - self.curr_pos[1]]
 
         self.send_move_cmd('X', str(float(diff[0])))
 
@@ -312,7 +323,7 @@ def main():
 
             elif user_input[0] == '[':
                 new_pos = user_input[1:-1].split(',')
-                cnc.set_pos(new_pos)
+                cnc.set_pos_absolute(new_pos)
 
             elif user_input == 'Reset':
                 cnc._reset()
