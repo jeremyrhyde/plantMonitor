@@ -206,7 +206,7 @@ class GRBL_Stream:
             print('BAD STATE: ' + str(state))
             val = False
 
-            self._handle_limit_hit(axis)
+            #self._handle_limit_hit(axis)
 
 
             try:
