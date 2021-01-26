@@ -53,6 +53,7 @@ class Robot:
         "CNC_MOTION" : lambda self: self.move_cnc(self.cnc_direction, self.cnc_dist),
         "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos),
         "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
+        "ROUTE_Z" : lambda self: self.route_zigzag(),
         "X" : lambda self: self.close(),
         #watering
     }
@@ -247,3 +248,31 @@ class Robot:
             self.cnc_feedrate = cnc_feedrate
         except:
             self.logger.warn('Improper feedrate command')
+
+
+    # ---------------------------------- ROUTE ---------------------------------
+
+    def route_zigzag(self):
+        pos_perc = [0,0]
+
+        dx = 100
+        dy = 20
+
+        while True
+            while pos_perc[0] <= 100:
+                 self.cnc.set_pos_absolute(pos_perc)
+
+                 pos_perc[0]  = pos_perc[0] + dx
+
+            pos_perc[1] = pos_perc[1] + dy
+
+            if pos_perc[1] > 100: break
+
+            while pos_perc[0] >= 0:
+                 self.cnc.set_pos_absolute(pos_perc)
+
+                 pos_perc[0]  = pos_perc[0] - dx
+
+            pos_perc[1] = pos_perc[1] + dy
+
+            if pos_perc[1] > 100: break
