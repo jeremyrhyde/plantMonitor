@@ -123,7 +123,7 @@ class GRBL_Stream:
 
         self.send_move_cmd('Y', str(float(diff[1])))
 
-        print('position set to ' + str(self.pos))
+        print('position set to ' + str(self.curr_pos))
 
     def set_pos_absolute(self, pos_abs):
         diff = [float(pos_abs[0])/100*self.X_max - self.curr_pos[0],
@@ -133,7 +133,7 @@ class GRBL_Stream:
 
         self.send_move_cmd('Y', str(float(diff[1])))
 
-        print('position set to ' + str(self.pos))
+        print('position set to ' + str(self.curr_pos))
 
 
     def _reset(self):
