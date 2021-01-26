@@ -268,7 +268,10 @@ class Robot:
 
         for j in range(0, y_steps+1):
             for i in range(0, x_steps+1):
-                pos_perc[0] = float(i)/x_steps*(100.0-2*bound) + bound
+                if j % 2 == 0:
+                    pos_perc[0] = float(i)/x_steps*(100.0-2*bound) + bound
+                else:
+                    pos_perc[0] = (100 - bound) -float(i)/x_steps*(100.0-2*bound)
                 pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
                 self.set_pos_cnc(pos_perc)
