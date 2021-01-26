@@ -257,7 +257,7 @@ class Robot:
 
     # ---------------------------------- ROUTE ---------------------------------
 
-    def route_zigzag(self):
+    def route_zigzag(self, return = False):
         bound = 2.5
         pos_perc = [bound,bound]
 
@@ -266,15 +266,30 @@ class Robot:
 
         dir = 0
 
+        self.logger.info('Starting zigzag route.... ({}, {})'.format(x_steps, y_steps))
+
         for j in range(0, y_steps+1):
             for i in range(0, x_steps+1):
                 if j % 2 == 0:
                     pos_perc[0] = float(i)/x_steps*(100.0-2*bound) + bound
                 else:
                     pos_perc[0] = (100 - bound) -float(i)/x_steps*(100.0-2*bound)
+
                 pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
                 self.set_pos_cnc(pos_perc)
 
+                self.route_action(pos_perc, i ,j)
+
                 self.curr_pos = self.cnc.get_pos()
                 self.logger.info('Current position: ' + str(self.curr_pos))
+
+        self.logger.info('Zigzag route Complete!'.format(x_steps, y_steps))
+
+        if return:
+            self.set_pos_cnc([bound,bound])
+            self.logger.info('Returning to origin'.format(x_steps, y_steps))
+
+    def route_action(self, pos_perc, i, j):
+        image_file = '/home/pi/plantmonitor/images/route_z_{}_{}.png'.format(i,j)
+        takeCameraImage(image_file)
