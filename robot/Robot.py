@@ -266,8 +266,8 @@ class Robot:
 
         dir = 0
 
-        for j in range(0, y_steps):
-            for i in range(0, x_steps):
+        for j in range(0, y_steps+1):
+            for i in range(0, x_steps+1):
                 pos_perc[0] = float(i)/x_steps*(100.0-2*bound) + bound
                 pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
