@@ -257,7 +257,7 @@ class Robot:
 
     # ---------------------------------- ROUTE ---------------------------------
 
-    def route_zigzag(self, return = False):
+    def route_zigzag(self, return_origin = False):
         bound = 2.5
         pos_perc = [bound,bound]
 
@@ -286,7 +286,7 @@ class Robot:
 
         self.logger.info('Zigzag route Complete!'.format(x_steps, y_steps))
 
-        if return:
+        if return_origin:
             self.set_pos_cnc([bound,bound])
             self.logger.info('Returning to origin'.format(x_steps, y_steps))
 
