@@ -206,8 +206,7 @@ class GRBL_Stream:
             print('BAD STATE: ' + str(state))
             val = False
 
-            #self._handle_limit_hit(axis)
-
+            self._handle_limit_hit(axis)
 
             try:
                 state = self._send_line('$10=3')
@@ -250,7 +249,8 @@ class GRBL_Stream:
         #else:
         #    time.sleep(abs(float(dist))/5
 
-        val = self.limit_cycle(axis)
+        #val = self.limit_cycle(axis)
+        self._reset()
         return val, next_pos
 
     def send_move_cmd_safe(self, axis, dist):
