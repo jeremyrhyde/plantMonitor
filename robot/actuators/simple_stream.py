@@ -115,26 +115,8 @@ class GRBL_Stream:
     def get_pos(self):
         return self.curr_pos
 
-    def set_pos(self, pos, logging = False):
-        diff = [float(pos[0])- self.curr_pos[0],
-                float(pos[1])- self.curr_pos[1]]
-
-        self.send_move_cmd('X', str(float(diff[0])))
-
-        self.send_move_cmd('Y', str(float(diff[1])))
-
-        if logging: print('position set to ' + str(self.curr_pos))
-
-    def set_pos_absolute(self, pos_abs, logging = False):
-        diff = [float(pos_abs[0])/100*self.X_max - self.curr_pos[0],
-                float(pos_abs[1])/100*self.Y_max - self.curr_pos[1]]
-
-        self.send_move_cmd('X', str(float(diff[0])))
-
-        self.send_move_cmd('Y', str(float(diff[1])))
-
-        if logging: print('position set to ' + str(self.curr_pos))
-
+    def _set_pos(self, pos):
+        self.curr_pos = pos
 
     def _reset(self):
         #GPIO.setup(self._RESET_PIN, GPIO.OUT)
@@ -144,6 +126,23 @@ class GRBL_Stream:
         GPIO.output(self._RESET_PIN, GPIO.LOW)
         time.sleep(4)
 
+    def _send_line(self, line, logging = False):
+        l = line.strip() # Strip all EOL characters for consistency
+        if logging: print('G-Code: ' + l)
+
+        l = l + '\n'
+        self.serial.write(l.encode()) # Send g-code block to grbl
+        grbl_out_bytes = self.serial.readline() # Wait for grbl response with carriage return
+        grbl_out = grbl_out_bytes.decode("UTF-8")
+
+        if grbl_out.strip() == 'ok':
+            state = 'Action Completed'
+        else:
+            state = 'Action Error: ' + grbl_out.strip()
+
+        time.sleep(2)
+        if logging: print(state)
+        return state
 
     def _handle_limit_hit(self, dir, check = True):
 
@@ -254,25 +253,25 @@ class GRBL_Stream:
 
         return val, next_pos
 
+    def set_pos(self, pos, logging = False):
+        diff = [float(pos[0])- self.curr_pos[0],
+                float(pos[1])- self.curr_pos[1]]
 
-    def _send_line(self, line, logging = False):
-        l = line.strip() # Strip all EOL characters for consistency
-        if logging: print('G-Code: ' + l)
+        self.send_move_cmd('X', str(float(diff[0])))
 
-        l = l + '\n'
-        self.serial.write(l.encode()) # Send g-code block to grbl
-        grbl_out_bytes = self.serial.readline() # Wait for grbl response with carriage return
-        grbl_out = grbl_out_bytes.decode("UTF-8")
+        self.send_move_cmd('Y', str(float(diff[1])))
 
-        if grbl_out.strip() == 'ok':
-            state = 'Action Completed'
-        else:
-            state = 'Action Error: ' + grbl_out.strip()
+        if logging: print('position set to ' + str(self.curr_pos))
 
-        time.sleep(2)
-        if logging: print(state)
-        return state
+    def set_pos_absolute(self, pos_abs, logging = False):
+        diff = [float(pos_abs[0])/100*self.X_max - self.curr_pos[0],
+                float(pos_abs[1])/100*self.Y_max - self.curr_pos[1]]
 
+        self.send_move_cmd('X', str(float(diff[0])))
+
+        self.send_move_cmd('Y', str(float(diff[1])))
+
+        if logging: print('position set to ' + str(self.curr_pos))
 
 # Wait here until grbl is finished to close serial port and file.
 def main():
