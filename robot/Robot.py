@@ -289,13 +289,13 @@ class Robot:
 
         if return_origin:
             self.set_pos_cnc([bound,bound])
-            self.logger.info('Returning to origin'.format(x_steps, y_steps))
+            self.logger.info('Returning to origin')
 
     def route_line(self, return_origin = False):
         bound = 2.5
         pos_perc = [50,bound]
 
-        y_steps = 3
+        y_steps = 4
 
         dir = 0
 
@@ -317,7 +317,7 @@ class Robot:
 
         if return_origin:
             self.set_pos_cnc([bound,bound])
-            self.logger.info('Returning to origin'.format(x_steps, y_steps))
+            self.logger.info('Returning to origin')
 
     def route_action(self, tag):
         image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)

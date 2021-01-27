@@ -26,8 +26,6 @@ parser.add_argument('--mode',
     help = 'Determines configuration of stitcher. The default is `PANORAMA` (%d), '
          'mode suitable for creating photo panoramas. Option `SCANS` (%d) is suitable '
          'for stitching materials under affine transformation, such as scans.' % modes)
-parser.add_argument('--output', default = 'result_scan.png',
-    help = 'Resulting image. The default is `result.png`.')
 #parser.add_argument('img', nargs='+', help = 'input images')
 
 __doc__ += '\n' + parser.format_help()
@@ -55,8 +53,7 @@ def main():
         print("Can't stitch images, error code = %d" % status)
         sys.exit(-1)
 
-    cv.imwrite(args.output, pano)
-    print("stitching completed successfully. %s saved!" % args.output)
+    cv.imwrite('results_scan.png', pano)
 
     print('Done')
 
