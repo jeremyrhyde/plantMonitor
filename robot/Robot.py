@@ -291,33 +291,33 @@ class Robot:
             self.set_pos_cnc([bound,bound])
             self.logger.info('Returning to origin'.format(x_steps, y_steps))
 
-def route_line(self, return_origin = False):
-    bound = 2.5
-    pos_perc = [50,bound]
+    def route_line(self, return_origin = False):
+        bound = 2.5
+        pos_perc = [50,bound]
 
-    y_steps = 3
+        y_steps = 3
 
-    dir = 0
+        dir = 0
 
-    self.logger.info('Starting line route.... ({})'.format(y_steps))
+        self.logger.info('Starting line route.... ({})'.format(y_steps))
 
-    for j in range(0, y_steps+1):
+        for j in range(0, y_steps+1):
 
 
-        pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
+            pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
-        self.set_pos_cnc(pos_perc)
+            self.set_pos_cnc(pos_perc)
 
-        self.route_action(pos_perc, 'route_line_{}.png'.format(j))
+            self.route_action(pos_perc, 'route_line_{}.png'.format(j))
 
-        self.curr_pos = self.cnc.get_pos()
-        self.logger.info('Current position: ' + str(self.curr_pos))
+            self.curr_pos = self.cnc.get_pos()
+            self.logger.info('Current position: ' + str(self.curr_pos))
 
-    self.logger.info('Line route Complete ({})!'.format(y_steps))
+        self.logger.info('Line route Complete ({})!'.format(y_steps))
 
-    if return_origin:
-        self.set_pos_cnc([bound,bound])
-        self.logger.info('Returning to origin'.format(x_steps, y_steps))
+        if return_origin:
+            self.set_pos_cnc([bound,bound])
+            self.logger.info('Returning to origin'.format(x_steps, y_steps))
 
     def route_action(self, tag):
         image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)
