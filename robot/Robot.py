@@ -333,7 +333,7 @@ class Robot:
         image_dir = '/home/pi/plantmonitor/data/raw_images/'
         os.system('rm {}/imagemap*'.format(image_dir))
 
-        output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(strftime("%Y-%m-%d_%H_%M_%S",gmtime()))
+        output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
         self.logger.info('Stitching together images to form panorama...')
         stitch_images(image_dir, output_file, 'imagemap*.png')
