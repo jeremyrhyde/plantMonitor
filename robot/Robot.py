@@ -54,6 +54,7 @@ class Robot:
         "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos),
         "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
         "ROUTE_Z" : lambda self: self.route_zigzag(True),
+        "ROUTE_L" : lambda self: self.route_line(True),
         "X" : lambda self: self.close(),
         #watering
     }
