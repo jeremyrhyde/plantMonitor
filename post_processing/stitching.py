@@ -12,15 +12,15 @@ import numpy as np
 import cv2 as cv
 
 import sys
-import os
+import os, glob
 
-def stitch_images(input_dir, output_file, filt = 'png'):
+def stitch_images(input_dir, output_file, filt = '*.png'):
     # Grab files
-    img_list = os.listdir(input_dir)
+    os.chdir(input_dir)
     imgs = []
 
     # Read input images
-    for img_name in img_list:
+    for file in glob.glob(filt):
         if filt in img_name:
             img = cv.imread(cv.samples.findFile(input_dir + img_name))
             if img is None:
