@@ -248,7 +248,7 @@ class Robot:
             self.logger.warn('Improper position command: ' + str(e))
 
         self.curr_pos = self.cnc.get_pos()
-        self.logger.info('Current position: [{:.1f},{:.1f}] ([{:.1f}, {:.1f}])'.format(float(new_pos[0]), float(new_pos[1]),
+        self.logger.info('Current position: [{:.1f}%, {:.1f}%] - ([{:.1f}, {:.1f}])'.format(float(new_pos[0]), float(new_pos[1]),
                                                                                        float(self.curr_pos[0]), float(self.curr_pos[1])))
 
     # Set feedrate for cnc
@@ -286,10 +286,6 @@ class Robot:
 
                 self.route_action('route_zigzag_{}_{}.png'.format(i,j))
 
-                self.curr_pos = self.cnc.get_pos()
-            #self.logger.info('Current position: [{}%, {}%] ([{:.1f}, {:.1f}])'.format(pos_perc[0], pos_perc[1],
-            #                                                                          float(self.curr_pos[0]), float(self.curr_pos[1])))
-
         self.logger.info('Zigzag route Complete ({}, {})!'.format(x_steps, y_steps))
 
         if return_origin:
@@ -308,16 +304,11 @@ class Robot:
 
         for j in range(0, y_steps+1):
 
-
             pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
             self.set_pos_cnc(pos_perc)
 
             self.route_action('{}_{}.png'.format(tag,j))
-
-            self.curr_pos = self.cnc.get_pos()
-            #self.logger.info('Current position: [{}%, {}%] ([{:.1f}, {:.1f}])'.format(pos_perc[0], pos_perc[1],
-            #                                                                          float(self.curr_pos[0]), float(self.curr_pos[1])))
 
         self.logger.info('Line route Complete ({})!'.format(y_steps))
 
