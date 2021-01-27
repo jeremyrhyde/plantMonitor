@@ -115,7 +115,7 @@ class GRBL_Stream:
     def get_pos(self):
         return self.curr_pos
 
-    def set_pos(self, pos):
+    def set_pos(self, pos, logging = False):
         diff = [float(pos[0])- self.curr_pos[0],
                 float(pos[1])- self.curr_pos[1]]
 
@@ -123,9 +123,9 @@ class GRBL_Stream:
 
         self.send_move_cmd('Y', str(float(diff[1])))
 
-        print('position set to ' + str(self.curr_pos))
+        if logging: print('position set to ' + str(self.curr_pos))
 
-    def set_pos_absolute(self, pos_abs):
+    def set_pos_absolute(self, pos_abs, logging = False):
         diff = [float(pos_abs[0])/100*self.X_max - self.curr_pos[0],
                 float(pos_abs[1])/100*self.Y_max - self.curr_pos[1]]
 
@@ -133,7 +133,7 @@ class GRBL_Stream:
 
         self.send_move_cmd('Y', str(float(diff[1])))
 
-        print('position set to ' + str(self.curr_pos))
+        if logging: print('position set to ' + str(self.curr_pos))
 
 
     def _reset(self):
@@ -232,7 +232,7 @@ class GRBL_Stream:
         if axis == 'Y':
             next_pos[0] = self.curr_pos[0]
             next_pos[1] = self.curr_pos[1] - dist #since neg otherwsie switch pos
-        print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
+        if logging: print(str("[{:.1f}, {:.1f}]".format(float(next_pos[0]),float(next_pos[1]))))
 
 
         if next_pos[0] > self.X_max or next_pos[1] > self.Y_max:

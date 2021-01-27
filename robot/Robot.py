@@ -288,7 +288,7 @@ class Robot:
                 self.route_action('route_zigzag_{}_{}.png'.format(i,j))
 
                 self.curr_pos = self.cnc.get_pos()
-                self.logger.info('Current position: ' + str(self.curr_pos))
+                self.logger.info('Current position: [{}%, {}%] ({})'.format(pos_perc[0], pos_perc[1], str(self.curr_pos)))
 
         self.logger.info('Zigzag route Complete ({}, {})!'.format(x_steps, y_steps))
 
@@ -316,7 +316,7 @@ class Robot:
             self.route_action('{}_{}.png'.format(tag,j))
 
             self.curr_pos = self.cnc.get_pos()
-            self.logger.info('Current position: ' + str(self.curr_pos))
+            self.logger.info('Current position: [{}%, {}%] ({})'.format(pos_perc[0], pos_perc[1], str(self.curr_pos)))
 
         self.logger.info('Line route Complete ({})!'.format(y_steps))
 
