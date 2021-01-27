@@ -231,8 +231,8 @@ class Robot:
     def move_cnc(self, cnc_direction, cnc_dist):
         try:
             state, pos = self.cnc.send_move_cmd(cnc_direction, cnc_dist)#self.cnc.send_move_command('G21 G91 ' + cmd)
-        except:
-            self.logger.warn('Improper position command')
+        except Exception as e:
+            self.logger.warn('Improper position command: ' + str(e))
 
         self.curr_pos = self.cnc.get_pos()
         self.logger.info('Current position: ' + str(self.curr_pos))
@@ -244,8 +244,8 @@ class Robot:
                 state, pos = self.cnc.set_pos_absolute(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
             else:
                 state, pos = self.cnc.set_pos(new_pos)
-        except:
-            self.logger.warn('Improper position command')
+        except Exception as e:
+            self.logger.warn('Improper position command: ' + str(e))
 
         self.curr_pos = self.cnc.get_pos()
         self.logger.info('Current position: ' + str(self.curr_pos))
@@ -330,13 +330,17 @@ class Robot:
 
     def image_map_bed(self):
         # Get images
+        self.logger.info('Mapping bed...')
         self.route_line('imagemap', True)
+        self.logger.info('Mapping finished!')
 
         # Stitch images into panorama
         image_dir = '/home/pi/plantmonitor/data/raw_images/'
         output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map.png'
-        stitch_images(image_dir, output_file, 'imagemap*.png')
 
+        self.logger.info('Stitching together images to form panorama...')
+        stitch_images(image_dir, output_file, 'imagemap*.png')
+        self.logger.info('Panorama created!')
 
     def route_action(self, tag):
         image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)

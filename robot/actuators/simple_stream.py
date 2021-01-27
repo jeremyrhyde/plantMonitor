@@ -197,13 +197,13 @@ class GRBL_Stream:
 
         print('Homing complete position set to (0,0)')
 
-    def limit_cycle(self, axis):
+    def limit_cycle(self, axis, logging = False):
 
         state = self._send_line('$10=3')
         val = True
 
         while 'Reset' in state or 'ALARM' in state or 'unlock' in state or 'help' in state:
-            print('BAD STATE: ' + str(state))
+            if logging: print('BAD STATE: ' + str(state))
             val = False
 
             self._reset()
@@ -219,7 +219,7 @@ class GRBL_Stream:
         return val
 
 
-    def send_move_cmd(self, axis, dist, check=True):
+    def send_move_cmd(self, axis, dist, check=True, logging = False):
 
         # Set new position
         state = ''
@@ -236,11 +236,11 @@ class GRBL_Stream:
 
 
         if next_pos[0] > self.X_max or next_pos[1] > self.Y_max:
-            print('Error! Moving beyond max (' + axis + '): [{},{}]'.format(next_pos[0], next_pos[1]))
+            if logging: print('Error! Moving beyond max (' + axis + '): [{},{}]'.format(next_pos[0], next_pos[1]))
             return False, self.curr_pos
         else:
             cmd = axis + ' {:.1f} F {}'.format(dist, self.get_feedrate())
-            print(' - Moving to ' + cmd)
+            if logging: print(' - Moving to ' + cmd)
 
             try:
                 state = self._send_line('G21 G91 ' + cmd)
@@ -254,32 +254,10 @@ class GRBL_Stream:
 
         return val, next_pos
 
-    def send_move_cmd_safe(self, axis, dist):
 
-        # Set new position
-        next_pos = self.curr_pos
-        if axis == 'X':
-            next_pos[0] = next_pos[0] + float(dist)
-        if axis == 'Y':
-            next_pos[1] = next_pos[1] + float(dist) #since neg otherwsie switch pos
-        print('POS: ' + str(next_pos))
-        # Check if move is safe
-        if next_pos[0] > self.X_max or next_pos[1] > self.Y_max:
-
-            print('Error! Moving beyond max (' + axis + '): [{},{}]'.format(next_pos[0], next_pos[1]))
-        else:
-            cmd = axis + dist + ' F' + str(self.get_feedrate())
-
-            print(cmd)
-            try:
-                self._send_line('G21 G91 ' + cmd)
-            except Exception as e:
-                print('Improper position command: ' + str(e))
-
-
-    def _send_line(self, line):
+    def _send_line(self, line, logging = False):
         l = line.strip() # Strip all EOL characters for consistency
-        print('G-Code: ' + l)
+        if logging: print('G-Code: ' + l)
 
         l = l + '\n'
         self.serial.write(l.encode()) # Send g-code block to grbl
@@ -292,7 +270,7 @@ class GRBL_Stream:
             state = 'Action Error: ' + grbl_out.strip()
 
         time.sleep(2)
-        print(state)
+        if logging: print(state)
         return state
 
 
