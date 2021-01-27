@@ -333,9 +333,9 @@ class Robot:
         self.route_line('imagemap', True)
 
         # Stitch images into panorama
-        input_dir = '/home/pi/plantmonitor/data/raw_images/'
-        output_dir = '/home/pi/plantmonitor/data/result_images/'
-        stitch_images(input_dir, output_dir)
+        image_dir = '/home/pi/plantmonitor/data/raw_images/'
+        output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map.png'
+        stitch_images(image_dir, output_file)
 
 
     def route_action(self, tag):

@@ -14,7 +14,7 @@ import cv2 as cv
 import sys
 import os
 
-def stitch_images(input_dir, output_dir, filt = 'png'):
+def stitch_images(input_dir, output_file, filt = 'png'):
     # Grab files
     img_list = os.listdir(input_dir)
     imgs = []
@@ -35,13 +35,13 @@ def stitch_images(input_dir, output_dir, filt = 'png'):
         print("Can't stitch images, error code = %d" % status)
         sys.exit(-1)
 
-    cv.imwrite(output_dir + 'results_scan.png', pano)
+    cv.imwrite(output_file, pano)
 
     print('Done')
 
 def main():
     input_dir = '/Users/jeremyhyde/Development/plantMonitor/data/raw_images/'
-    output_dir = '/Users/jeremyhyde/Development/plantMonitor/data/result_images/'
+    output_dir = '/Users/jeremyhyde/Development/plantMonitor/data/result_images/results.png'
 
     stitch_images(input_dir, output_dir)
 
