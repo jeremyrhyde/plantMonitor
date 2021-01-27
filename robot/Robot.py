@@ -29,7 +29,7 @@ from .passiveLighting import *
 from .piCamera import *
 from .waterMechanism import *
 #from .sensors import Lock_Sensor, Relay_Sensor, Battery_Sensor
-from .stitching import stitch_images
+from post_processing.stitching import stitch_images
 
 sys.path.append(os.path.abspath('../post_processing'))
 
