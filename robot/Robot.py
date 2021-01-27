@@ -280,7 +280,7 @@ class Robot:
 
                 self.set_pos_cnc(pos_perc)
 
-                self.route_action(pos_perc, 'route_zigzag_{}_{}.png'.format(i,j))
+                self.route_action('route_zigzag_{}_{}.png'.format(i,j))
 
                 self.curr_pos = self.cnc.get_pos()
                 self.logger.info('Current position: ' + str(self.curr_pos))
@@ -308,7 +308,7 @@ class Robot:
 
             self.set_pos_cnc(pos_perc)
 
-            self.route_action(pos_perc, 'route_line_{}.png'.format(j))
+            self.route_action('route_line_{}.png'.format(j))
 
             self.curr_pos = self.cnc.get_pos()
             self.logger.info('Current position: ' + str(self.curr_pos))
