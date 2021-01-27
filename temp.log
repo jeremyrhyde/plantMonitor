@@ -1,57 +1,38 @@
-2021-01-26 21:49:31,481 [ROBOT] [000] INFO - Connecting to API...
-2021-01-26 21:49:31,481 [ROBOT] [000] INFO - Robot setup complete!
-2021-01-26 21:49:31,749 [ROBOT] [000] INFO - User setup complete!
-2021-01-26 21:49:31,749 [USER] [000] INFO - User input - ON_PL
-2021-01-26 21:49:31,750 [ROBOT] [000] INFO - Turning on passive lighting
-2021-01-26 21:49:53,321 [USER] [000] INFO - User input - ROUTE_L
-2021-01-26 21:49:53,322 [ROBOT] [000] INFO - Starting line route.... (4)
-2021-01-26 21:50:01,341 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:50:01,342 [ROBOT] [000] INFO - Current position: [11.0, 2.6500000000000004]
-2021-01-26 21:50:03,804 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:50:03,805 [ROBOT] [000] INFO - Current position: [11.0, 2.6500000000000004]
-2021-01-26 21:50:11,818 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:50:11,819 [ROBOT] [000] INFO - Current position: [11.0, 27.825000000000003]
-2021-01-26 21:50:14,211 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:50:14,211 [ROBOT] [000] INFO - Current position: [11.0, 27.825000000000003]
-2021-01-26 21:50:22,226 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:50:22,227 [ROBOT] [000] INFO - Current position: [11.0, 53.0]
-2021-01-26 21:50:24,619 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:50:24,619 [ROBOT] [000] INFO - Current position: [11.0, 53.0]
-2021-01-26 21:50:32,634 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:50:32,635 [ROBOT] [000] INFO - Current position: [11.0, 78.17500000000001]
-2021-01-26 21:50:35,024 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:50:35,025 [ROBOT] [000] INFO - Current position: [11.0, 78.17500000000001]
-2021-01-26 21:50:43,038 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:50:43,039 [ROBOT] [000] INFO - Current position: [11.0, 103.35]
-2021-01-26 21:50:45,490 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:50:45,491 [ROBOT] [000] INFO - Current position: [11.0, 103.35]
-2021-01-26 21:50:45,491 [ROBOT] [000] INFO - Line route Complete (4)!
-2021-01-26 21:50:53,505 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:50:53,506 [ROBOT] [000] INFO - Current position: [0.5500000000000007, 2.6500000000000057]
-2021-01-26 21:50:53,507 [ROBOT] [000] INFO - Returning to origin
-2021-01-26 21:51:57,383 [USER] [000] INFO - User input - ROUTE_L
-2021-01-26 21:51:57,384 [ROBOT] [000] INFO - Starting line route.... (4)
-2021-01-26 21:52:05,399 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:52:05,400 [ROBOT] [000] INFO - Current position: [11.0, 2.6500000000000004]
-2021-01-26 21:52:07,860 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:52:07,861 [ROBOT] [000] INFO - Current position: [11.0, 2.6500000000000004]
-2021-01-26 21:52:15,874 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:52:15,875 [ROBOT] [000] INFO - Current position: [11.0, 27.825000000000003]
-2021-01-26 21:52:18,265 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:52:18,266 [ROBOT] [000] INFO - Current position: [11.0, 27.825000000000003]
-2021-01-26 21:52:26,280 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:52:26,281 [ROBOT] [000] INFO - Current position: [11.0, 53.0]
-2021-01-26 21:52:28,671 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:52:28,672 [ROBOT] [000] INFO - Current position: [11.0, 53.0]
-2021-01-26 21:52:36,687 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:52:36,687 [ROBOT] [000] INFO - Current position: [11.0, 78.17500000000001]
-2021-01-26 21:52:39,013 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:52:39,013 [ROBOT] [000] INFO - Current position: [11.0, 78.17500000000001]
-2021-01-26 21:52:47,026 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:52:47,027 [ROBOT] [000] INFO - Current position: [11.0, 103.35]
-2021-01-26 21:52:49,538 [ROBOT] [000] INFO - Image captured from picamera
-2021-01-26 21:52:49,539 [ROBOT] [000] INFO - Current position: [11.0, 103.35]
-2021-01-26 21:52:49,539 [ROBOT] [000] INFO - Line route Complete (4)!
-2021-01-26 21:52:57,556 [ROBOT] [000] WARNING - Improper position command
-2021-01-26 21:52:57,557 [ROBOT] [000] INFO - Current position: [0.5500000000000007, 2.6500000000000057]
-2021-01-26 21:52:57,557 [ROBOT] [000] INFO - Returning to origin
+2021-01-26 21:57:32,226 [ROBOT] [000] INFO - Connecting to API...
+2021-01-26 21:57:32,227 [ROBOT] [000] INFO - Robot setup complete!
+2021-01-26 21:57:32,513 [ROBOT] [000] INFO - User setup complete!
+2021-01-26 21:57:40,332 [USER] [000] INFO - User input - ON_PL
+2021-01-26 21:57:40,333 [ROBOT] [000] INFO - Turning on passive lighting
+2021-01-26 21:57:48,660 [USER] [000] INFO - User input - ROUTE_L
+2021-01-26 21:57:48,661 [ROBOT] [000] INFO - Starting line route.... (5)
+2021-01-26 21:57:56,675 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:57:56,676 [ROBOT] [000] INFO - Current position: [11.0, 2.6500000000000004]
+2021-01-26 21:57:59,188 [ROBOT] [000] INFO - Image captured from picamera
+2021-01-26 21:57:59,189 [ROBOT] [000] INFO - Current position: [11.0, 2.6500000000000004]
+2021-01-26 21:58:07,201 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:58:07,202 [ROBOT] [000] INFO - Current position: [11.0, 22.79]
+2021-01-26 21:58:09,595 [ROBOT] [000] INFO - Image captured from picamera
+2021-01-26 21:58:09,596 [ROBOT] [000] INFO - Current position: [11.0, 22.79]
+2021-01-26 21:58:17,610 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:58:17,611 [ROBOT] [000] INFO - Current position: [11.0, 42.93]
+2021-01-26 21:58:19,997 [ROBOT] [000] INFO - Image captured from picamera
+2021-01-26 21:58:19,998 [ROBOT] [000] INFO - Current position: [11.0, 42.93]
+2021-01-26 21:58:28,016 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:58:28,017 [ROBOT] [000] INFO - Current position: [11.0, 63.07]
+2021-01-26 21:58:30,407 [ROBOT] [000] INFO - Image captured from picamera
+2021-01-26 21:58:30,408 [ROBOT] [000] INFO - Current position: [11.0, 63.07]
+2021-01-26 21:58:38,422 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:58:38,422 [ROBOT] [000] INFO - Current position: [11.0, 83.21000000000001]
+2021-01-26 21:58:40,813 [ROBOT] [000] INFO - Image captured from picamera
+2021-01-26 21:58:40,814 [ROBOT] [000] INFO - Current position: [11.0, 83.21000000000001]
+2021-01-26 21:58:48,830 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:58:48,831 [ROBOT] [000] INFO - Current position: [11.0, 103.35]
+2021-01-26 21:58:51,287 [ROBOT] [000] INFO - Image captured from picamera
+2021-01-26 21:58:51,288 [ROBOT] [000] INFO - Current position: [11.0, 103.35]
+2021-01-26 21:58:51,290 [ROBOT] [000] INFO - Line route Complete (5)!
+2021-01-26 21:59:11,608 [ROBOT] [000] WARNING - Improper position command
+2021-01-26 21:59:11,609 [ROBOT] [000] INFO - Current position: [0.5500000000000007, 2.6500000000000057]
+2021-01-26 21:59:11,610 [ROBOT] [000] INFO - Returning to origin
+2021-01-26 21:59:29,792 [USER] [000] INFO - User input - 
+2021-01-26 21:59:29,988 [USER] [000] INFO - User input - 
+2021-01-26 21:59:30,167 [USER] [000] INFO - User input - 

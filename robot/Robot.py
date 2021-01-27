@@ -295,7 +295,7 @@ class Robot:
         bound = 2.5
         pos_perc = [50,bound]
 
-        y_steps = 4
+        y_steps = 5
 
         dir = 0
 
