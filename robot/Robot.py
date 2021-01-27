@@ -248,9 +248,8 @@ class Robot:
             self.logger.warn('Improper position command: ' + str(e))
 
         self.curr_pos = self.cnc.get_pos()
-        self.logger.info('Current position: [{:.1f}, {:.1f}]'.format(float(self.curr_pos[0]), float(self.curr_pos[1])))
-
-
+        self.logger.info('Current position: [{:.1f},{:.1f}] ([{:.1f}, {:.1f}])'.format(float(new_pos[0]), float(new_pos[1]),
+                                                                                       float(self.curr_pos[0]), float(self.curr_pos[1])))
 
     # Set feedrate for cnc
     def set_feedrate_cnc(self, cnc_feedrate):
