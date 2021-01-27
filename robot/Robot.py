@@ -96,6 +96,9 @@ class Robot:
 
         self.logger.info('Robot setup complete!')
 
+        self.logger.info('Starting actions...')
+        self.passive_led.turn_on()
+
     # Stop threads and close out of all objects
     def close(self):
 
