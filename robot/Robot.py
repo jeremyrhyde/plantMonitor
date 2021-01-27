@@ -293,7 +293,7 @@ class Robot:
         self.logger.info('Zigzag route Complete ({}, {})!'.format(x_steps, y_steps))
 
         if return_origin:
-            self.set_pos_cnc([bound,bound])
+            self.set_pos_cnc([0,0])
             self.logger.info('Returning to origin')
 
     def route_line(self, tag = 'route_line', return_origin = False):
