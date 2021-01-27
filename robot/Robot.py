@@ -241,9 +241,9 @@ class Robot:
     def set_pos_cnc(self, new_pos, abs = True):
         try:
             if abs:
-                state, pos = self.cnc.set_pos_absolute(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
+                self.cnc.set_pos_absolute(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
             else:
-                state, pos = self.cnc.set_pos(new_pos)
+                self.cnc.set_pos(new_pos)
         except Exception as e:
             self.logger.warn('Improper position command: ' + str(e))
 
