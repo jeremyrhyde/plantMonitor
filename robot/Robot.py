@@ -313,7 +313,7 @@ class Robot:
         self.logger.info('Line route Complete ({})!'.format(y_steps))
 
         if return_origin:
-            self.set_pos_cnc([bound,bound])
+            self.set_pos_cnc([0,0])
             self.logger.info('Returning to origin')
 
     def route_action(self, tag):
