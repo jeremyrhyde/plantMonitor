@@ -54,7 +54,8 @@ class Robot:
         "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos),
         "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
         "ROUTE_Z" : lambda self: self.route_zigzag(True),
-        "ROUTE_L" : lambda self: self.route_line(True),
+        "ROUTE_L" : lambda self: self.route_line('route_line', True),
+        "MAP" : lambda self: self.image_map_bed(),
         "X" : lambda self: self.close(),
         #watering
     }
@@ -291,7 +292,7 @@ class Robot:
             self.set_pos_cnc([bound,bound])
             self.logger.info('Returning to origin')
 
-    def route_line(self, return_origin = False):
+    def route_line(self, tag = 'route_line', return_origin = False):
         bound = 2.5
         pos_perc = [50,bound]
 
@@ -308,7 +309,7 @@ class Robot:
 
             self.set_pos_cnc(pos_perc)
 
-            self.route_action('route_line_{}.png'.format(j))
+            self.route_action('{}_{}.png'.format(tag,j))
 
             self.curr_pos = self.cnc.get_pos()
             self.logger.info('Current position: ' + str(self.curr_pos))
@@ -318,6 +319,20 @@ class Robot:
         if return_origin:
             self.set_pos_cnc([bound,bound])
             self.logger.info('Returning to origin')
+
+    def route_action(self, tag):
+        image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)
+        self.takeCameraImage(image_file)
+
+    def image_map_bed(self):
+        # Get images
+        self.route_line('imagemap', True)
+
+        # Stitch images into panorama
+        input_dir = '/home/pi/plantMonitor/data/raw_images/'
+        output_dir = '/home/pi/plantMonitor/data/result_images/'
+        stitch_images(input_dir, output_dir)
+
 
     def route_action(self, tag):
         image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)
