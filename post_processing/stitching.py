@@ -21,12 +21,11 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
 
     # Read input images
     for file in glob.glob(filt):
-        if filt in img_name:
-            img = cv.imread(cv.samples.findFile(input_dir + img_name))
-            if img is None:
-                print("can't read image " + img_name)
-                sys.exit(-1)
-            imgs.append(img)
+        img = cv.imread(cv.samples.findFile(input_dir + file))
+        if img is None:
+            print("can't read image " + img_name)
+            sys.exit(-1)
+        imgs.append(img)
 
     stitcher = cv.Stitcher.create(cv.Stitcher_SCANS)
     status, pano = stitcher.stitch(imgs)
