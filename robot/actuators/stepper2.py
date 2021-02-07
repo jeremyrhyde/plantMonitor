@@ -10,7 +10,7 @@ import time
 
 #sys.path.append('/home/pi/plantMonitor/robot/sensors')
 
-from limit_switch_sensor import Limit_Switch_Sensor2
+from limit_switch_sensor2 import Limit_Switch_Sensor
 
 limit_switch = True
 
