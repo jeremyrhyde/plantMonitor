@@ -30,6 +30,12 @@ class CNC:
             return True
         return False
 
+    def safe_move_abs(self, pos):
+        if pos[0] <= 100 and pos[1] <= 100:
+            return True
+        return False
+
+
 
     def set_pos(self, pos, logging = False):
 
@@ -50,15 +56,19 @@ class CNC:
 
 
 
-    # def set_pos_absolute(self, pos_abs, logging = False):
-    #     #diff = [float(pos_abs[0])/100*self.X_max - self.curr_pos[0],
-    #     #        float(pos_abs[1])/100*self.Y_max - self.curr_pos[1]]
-    #
-    #     self.stepper_x.move_stepper()
-    #
-    #     self.stepper_x.move_stepper()
-    #
-    #     print('position set to ' + str(self.curr_pos))
+    def set_pos_abs(self, pos_abs, logging = False):
+        if not self.safe_move_abs(pos):
+            print('Improper move... (abs)')
+
+        else:
+            diff = [int(pos_abs[0])/100*self.X_max - self.curr_pos[0],
+                    int(pos_abs[1])/100*self.Y_max - self.curr_pos[1]]
+
+            self.stepper_x.move_stepper(diff[0])
+
+            self.stepper_y.move_stepper(diff[1])
+
+            print('position set to ' + str(self.curr_pos))
 
 
     def calibration(self, disable = True):
@@ -86,6 +96,10 @@ def main():
         elif user_input[0] == '[':
             pos = [int(user_input[1:-1].split(',')[0]), int(user_input[1:-1].split(',')[1])]
             cnc.set_pos(pos)
+        elif user_input[0] == '%':
+            pos = [int(user_input[2:-1].split(',')[0]), int(user_input[2:-1].split(',')[1])]
+            cnc.set_pos_abs(pos)
+
 
 if __name__ == "__main__":
     main()
