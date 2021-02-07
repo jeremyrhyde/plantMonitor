@@ -65,6 +65,7 @@ class Stepper:
             GPIO.output(self.step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, GPIO.LOW)
+            time.sleep(self.motor_step_delay)
             i = i + 1
 
         if disable: self._disableDriver()
