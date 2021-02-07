@@ -142,7 +142,7 @@ class Stepper:
         GPIO.output(self.enable_pin, True)
 
 def main():
-    stepper = Stepper(step_pin = 9, dir_pin = 10, enable_pin = 11, limit_switch_pin = 6)
+    stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 6)
     #stepper = Stepper(step_pin = 5, dir_pin = 0, enable_pin = 13, limit_switch_pin = 3)
     while True:
         user_input = input('Position: ')
