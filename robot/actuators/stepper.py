@@ -19,7 +19,7 @@ class Stepper:
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 26):#, res_pins = (24,23,22), step_size = 'Full'):
+    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 26, motor_step_delay=0.00125):
         #self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
         self.dir_pin = dir_pin#20
@@ -29,7 +29,7 @@ class Stepper:
         #self.step_size = step_size
 
         self.motor_init_time = 0.05
-        self.motor_step_delay = 0.00125
+        self.motor_step_delay = motor_step_delay
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
@@ -40,14 +40,7 @@ class Stepper:
 
         self._disableDriver()
 
-        self.motor = None#RpiMotorLib.A4988Nema(self.dir_pin, self.step_pin, self.res_pins, 'A4988')
-        self.curr_pos = 0
-
-        self.total_rev = 0
-
-
-        if limit_switch:
-            self.switch1 =  Limit_Switch_Sensor(self.limit_switch_pin)
+        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin)
 
     def _enableDriver(self):
         GPIO.output(self.enable_pin, GPIO.LOW)
@@ -79,7 +72,7 @@ class Stepper:
         #GPIO.output(self.enable_pin, False)
         if disable: self._enableDriver()
 
-        while self.switch1.read_output():
+        while self.switch.read_output():
 
             GPIO.output(self.dir_pin, False)
             GPIO.output(self.step_pin, True)
@@ -87,7 +80,7 @@ class Stepper:
             GPIO.output(self.step_pin, False)
             time.sleep(self.motor_step_delay)
 
-        while not self.switch1.read_output():
+        while not self.switch.read_output():
 
             GPIO.output(self.dir_pin, True)
             GPIO.output(self.step_pin, True)
@@ -96,8 +89,6 @@ class Stepper:
             time.sleep(self.motor_step_delay)
 
         if disable: self._disableDriver()
-
-        #self.curr_pos = 0 #degrees
 
     def release_motor(self):
         self._disableDriver()
@@ -109,7 +100,6 @@ def main():
         user_input = input('Position: ')
 
         if user_input == 'Q':
-            #stepper.move_stepper(numpad_cal['N'])
             stepper.release_motor()
             break
         elif user_input == 'R':
@@ -119,9 +109,6 @@ def main():
             stepper.release_motor()
         elif user_input.isdigit():
             stepper.move_stepper()
-            #stepper.move_stepper(int(user_input))
-        #elif user_input[1:].isdigit():
-            #stepper.move_stepper(int(user_input[1:])*-1)
 
 
 if __name__ == "__main__":

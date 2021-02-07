@@ -43,7 +43,8 @@ class Robot:
     cnc_direction = ''
     cnc_dist = ''
     cnc_feedrate = ''
-    new_pos = ''
+    new_pos = [0,0]
+    new_pos_abs = [0,0]
 
     COMMANDS = {
         "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
@@ -54,9 +55,8 @@ class Robot:
         #"OFF_AL" : lambda self: self.activeLightingOnOff(),
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
-        "CNC_MOTION" : lambda self: self.move_cnc(self.cnc_direction, self.cnc_dist),
-        "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos),
-        "CNC_FEEDRATE" : lambda self: self.set_feedrate_cnc(self.cnc_feedrate),
+        "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
+        "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
         "ROUTE_Z" : lambda self: self.route_zigzag(True),
         "ROUTE_L" : lambda self: self.route_line('route_line', True),
         "MAP" : lambda self: self.image_map_bed(),
@@ -84,9 +84,8 @@ class Robot:
         self.passive_led = PassiveLEDs(RELAY_PIN_PL)
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
 
-        #self.cnc = GRBL_Stream(RELAY_PIN_CNC, X_MAX, Y_MAX)
-        self.cnc_feedrate = 0#self.cnc.get_feedrate()
-        self.curr_pos = [0,0]#self.cnc.get_pos()
+        self.cnc = CNC_Controller()
+        self.curr_pos = self.cnc.get_pos()
 
         self.camera = Camera()
 
@@ -158,17 +157,18 @@ class Robot:
 
     # Queue a command under the threaded function
     def queue_command(self, command, para = ''):
-        if command == 'CNC_MOTION':
-            self.cnc_direction = para[0]
-            self.cnc_dist = para[2:]
 
-        if command == 'CNC_POS':
-            self.new_pos = para[1:-1].split(',')
+        if command[0] == '[':
+            self.new_pos[0] = int(user_input[1:-1].split(',')[0])
+            self.new_pos[1] = int(user_input[1:-1].split(',')[1])
+            self._q.put('CNC_POS')
 
-        if command == 'CNC_FEEDRATE':
-            self.cnc_feedrate = para
-
-        self._q.put(command)
+        elif command[0] == '%':
+            self.new_pos_abs[0] = int(user_input[2:-1].split(',')[0])
+            self.new_pos_abs[1] = int(user_input[2:-1].split(',')[1])
+            self._q.put('CNC_POS_ABS')
+        else:
+            self._q.put(command)
 
     # Adds api input to schedule csv
     def add_command_to_schedule(self, date, command):
@@ -231,36 +231,27 @@ class Robot:
     # ----------------------------------- CNC ----------------------------------
 
     # Move central mount a certain direction and distance
-    def move_cnc(self, cnc_direction, cnc_dist):
-        try:
-            state, pos = self.cnc.send_move_cmd(cnc_direction, cnc_dist)#self.cnc.send_move_command('G21 G91 ' + cmd)
-        except Exception as e:
-            self.logger.warn('Improper position command: ' + str(e))
-
-        self.curr_pos = self.cnc.get_pos()
-        self.logger.info('Current position: [{:.1f}, {:.1f}]'.format(float(self.curr_pos[0]), float(self.curr_pos[1])))
+    # def move_cnc(self, cnc_direction, cnc_dist):
+    #     try:
+    #         state, pos = self.cnc.send_move_cmd(cnc_direction, cnc_dist)#self.cnc.send_move_command('G21 G91 ' + cmd)
+    #     except Exception as e:
+    #         self.logger.warn('Improper position command: ' + str(e))
+    #
+    #     self.curr_pos = self.cnc.get_pos()
+    #     self.logger.info('Current position: [{:.1f}, {:.1f}]'.format(float(self.curr_pos[0]), float(self.curr_pos[1])))
 
     # Move central mount a certain direction and distance
-    def set_pos_cnc(self, new_pos, abs = True):
-        try:
-            if abs:
-                self.cnc.set_pos_absolute(new_pos)#self.cnc.send_move_command('G21 G91 ' + cmd)
-            else:
-                self.cnc.set_pos(new_pos)
-        except Exception as e:
-            self.logger.warn('Improper position command: ' + str(e))
+    def set_pos_cnc(self, new_pos, abs = False):
 
-        self.curr_pos = self.cnc.get_pos()
-        self.logger.info('Current position: [{:.1f}%, {:.1f}%] - ([{:.1f}, {:.1f}])'.format(float(new_pos[0]), float(new_pos[1]),
-                                                                                       float(self.curr_pos[0]), float(self.curr_pos[1])))
+        if abs:
+            self.cnc.set_pos_abs(new_pos)
+            self.curr_pos = self.cnc.get_pos()
+            self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
+        else:
+            self.cnc.set_pos(new_pos)
+            self.curr_pos = self.cnc.get_pos()
+            self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
-    # Set feedrate for cnc
-    def set_feedrate_cnc(self, cnc_feedrate):
-        try:
-            self.cnc.set_feedrate(cnc_feedrate)
-            self.cnc_feedrate = cnc_feedrate
-        except:
-            self.logger.warn('Improper feedrate command')
 
 
     # ---------------------------------- ROUTE ---------------------------------

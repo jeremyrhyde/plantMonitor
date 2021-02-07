@@ -7,12 +7,12 @@ import time
 
 from stepper import Stepper
 
-class CNC:
+class CNC_Controller:
     # Initialise the PCA9685 using the default address (0x40).
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self):#, res_pins = (24,23,22), step_size = 'Full'):
+    def __init__(self):
 
         self.stepper_x = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
         self.stepper_y = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13)
@@ -25,6 +25,7 @@ class CNC:
     def close(self):
         GPIO.cleanup()
 
+
     def safe_move(self, pos):
         if pos[0] <= self.X_MAX and pos[1] <= self.Y_MAX:
             return True
@@ -36,12 +37,13 @@ class CNC:
         return False
 
 
+    def get_pos(self):
+        return self.curr_pos
+
 
     def set_pos(self, pos, logging = False):
-
         if not self.safe_move(pos):
             print('Improper move...')
-
         else:
             diff = [int(pos[0])- self.curr_pos[0],
                     int(pos[1])- self.curr_pos[1]]
@@ -53,13 +55,9 @@ class CNC:
 
             print('position set to ' + str(self.curr_pos))
 
-
-
-
     def set_pos_abs(self, pos_abs, logging = False):
         if not self.safe_move_abs(pos_abs):
             print('Improper move... (abs)')
-
         else:
             pos = [int(pos_abs[0]/100*self.X_MAX), int(pos_abs[1]/100*self.Y_MAX)]
             diff = [int(pos[0]) - self.curr_pos[0],
@@ -91,14 +89,17 @@ class CNC:
 
 def main():
     #stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
-    cnc = CNC()
+    cnc = CNC_Controller()
+
     while True:
         user_input = input('Position: ')
         if user_input == 'C':
             cnc.calibration()
+
         elif user_input[0] == '[':
             pos = [int(user_input[1:-1].split(',')[0]), int(user_input[1:-1].split(',')[1])]
             cnc.set_pos(pos)
+
         elif user_input[0] == '%':
             pos = [int(user_input[2:-1].split(',')[0]), int(user_input[2:-1].split(',')[1])]
             cnc.set_pos_abs(pos)
