@@ -6,9 +6,9 @@ import RPi.GPIO as GPIO
 import time
 from RpiMotorLib import RpiMotorLib
 
-import sys
+#import sys
 
-sys.path.append('/home/pi/plantMonitor/robot/sensors')
+#sys.path.append('/home/pi/plantMonitor/robot/sensors')
 
 from limit_switch_sensor import Limit_Switch_Sensor
 
