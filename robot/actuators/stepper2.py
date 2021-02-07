@@ -10,16 +10,16 @@ import time
 
 #sys.path.append('/home/pi/plantMonitor/robot/sensors')
 
-#from limit_switch_sensor2 import Limit_Switch_Sensor
+from limit_switch_sensor2 import Limit_Switch_Sensor
 
-limit_switch = False
+limit_switch = True
 
 class Stepper:
     # Initialise the PCA9685 using the default address (0x40).
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 19):#, res_pins = (24,23,22), step_size = 'Full'):
+    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 26):#, res_pins = (24,23,22), step_size = 'Full'):
         #self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
         self.dir_pin = dir_pin#20
@@ -47,7 +47,7 @@ class Stepper:
 
 
         if limit_switch:
-            GPIO.setup(self.limit_switch_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+            self.switch1 =  Limit_Switch_Sensor(self.limit_switch_pin)
 
     def _enableDriver(self):
         GPIO.output(self.enable_pin, GPIO.LOW)
@@ -93,10 +93,6 @@ class Stepper:
         if disable: self._disableDriver()
 
         #self.curr_pos = 0 #degrees
-
-    def read_output(self):
-        input = GPIO.input(self.limit_switch_pin)
-        return input
 
     def release_motor(self):
         self._disableDriver()
