@@ -56,6 +56,7 @@ class Robot:
         "OFF_W" : lambda self: self.waterSystemOnOff(),
         "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
         "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
+        "CAL" : lambda self: self.cnc_calibartion(),
         "ROUTE_Z" : lambda self: self.route_zigzag(True),
         "ROUTE_L" : lambda self: self.route_line('route_line', True),
         "MAP" : lambda self: self.image_map_bed(),
@@ -85,6 +86,7 @@ class Robot:
 
         self.cnc = CNC_Controller()
         self.curr_pos = self.cnc.get_pos()
+        self.cnc.calibration()
 
         self.camera = Camera()
 
@@ -251,7 +253,10 @@ class Robot:
             self.curr_pos = self.cnc.get_pos()
             self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
-
+    def cnc_calibartion(self):
+        self.logger.info('Calibrating CNC...')
+        self.cnc.calibration()
+        self.logger.info('Calibration complete!')
 
     # ---------------------------------- ROUTE ---------------------------------
 
