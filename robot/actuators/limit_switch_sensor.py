@@ -22,7 +22,7 @@ class Limit_Switch_Sensor:
 
         GPIO.setup(self._LIMIT_SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-    def close(self):
+    def close_p(self):
         GPIO.cleanup()
 
     # Alternatively, an event detect may be used (add_event_detect)
