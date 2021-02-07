@@ -22,7 +22,7 @@ from subprocess import check_output, Popen, PIPE
 from .robot_config import *
 
 #Subcomponents
-from .actuators import GRBL_Stream
+#from .actuators import GRBL_Stream
 #from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *
@@ -85,8 +85,8 @@ class Robot:
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
 
         #self.cnc = GRBL_Stream(RELAY_PIN_CNC, X_MAX, Y_MAX)
-        self.cnc_feedrate = self.cnc.get_feedrate()
-        self.curr_pos = self.cnc.get_pos()
+        self.cnc_feedrate = 0#self.cnc.get_feedrate()
+        self.curr_pos = [0,0]#self.cnc.get_pos()
 
         self.camera = Camera()
 
