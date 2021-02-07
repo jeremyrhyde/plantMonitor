@@ -19,13 +19,15 @@ class Stepper:
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self, res_pins = (24,23,22), step_pin = 6, dir_pin = 5, limit_switch = 26, enable_pin = 19, step_size = 'Full'):
+    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 26, res_pins = (24,23,22), step_size = 'Full'):
         self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
         self.dir_pin = dir_pin#20
         self.enable_pin = enable_pin#16
-        self.limit_switch = limit_switch
+        self.limit_switch_pin = limit_switch_pin
+
         self.step_size = step_size
+
         self.motor_init_time = 0.05
         self.motor_step_delay = 0.00125
 
@@ -41,7 +43,7 @@ class Stepper:
 
 
         if limit_switch:
-            self.switch1 = Limit_Switch_Sensor(self.limit_switch)
+            self.switch1 = Limit_Switch_Sensor(self.limit_switch_pin)
 
 
         #if inductor:
@@ -142,7 +144,8 @@ class Stepper:
         GPIO.output(self.enable_pin, True)
 
 def main():
-    stepper = Stepper()
+    stepper = Stepper(step_pin = 9, dir_pin = 10, enable_pin = 11, limit_switch_pin = 6)
+    #stepper = Stepper(step_pin = 5, dir_pin = 0, enable_pin = 13, limit_switch_pin = 3)
     while True:
         user_input = input('Position: ')
 
