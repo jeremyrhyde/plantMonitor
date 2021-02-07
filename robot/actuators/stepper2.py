@@ -47,7 +47,7 @@ class Stepper:
 
 
         if limit_switch:
-            self.switch1 =  None#Limit_Switch_Sensor(self.limit_switch_pin)
+            self.switch1 =  Limit_Switch_Sensor(self.limit_switch_pin)
 
     def _enableDriver(self):
         GPIO.output(self.enable_pin, GPIO.LOW)
@@ -96,7 +96,6 @@ class Stepper:
 
     def release_motor(self):
         self._disableDriver()
-        GPIO.cleanup()
 
 def main():
     stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 6)
