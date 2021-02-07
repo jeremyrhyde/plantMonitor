@@ -19,20 +19,35 @@ class CNC:
 
         self.curr_pos = [0, 0]
 
+        self.X_MAX = 3250
+        self.Y_MAX = 750
+
     def close(self):
         GPIO.cleanup()
 
+    def safe_move(self, pos):
+        if pos[0] <= self.X_MAX and pos[1] <= self.Y_MAX:
+            return True
+        return False
+
 
     def set_pos(self, pos, logging = False):
-        diff = [float(pos[0])- self.curr_pos[0],
-                float(pos[1])- self.curr_pos[1]]
 
-        self.stepper_x.move_stepper(diff[0])
-        self.stepper_y.move_stepper(diff[1])
+        if not self.safe_move(pos):
+            print('Improper move...')
 
-        self.curr_pos = pos
+        else:
+            diff = [float(pos[0])- self.curr_pos[0],
+                    float(pos[1])- self.curr_pos[1]]
 
-        print('position set to ' + str(self.curr_pos))
+            self.stepper_x.move_stepper(diff[0])
+            self.stepper_y.move_stepper(diff[1])
+
+            self.curr_pos = pos
+
+            print('position set to ' + str(self.curr_pos))
+
+
 
 
     # def set_pos_absolute(self, pos_abs, logging = False):
