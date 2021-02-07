@@ -109,7 +109,7 @@ class Stepper:
 
 
     def move_stepper2(self):
-         i = 0
+        i = 0
         while i < 200:
             GPIO.output(step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
