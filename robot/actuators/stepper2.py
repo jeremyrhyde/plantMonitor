@@ -47,14 +47,6 @@ class Stepper:
         if limit_switch:
             self.switch1 = Limit_Switch_Sensor(self.limit_switch_pin)
 
-
-        #if inductor:
-        #    self.inductor = Inductor()
-
-
-    #def run_inductor(self):
-    #    self.inductor.inductor_actuation()
-
     def _enableDriver(self):
         GPIO.output(self.enable_pin, False)
 
@@ -122,7 +114,7 @@ class Stepper:
 
     def calibration(self):
 
-        GPIO.output(self.enable_pin, False)
+        #GPIO.output(self.enable_pin, False)
 
         while self.switch1.read_output():
 
