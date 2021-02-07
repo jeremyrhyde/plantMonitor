@@ -61,7 +61,7 @@ class CNC:
             print('Improper move... (abs)')
 
         else:
-            pos = [int(pos_abs[0]/100*self.X_max), int(pos_abs[1]/100*self.Y_max)]
+            pos = [int(pos_abs[0]/100*self.X_MAX), int(pos_abs[1]/100*self.Y_MAX)]
             diff = [int(pos[0]) - self.curr_pos[0],
                     int(pos[1]) - self.curr_pos[1]]
 
