@@ -19,12 +19,12 @@ class Stepper:
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self, res_pins = (24,23,22), step_pin = 6, dir_pin = 5, enable_pin = 19, step_size = 'Full'):
+    def __init__(self, res_pins = (24,23,22), step_pin = 6, dir_pin = 5, limit_switch = 26, enable_pin = 19, step_size = 'Full'):
         self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
         self.dir_pin = dir_pin#20
         self.enable_pin = enable_pin#16
-
+        self.limit_switch = limit_switch
         self.step_size = step_size
         self.motor_init_time = 0.05
         self.motor_step_delay = 0.00125
@@ -41,8 +41,7 @@ class Stepper:
 
 
         if limit_switch:
-            self.limit_switch = 4
-            self.switch1 = Limit_Switch_Sensor(4)
+            self.switch1 = Limit_Switch_Sensor(self.limit_switch)
 
 
         #if inductor:
@@ -108,6 +107,15 @@ class Stepper:
 
         self.curr_pos = desired_pos
 
+
+    def move_stepper2(self):
+         i = 0
+        while i < 200:
+            GPIO.output(step_pin, GPIO.HIGH)
+            time.sleep(self.motor_step_delay)
+            GPIO.output(step_pin, GPIO.LOW)
+            i = i + 1
+
     def calibration(self):
 
         GPIO.output(self.enable_pin, False)
@@ -116,17 +124,17 @@ class Stepper:
 
             GPIO.output(self.dir_pin, True)
             GPIO.output(self.step_pin, True)
-            time.sleep(0.005)
+            time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
-            time.sleep(0.02)
+            time.sleep(self.motor_step_delay)
 
         while self.switch1.read_output():
 
             GPIO.output(self.dir_pin, False)
             GPIO.output(self.step_pin, True)
-            time.sleep(0.01)
+            time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
-            time.sleep(0.01)
+            time.sleep(self.motor_step_delay)
 
         self.curr_pos = 0 #degrees
 
@@ -142,13 +150,16 @@ def main():
             #stepper.move_stepper(numpad_cal['N'])
             stepper.release_motor()
             break
+        elif user_input == 'R':
+            stepper.release_motor()
         elif user_input == 'C':
             stepper.calibration()
             stepper.release_motor()
         elif user_input.isdigit():
-            stepper.move_stepper(int(user_input))
-        elif user_input[1:].isdigit():
-            stepper.move_stepper(int(user_input[1:])*-1)
+            stepper.move_stepper2()
+            #stepper.move_stepper(int(user_input))
+        #elif user_input[1:].isdigit():
+            #stepper.move_stepper(int(user_input[1:])*-1)
 
 
 if __name__ == "__main__":
