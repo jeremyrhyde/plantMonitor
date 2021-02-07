@@ -99,7 +99,7 @@ class Stepper:
 
 def main():
     #stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
-    stepper = Stepper(step_pin = 9, dir_pin = 11, enable_pin = 10, limit_switch_pin = 13)
+    stepper = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13)
     while True:
         user_input = input('Position: ')
 
