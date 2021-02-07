@@ -12,14 +12,14 @@ import time
 
 #from limit_switch_sensor2 import Limit_Switch_Sensor
 
-limit_switch = True
+limit_switch = False
 
 class Stepper:
     # Initialise the PCA9685 using the default address (0x40).
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 13):#, res_pins = (24,23,22), step_size = 'Full'):
+    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 19):#, res_pins = (24,23,22), step_size = 'Full'):
         #self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
         self.dir_pin = dir_pin#20
@@ -102,7 +102,7 @@ class Stepper:
         self._disableDriver()
 
 def main():
-    stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 6)
+    stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
     #stepper = Stepper(step_pin = 5, dir_pin = 0, enable_pin = 13, limit_switch_pin = 3)
     while True:
         user_input = input('Position: ')
