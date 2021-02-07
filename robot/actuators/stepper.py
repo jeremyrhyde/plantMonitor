@@ -4,15 +4,8 @@
 
 import RPi.GPIO as GPIO
 import time
-#from RpiMotorLib import RpiMotorLib
-
-#import sys
-
-#sys.path.append('/home/pi/plantMonitor/robot/sensors')
 
 from limit_switch_sensor import Limit_Switch_Sensor
-
-limit_switch = True
 
 class Stepper:
     # Initialise the PCA9685 using the default address (0x40).
