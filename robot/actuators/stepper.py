@@ -41,6 +41,9 @@ class Stepper:
     def _disableDriver(self):
         GPIO.output(self.enable_pin, GPIO.HIGH)
 
+    def _set_step_delay(self, motor_step_delay):
+        self.motor_step_delay = motor_step_delay
+
     def move_stepper(self, dist, disable = True):
 
         if disable: self._enableDriver()
@@ -99,9 +102,10 @@ def main():
             stepper.release_motor()
         elif user_input == 'C':
             stepper.calibration()
-            stepper.release_motor()
-        elif user_input.isdigit():
+        elif user_input.isdigit(200):
             stepper.move_stepper()
+        elif user_input[0] == 'S':
+            stepper._set_step_delay(float(user_input[1:]))
 
 
 if __name__ == "__main__":
