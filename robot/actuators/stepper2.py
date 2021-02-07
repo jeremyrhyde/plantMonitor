@@ -98,8 +98,8 @@ class Stepper:
         self._disableDriver()
 
 def main():
-    stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
-    #stepper = Stepper(step_pin = 5, dir_pin = 0, enable_pin = 13, limit_switch_pin = 3)
+    #stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
+    stepper = Stepper(step_pin = 9, dir_pin = 11, enable_pin = 10, limit_switch_pin = 13)
     while True:
         user_input = input('Position: ')
 
