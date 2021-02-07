@@ -18,11 +18,10 @@ update_command="
 
   sudo systemctl enable robot.service;
   sudo systemctl enable api.service;
-  sudo systemctl start robot.service;
   sudo systemctl start api.service;
   "
 
 reboot_robots="
     sudo reboot;"
-
+#sudo systemctl start robot.service;
 pssh -i -h robot_list0.txt -P -t 10000000 $update_command

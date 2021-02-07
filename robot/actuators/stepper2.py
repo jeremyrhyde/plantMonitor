@@ -105,12 +105,16 @@ class Stepper:
 
 
     def move_stepper2(self):
+
+        GPIO.output(self.enable_pin, GPIO.LOW)
         i = 0
         while i < 200:
             GPIO.output(self.step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, GPIO.LOW)
             i = i + 1
+
+        GPIO.output(self.enable_pin, GPIO.HIGH)
 
     def calibration(self):
 
