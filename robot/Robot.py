@@ -160,13 +160,13 @@ class Robot:
     def queue_command(self, command, para = ''):
 
         if command[0] == '[':
-            self.new_pos[0] = int(user_input[1:-1].split(',')[0])
-            self.new_pos[1] = int(user_input[1:-1].split(',')[1])
+            self.new_pos[0] = int(command[1:-1].split(',')[0])
+            self.new_pos[1] = int(command[1:-1].split(',')[1])
             self._q.put('CNC_POS')
 
         elif command[0] == '%':
-            self.new_pos_abs[0] = int(user_input[2:-1].split(',')[0])
-            self.new_pos_abs[1] = int(user_input[2:-1].split(',')[1])
+            self.new_pos_abs[0] = int(command[2:-1].split(',')[0])
+            self.new_pos_abs[1] = int(command[2:-1].split(',')[1])
             self._q.put('CNC_POS_ABS')
         else:
             self._q.put(command)
