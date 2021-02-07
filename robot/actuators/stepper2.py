@@ -19,7 +19,7 @@ class Stepper:
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
 
-    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 26):#, res_pins = (24,23,22), step_size = 'Full'):
+    def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 13):#, res_pins = (24,23,22), step_size = 'Full'):
         #self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
         self.dir_pin = dir_pin#20
