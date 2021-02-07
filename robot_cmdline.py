@@ -22,30 +22,6 @@ def user_input(logger):
 
     return user_option
 
-def cnc_motion_input(logger):
-    print("\nMotion Options: X 00 / Y 00")
-
-    cnc_option = input("Enter motion option: ")
-
-    logger.info("CNC input - {}".format(cnc_option))
-
-    if cnc_option and cnc_option != 'CNC_MOTION' and cnc_option[0] != 'X' and cnc_option[0] != 'Y' and cnc_option[0] != '[' :
-        logger.warn("Error bad input for cnc motion")
-    else:
-        if cnc_option[0] == '[':
-            return 'CNC_POS', cnc_option
-        else:
-            return 'CNC_MOTION', cnc_option
-
-def cnc_feeedrate_input(logger):
-    print("\nFeedrate Options: 00")
-
-    cnc_option = input("Enter option: ")
-
-    logger.info("CNC input - {}".format(cnc_option))
-
-    return cnc_option
-
 def main():
 
     CNC_MOTION = False
@@ -69,27 +45,10 @@ def main():
     robot_logger.info('User setup complete!')
 
     while True:
-        #print(CNC_MOTION)
-        if CNC_MOTION:
-            user_option, cnc_option = cnc_motion_input(user_logger)
-            if cnc_option == 'CNC_MOTION':
-                CNC_MOTION = not CNC_MOTION
-            elif cnc_option:
-                #print(user_option, cnc_option)
-                robot.queue_command(user_option, cnc_option)
 
-        else:
-            user_option = user_input(user_logger).upper()
+        user_option = user_input(user_logger).upper()
 
-
-            if user_option == 'CNC_MOTION':
-                CNC_MOTION = not CNC_MOTION
-
-            elif user_option == 'CNC_FEEDRATE':
-                cnc_option = cnc_feedrate_input(user_logger)
-                robot.queue_command(user_option, cnc_option)
-            else:
-                robot.queue_command(user_option)
+        robot.queue_command(user_option)
         #else:
         #    robot.queue_command(user_option)
 
