@@ -33,7 +33,7 @@ class Stepper:
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        
+
         GPIO.setup(self.enable_pin, GPIO.OUT)
         GPIO.setup(self.dir_pin, GPIO.OUT)
         GPIO.setup(self.step_pin, GPIO.OUT)
