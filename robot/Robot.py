@@ -22,13 +22,12 @@ from subprocess import check_output, Popen, PIPE
 from .robot_config import *
 
 #Subcomponents
-#from .actuators import GRBL_Stream
+from .actuators import CNC_Controller
 #from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *
 from .piCamera import *
 from .waterMechanism import *
-#from .sensors import Lock_Sensor, Relay_Sensor, Battery_Sensor
 from post_processing.stitching import stitch_images
 
 sys.path.append(os.path.abspath('../post_processing'))

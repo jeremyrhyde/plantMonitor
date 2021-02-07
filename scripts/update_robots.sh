@@ -18,6 +18,7 @@ update_command="
 
   sudo systemctl enable robot.service;
   sudo systemctl enable api.service;
+  sudo systemctl start robot.service;
   sudo systemctl start api.service;
   "
 
