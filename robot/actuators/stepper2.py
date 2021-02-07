@@ -120,17 +120,17 @@ class Stepper:
 
         GPIO.output(self.enable_pin, False)
 
-        while not self.switch1.read_output():
+        while self.switch1.read_output():
 
-            GPIO.output(self.dir_pin, True)
+            GPIO.output(self.dir_pin, False)
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
             time.sleep(self.motor_step_delay)
 
-        while self.switch1.read_output():
+        while not self.switch1.read_output():
 
-            GPIO.output(self.dir_pin, False)
+            GPIO.output(self.dir_pin, True)
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
