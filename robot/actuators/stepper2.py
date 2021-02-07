@@ -58,7 +58,7 @@ class Stepper:
     def move_stepper2(self, disable = True):
 
         if disable: self._enableDriver()
-
+        GPIO.output(self.dir_pin, False)
         i = 0
         while i < 200:
             GPIO.output(self.step_pin, GPIO.HIGH)
