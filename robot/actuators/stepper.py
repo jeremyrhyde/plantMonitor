@@ -102,10 +102,12 @@ def main():
             stepper.release_motor()
         elif user_input == 'C':
             stepper.calibration()
-        elif user_input.isdigit(200):
-            stepper.move_stepper()
+        elif user_input.isdigit():
+            stepper.move_stepper(200)
         elif user_input[0] == 'S':
             stepper._set_step_delay(float(user_input[1:]))
+        else:
+            pass
 
 
 if __name__ == "__main__":
