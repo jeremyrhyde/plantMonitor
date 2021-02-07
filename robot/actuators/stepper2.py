@@ -38,6 +38,8 @@ class Stepper:
         GPIO.setup(self.dir_pin, GPIO.OUT)
         GPIO.setup(self.step_pin, GPIO.OUT)
 
+        GPIO.output(self.enable_pin, GPIO.HIGH)
+
         self.motor = None#RpiMotorLib.A4988Nema(self.dir_pin, self.step_pin, self.res_pins, 'A4988')
         self.curr_pos = 0
 
