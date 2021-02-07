@@ -84,7 +84,7 @@ class Robot:
         self.passive_led = PassiveLEDs(RELAY_PIN_PL)
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
 
-        self.cnc = GRBL_Stream(RELAY_PIN_CNC, X_MAX, Y_MAX)
+        #self.cnc = GRBL_Stream(RELAY_PIN_CNC, X_MAX, Y_MAX)
         self.cnc_feedrate = self.cnc.get_feedrate()
         self.curr_pos = self.cnc.get_pos()
 
