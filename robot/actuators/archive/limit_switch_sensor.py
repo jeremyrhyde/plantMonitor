@@ -22,8 +22,8 @@ class Limit_Switch_Sensor:
 
         GPIO.setup(self._LIMIT_SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-    #def close(self):
-    #    GPIO.cleanup()
+    def close_p(self):
+        GPIO.cleanup()
 
     # Alternatively, an event detect may be used (add_event_detect)
     def read_output(self):
@@ -32,7 +32,7 @@ class Limit_Switch_Sensor:
 
 def main():
 
-    limit_switch = Limit_Switch_Sensor(19)
+    limit_switch = Limit_Switch_Sensor(26)
 
     while True:
         input = limit_switch.read_output()
