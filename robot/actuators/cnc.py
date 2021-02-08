@@ -43,7 +43,7 @@ class CNC_Controller:
 
     def set_pos(self, pos, logging = False):
         if not self.safe_move(pos):
-            print('Improper move...')
+            if logging: print('Improper move...')
             return self.curr_pos
         else:
             diff = [int(pos[0])- self.curr_pos[0],
@@ -54,13 +54,13 @@ class CNC_Controller:
 
             self.curr_pos = pos
 
-            print('position set to ' + str(self.curr_pos))
+            if logging: print('position set to ' + str(self.curr_pos))
 
             return self.curr_pos
 
     def set_pos_abs(self, pos_abs, logging = False):
         if not self.safe_move_abs(pos_abs):
-            print('Improper move... (abs)')
+            if logging: print('Improper move... (abs)')
             return self.curr_pos
         else:
             pos = [int(pos_abs[0]/100*self.X_MAX), int(pos_abs[1]/100*self.Y_MAX)]
@@ -73,7 +73,7 @@ class CNC_Controller:
 
             self.curr_pos = pos
 
-            print('position set to ' + str(self.curr_pos))
+            if logging: print('position set to ' + str(self.curr_pos))
 
             return self.curr_pos
 
