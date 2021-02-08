@@ -67,7 +67,7 @@ class Robot:
     # ----------------------------- INITALIZATION ------------------------------
     # --------------------------------------------------------------------------
 
-    def __init__(self, robot_id, logger):
+    def __init__(self, robot_id, logger, cnc_logger = None):
         self.robot_id = robot_id
         self.logger = logger
 
@@ -89,7 +89,7 @@ class Robot:
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
         self.logger.info(' - WATERING MECHANISM [READY]')
 
-        self.cnc = CNC_Controller()
+        self.cnc = CNC_Controller(cnc_logger)
         self.logger.info(' - CNC CONTROLLER [READY]')
 
         self.camera = Camera()

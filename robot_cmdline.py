@@ -31,8 +31,9 @@ def main():
     # Logging
     logger = Logger('temp.log')
     robot_logger = logger.init('ROBOT', robot_id)
+    cnc_logger = logger.init('CNC', robot_id)
 
-    robot = Robot(robot_id, robot_logger)
+    robot = Robot(robot_id, robot_logger, cnc_logger)
 
     sched = Robot_Scheduler(robot)
     robot.register_scheduler(sched)
@@ -50,8 +51,6 @@ def main():
 
         if len(user_option) > 0:
             robot.queue_command(user_option)
-        #else:
-        #    robot.queue_command(user_option)
 
         if user_option == 'X':
             break
