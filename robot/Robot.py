@@ -106,7 +106,7 @@ class Robot:
         self.passive_led.turn_on()
 
         self.cnc.calibration()
-        self.cnc.set_pos_cnc([0,50], True)
+        self.set_pos_cnc([0,50], True)
 
     # Stop threads and close out of all objects
     def close(self):
