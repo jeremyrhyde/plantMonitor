@@ -26,9 +26,9 @@ from .actuators import CNC_Controller
 #from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *
-#from .piCamera import *
+from .piCamera import *
 from .waterMechanism import *
-#rom post_processing.stitching import stitch_images
+from post_processing.stitching import stitch_images
 
 sys.path.append(os.path.abspath('../post_processing'))
 
@@ -89,7 +89,7 @@ class Robot:
         self.curr_pos = self.cnc.get_pos()
         self.cnc.calibration()
 
-        self.camera = None#Camera()
+        self.camera = Camera()
 
         # Begin API
         self.api_interface = threading.Thread(target=self._api_interface)
@@ -333,7 +333,7 @@ class Robot:
         output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
         self.logger.info('Stitching together images to form panorama...')
-        #stitch_images(image_dir, output_file, 'imagemap*.png')
+        stitch_images(image_dir, output_file, 'imagemap*.png')
         self.logger.info('Panorama created!')
 
     def route_action(self, tag):
