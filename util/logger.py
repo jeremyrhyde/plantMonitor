@@ -18,7 +18,7 @@ class Logger:
 
     def init(self, log_name, log_id, level=logging.INFO):
 
-        FORMAT = '%(asctime)s [' + log_name + '] [' + log_id + '] %(levelname)s - %(message)s'
+        FORMAT = '%(asctime)s [' + log_name + '] [' + log_id + '] %(levelname)s : %(message)s'
         formatter = logging.Formatter(FORMAT)
 
         handler_file = logging.FileHandler(self.log_file)
