@@ -50,7 +50,7 @@ class CNC_Controller:
             diff = [int(pos[0])- self.curr_pos[0],
                     int(pos[1])- self.curr_pos[1]]
 
-            if self.logger: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1])
+            if self.logger: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
 
             self.stepper_x.move_stepper(diff[0])
             self.stepper_y.move_stepper(diff[1])
@@ -69,8 +69,8 @@ class CNC_Controller:
             pos = [int(pos_abs[0]/100*self.X_MAX), int(pos_abs[1]/100*self.Y_MAX)]
             diff = [int(pos[0]) - self.curr_pos[0],
                     int(pos[1]) - self.curr_pos[1]]
-                    
-            if self.logger: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1])
+
+            if self.logger: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
 
 
             self.stepper_x.move_stepper(diff[0])
