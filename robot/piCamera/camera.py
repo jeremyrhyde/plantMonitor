@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """oled.py
 """
+import os
 import threading
 import time
 from queue import Queue, Empty
@@ -22,6 +23,7 @@ class Camera:
 
         self.camera = PiCamera()
         self.camera.resolution = (1024, 768)
+        os.system('export DISPLAY=:0')
 
     def start_preview(self):
         self.camera.start_preview()

@@ -92,7 +92,7 @@ class CNC_Controller:
 
         print('Calibrating Y...')
         self.stepper_y.calibration()
-        self.set_pos_abs([0,1]) # with additional bounce off
+        self.set_pos_abs([0,2]) # with additional bounce off
 
         self.curr_pos[1] = 0
 
@@ -100,7 +100,7 @@ class CNC_Controller:
 
 
 def main():
-    
+
     cnc = CNC_Controller()
 
     while True:
