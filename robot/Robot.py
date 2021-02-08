@@ -71,16 +71,20 @@ class Robot:
         self.robot_id = robot_id
         self.logger = logger
 
+        os.system('export DISPLAY=:0')
+
         #  ----- Initalize threading: Robot, API Interface ------
         self._q = Queue()
         self._stop_event = threading.Event()
 
         # Begin robot thread for handling motion and robot logs
+
         self.robot_thread = threading.Thread(target=self._robot_run)
         self.robot_thread.start()
 
         # Initialize components
         self.logger.info('Initializing components...')
+
         self.passive_led = PassiveLEDs(RELAY_PIN_PL)
         self.logger.info(' - PASSIVE LIGHTING [READY]')
 
@@ -90,13 +94,10 @@ class Robot:
         self.cnc = CNC_Controller()
         self.logger.info(' - CNC CONTROLLER [READY]')
 
-        os.system('export DISPLAY=:0')
-        self.logger.info(' - setup complete!')
         self.camera = Camera()
         self.logger.info(' - CAMERA [READY]')
 
-
-        # Begin API
+        # Initializing API
         self.logger.info('Starting up API')
         self.api_interface = threading.Thread(target=self._api_interface)
         self.api_interface.start()
