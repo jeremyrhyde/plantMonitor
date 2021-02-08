@@ -21,7 +21,7 @@ from subprocess import check_output, Popen, PIPE
 
 from .robot_config import *
 
-#Subcomponents
+# Subcomponents
 from .actuators import CNC_Controller
 #from .display/gui import *
 from .passiveLighting import *
@@ -263,7 +263,7 @@ class Robot:
     # ---------------------------------- ROUTE ---------------------------------
 
     def route_zigzag(self, tag = 'route_zigzag', return_origin = False):
-        bound = 2.5
+        bound = 0
         pos_perc = [bound,bound]
 
         x_steps = 5
@@ -293,7 +293,7 @@ class Robot:
             self.logger.info('Returning to origin')
 
     def route_line(self, tag = 'route_line', return_origin = False):
-        bound = 2.5
+        bound = 0
         pos_perc = [bound,50]
 
         x_steps = 5
@@ -333,7 +333,7 @@ class Robot:
         output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
         self.logger.info('Stitching together images to form panorama...')
-        stitch_images(image_dir, output_file, 'imagemap*.png')
+        #stitch_images(image_dir, output_file, 'imagemap*.png')
         self.logger.info('Panorama created!')
 
     def route_action(self, tag):
