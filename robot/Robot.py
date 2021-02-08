@@ -282,7 +282,7 @@ class Robot:
 
                 pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
-                self.curr_pos = self.set_pos_cnc(pos_perc)
+                self.curr_pos = self.set_pos_cnc(pos_perc, True)
 
                 self.route_action('{}_{}_{}.png'.format(tag, i,j))
 
@@ -306,7 +306,7 @@ class Robot:
 
             pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
-            self.curr_pos = self.set_pos_cnc(pos_perc)
+            self.curr_pos = self.set_pos_cnc(pos_perc, True)
 
             self.route_action('{}_{}.png'.format(tag,j))
 
