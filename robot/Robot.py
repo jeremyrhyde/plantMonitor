@@ -26,7 +26,7 @@ from .actuators import CNC_Controller
 #from .display/gui import *
 from .passiveLighting import *
 #from .activeLighting import *
-from .piCamera import *
+#from .piCamera import *
 from .waterMechanism import *
 #rom post_processing.stitching import stitch_images
 
@@ -89,7 +89,7 @@ class Robot:
         self.curr_pos = self.cnc.get_pos()
         self.cnc.calibration()
 
-        self.camera = Camera()
+        self.camera = None#Camera()
 
         # Begin API
         self.api_interface = threading.Thread(target=self._api_interface)
