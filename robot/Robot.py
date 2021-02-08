@@ -85,6 +85,7 @@ class Robot:
 
         self.cnc = CNC_Controller()
 
+        os.system('export DISPLAY=:0')
         self.camera = Camera()
 
         # Begin API
