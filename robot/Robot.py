@@ -80,15 +80,24 @@ class Robot:
         self.robot_thread.start()
 
         # Initialize components
+        self.logger.info('Initializing components...')
         self.passive_led = PassiveLEDs(RELAY_PIN_PL)
+        self.logger.info(' - PASSIVE LIGHTING [READY]')
+
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
+        self.logger.info(' - WATERING MECHANISM [READY]')
 
         self.cnc = CNC_Controller()
+        self.logger.info(' - CNC CONTROLLER [READY]')
 
         os.system('export DISPLAY=:0')
+        self.logger.info(' - setup complete!')
         self.camera = Camera()
+        self.logger.info(' - CAMERA [READY]')
+
 
         # Begin API
+        self.logger.info('Starting up API')
         self.api_interface = threading.Thread(target=self._api_interface)
         self.api_interface.start()
 
