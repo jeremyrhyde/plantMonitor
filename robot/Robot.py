@@ -28,7 +28,7 @@ from .passiveLighting import *
 #from .activeLighting import *
 from .piCamera import *
 from .waterMechanism import *
-from post_processing.stitching import stitch_images
+#rom post_processing.stitching import stitch_images
 
 sys.path.append(os.path.abspath('../post_processing'))
 
