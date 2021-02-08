@@ -249,12 +249,10 @@ class Robot:
     def set_pos_cnc(self, new_pos, abs = False):
 
         if abs:
-            self.cnc.set_pos_abs(new_pos)
-            self.curr_pos = self.cnc.get_pos()
+            self.curr_pos = self.cnc.set_pos_abs(new_pos)
             self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
         else:
-            self.cnc.set_pos(new_pos)
-            self.curr_pos = self.cnc.get_pos()
+            self.curr_pos = self.cnc.set_pos(new_pos)
             self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
     def cnc_calibartion(self):
