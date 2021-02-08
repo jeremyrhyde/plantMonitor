@@ -266,8 +266,8 @@ class Robot:
         bound = 2.5
         pos_perc = [bound,bound]
 
-        x_steps = 1
-        y_steps = 5
+        x_steps = 5
+        y_steps = 1
 
         dir = 0
 
@@ -276,11 +276,11 @@ class Robot:
         for j in range(0, y_steps+1):
             for i in range(0, x_steps+1):
                 if j % 2 == 0:
-                    pos_perc[0] = float(i)/x_steps*(100.0-2*bound) + bound
+                    pos_perc[1] = float(i)/y_steps*(100.0-2*bound) + bound
                 else:
-                    pos_perc[0] = (100 - bound) -float(i)/x_steps*(100.0-2*bound)
+                    pos_perc[1] = (100 - bound) -float(i)/y_steps*(100.0-2*bound)
 
-                pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
+                pos_perc[0] = float(j)/x_steps*(100.0-2*bound) + bound
 
                 self.curr_pos = self.set_pos_cnc(pos_perc, True)
 
@@ -294,17 +294,17 @@ class Robot:
 
     def route_line(self, tag = 'route_line', return_origin = False):
         bound = 2.5
-        pos_perc = [50,bound]
+        pos_perc = [bound,50]
 
-        y_steps = 5
+        x_steps = 5
 
         dir = 0
 
         self.logger.info('Starting line route.... ({})'.format(y_steps))
 
-        for j in range(0, y_steps+1):
+        for j in range(0, x_steps+1):
 
-            pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
+            pos_perc[0] = float(j)/x_steps*(100.0-2*bound) + bound
 
             self.curr_pos = self.set_pos_cnc(pos_perc, True)
 
