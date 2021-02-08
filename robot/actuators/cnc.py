@@ -81,7 +81,7 @@ class CNC_Controller:
 
     def calibration(self, disable = True):
 
-        print('Calibrating X...')
+        if self.logger: self.logger.info('Calibrating X...')
         self.stepper_x.calibration()
         self.set_pos_abs([0,0.5]) # with additional bounce off
 
