@@ -82,6 +82,7 @@ class CNC_Controller:
 
         print('Calibrating X...')
         self.stepper_x.calibration()
+        self.set_pos_abs([0,1])
         self.curr_pos[0] = 0
         print('X calibration complete!')
 
@@ -89,7 +90,7 @@ class CNC_Controller:
 
         print('Calibrating Y...')
         self.stepper_y.calibration()
-        self.set_pos_abs([0,2])
+        self.set_pos_abs([0,1])
         self.curr_pos[1] = 0
         print('Y calibration complete!')
 
