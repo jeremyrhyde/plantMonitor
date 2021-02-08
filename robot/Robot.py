@@ -56,6 +56,7 @@ class Robot:
         "OFF_W" : lambda self: self.waterSystemOnOff(),
         "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
         "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
+        "GET_POS" : lambda self: self.get_pos_cnc(),
         "CAL" : lambda self: self.cnc_calibartion(),
         "ROUTE_Z" : lambda self: self.route_zigzag(True),
         "ROUTE_L" : lambda self: self.route_line('route_line', True),
@@ -242,6 +243,9 @@ class Robot:
     #     self.logger.info('Current position: [{:.1f}, {:.1f}]'.format(float(self.curr_pos[0]), float(self.curr_pos[1])))
 
     # Move central mount a certain direction and distance
+    def get_pos_cnc(self):
+        self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
+
     def set_pos_cnc(self, new_pos, abs = False):
 
         if abs:
