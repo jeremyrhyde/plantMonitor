@@ -20,10 +20,11 @@ __credits__ = ["Jeremy Hyde"]
 class Camera:
 
     def __init__(self):
+        
+        os.system('export DISPLAY=:0')
 
         self.camera = PiCamera()
         self.camera.resolution = (1024, 768)
-        os.system('export DISPLAY=:0')
 
     def start_preview(self):
         self.camera.start_preview()

@@ -39,9 +39,7 @@ class Robot:
 
     h = httplib2.Http()
 
-    cnc_direction = ''
-    cnc_dist = ''
-    cnc_feedrate = ''
+    curr_pos = [0,0]
     new_pos = [0,0]
     new_pos_abs = [0,0]
 
@@ -86,8 +84,6 @@ class Robot:
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
 
         self.cnc = CNC_Controller()
-        self.curr_pos = self.cnc.get_pos()
-        self.cnc.calibration()
 
         self.camera = Camera()
 
@@ -100,6 +96,8 @@ class Robot:
         self.logger.info('Starting actions...')
         self.passive_led.turn_on()
 
+        self.cnc.calibration()
+
     # Stop threads and close out of all objects
     def close(self):
 
@@ -110,8 +108,6 @@ class Robot:
         self.api_interface.join() # Stop api thread
 
         self._stop_event.set()
-
-
 
     # Define scheduler
     def register_scheduler(self, sched):
