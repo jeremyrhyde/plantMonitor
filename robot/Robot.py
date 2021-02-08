@@ -71,6 +71,7 @@ class Robot:
         self.robot_id = robot_id
         self.logger = logger
 
+        self.logger.info('-----------------------')
         self.logger.info('ROBOT INITIALIZATION...')
 
         #  ----- Initalize threading: Robot, API Interface ------
@@ -110,6 +111,7 @@ class Robot:
         self.set_pos_cnc([0,50], True)
 
         self.logger.info('ROBOT INITIALIZATION COMPLETE!')
+        self.logger.info('------------------------------')
 
     # Stop threads and close out of all objects
     def close(self):
