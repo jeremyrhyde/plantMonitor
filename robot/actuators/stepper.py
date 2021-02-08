@@ -65,7 +65,9 @@ class Stepper:
 
     def calibration(self, disable = True):
 
+        print('switch limit: ' + str(self.switch.read_output()))
         if not self.switch.read_output():
+            print('checked limit')
             return
 
         time.sleep(1)
