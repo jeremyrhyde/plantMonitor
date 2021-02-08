@@ -48,7 +48,8 @@ def main():
 
         user_option = user_input(user_logger).upper()
 
-        robot.queue_command(user_option)
+        if len(user_option) > 0:
+            robot.queue_command(user_option)
         #else:
         #    robot.queue_command(user_option)
 
