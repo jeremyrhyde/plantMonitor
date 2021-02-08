@@ -76,9 +76,14 @@ class Robot:
         self._stop_event = threading.Event()
 
         # Begin robot thread for handling motion and robot logs
-
+        self.logger.info('Starting up robot thread')
         self.robot_thread = threading.Thread(target=self._robot_run)
         self.robot_thread.start()
+
+        # Initializing API
+        self.logger.info('Starting up API')
+        self.api_interface = threading.Thread(target=self._api_interface)
+        self.api_interface.start()
 
         # Initialize components
         self.logger.info('Initializing components...')
@@ -95,14 +100,8 @@ class Robot:
         self.camera = Camera()
         self.logger.info(' - CAMERA [READY]')
 
-        # Initializing API
-        self.logger.info('Starting up API')
-        self.api_interface = threading.Thread(target=self._api_interface)
-        self.api_interface.start()
-
-        self.logger.info('Robot setup complete!')
-
-        self.logger.info('Starting actions...')
+        # Initial actions
+        self.logger.info('Initial actions...')
         self.passive_led.turn_on()
 
         self.cnc.calibration()
