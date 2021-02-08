@@ -77,7 +77,7 @@ class Stepper:
         GPIO.output(self.dir_pin, False)
 
         while self.switch.read_output():
-
+            print('switch limit2: ' + str(self.switch.read_output()))
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
