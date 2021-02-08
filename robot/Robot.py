@@ -58,7 +58,7 @@ class Robot:
         "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
         "GET_POS" : lambda self: self.get_pos_cnc(),
         "CAL" : lambda self: self.cnc_calibartion(),
-        "ROUTE_Z" : lambda self: self.route_zigzag(True),
+        "ROUTE_Z" : lambda self: self.route_zigzag('route_zigzag', True),
         "ROUTE_L" : lambda self: self.route_line('route_line', True),
         "MAP" : lambda self: self.image_map_bed(),
         "X" : lambda self: self.close(),
@@ -262,7 +262,7 @@ class Robot:
 
     # ---------------------------------- ROUTE ---------------------------------
 
-    def route_zigzag(self, return_origin = False):
+    def route_zigzag(self, tag = 'route_zigzag', return_origin = False):
         bound = 2.5
         pos_perc = [bound,bound]
 
@@ -282,14 +282,14 @@ class Robot:
 
                 pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
-                self.set_pos_cnc(pos_perc)
+                self.curr_pos = self.set_pos_cnc(pos_perc)
 
-                self.route_action('route_zigzag_{}_{}.png'.format(i,j))
+                self.route_action('{}_{}_{}.png'.format(tag, i,j))
 
         self.logger.info('Zigzag route Complete ({}, {})!'.format(x_steps, y_steps))
 
         if return_origin:
-            self.set_pos_cnc([0,0])
+            self.cnc.calibration()
             self.logger.info('Returning to origin')
 
     def route_line(self, tag = 'route_line', return_origin = False):
@@ -306,14 +306,14 @@ class Robot:
 
             pos_perc[1] = float(j)/y_steps*(100.0-2*bound) + bound
 
-            self.set_pos_cnc(pos_perc)
+            self.curr_pos = self.set_pos_cnc(pos_perc)
 
             self.route_action('{}_{}.png'.format(tag,j))
 
         self.logger.info('Line route Complete ({})!'.format(y_steps))
 
         if return_origin:
-            self.set_pos_cnc([0,0])
+            self.cnc.calibration()
             self.logger.info('Returning to origin')
 
     def route_action(self, tag):
