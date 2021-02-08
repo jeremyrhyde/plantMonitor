@@ -65,7 +65,7 @@ class Stepper:
 
     def calibration(self, disable = True):
 
-        print('switch limit: ' + str(self.switch.read_output()))
+        print('cnc limit: ' + str(self.switch.read_output()))
         if not self.switch.read_output():
             print('checked limit')
             return
@@ -87,7 +87,7 @@ class Stepper:
         GPIO.output(self.dir_pin, True)
 
         while not self.switch.read_output():
-
+            print('switch limit: ' + str(self.switch.read_output()))
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
