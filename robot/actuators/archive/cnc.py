@@ -33,14 +33,14 @@ import serial
 import time
 import sys
 
-sys.path.append('/home/pi/plantMonitor/robot')
+#sys.path.append('/home/pi/plantMonitor/robot')
 
-from .robot_config import *
+#from .robot_config import *
 
 # Stream g-code to grb
 class CNC_Controller:
 
-    def __init__(self, serial_port = '/dev/ttyACM0', baud_rate = 115200):
+    def __init__(self, X_MIN, X_MAX, Y_MIN, Y_MAX, serial_port = '/dev/ttyACM0', baud_rate = 115200):
 
         self.serial_port = serial_port
         self.baud_rate = baud_rate
@@ -127,16 +127,16 @@ class CNC_Controller:
 
     def check_move(self, move):
         bounds_hit = []
-        if self.pos[0] + move[0] < Y_MIN:
+        if self.pos[0] + move[0] < self.Y_BOUNDS[0]:
             print('Bound X0 Hit')
             bounds_hit.append('x0')
-        if self.pos[0] + move[0] > Y_MAX:
+        if self.pos[0] + move[0] > self.Y_BOUNDS[1]:
             print('Bound X1 Hit')
             bounds_hit.append('x1')
-        if self.pos[1] + move[1] < X_MIN:
+        if self.pos[1] + move[1] < self.X_BOUNDS[0]:
             print('Bound Y0 Hit')
             bounds_hit.append('y0')
-        if self.pos[1] + move[1] > X_MAX:
+        if self.pos[1] + move[1] > self.X_BOUNDS[1]:
             print('Bound Y1 Hit')
             bounds_hit.append('y1')
 
@@ -173,6 +173,14 @@ class CNC_Controller:
 
 # Wait here until grbl is finished to close serial port and file.
 def main():
+
+    X_MIN = 30
+    X_MAX =  -30
+    Y_MIN = -1
+    Y_MAX = 1
+
+
+
     cnc = CNC_Controller()
 
     while True:

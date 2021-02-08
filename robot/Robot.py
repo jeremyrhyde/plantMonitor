@@ -300,7 +300,7 @@ class Robot:
 
         dir = 0
 
-        self.logger.info('Starting line route.... ({})'.format(y_steps))
+        self.logger.info('Starting line route.... ({})'.format(x_steps))
 
         for j in range(0, x_steps+1):
 
@@ -310,7 +310,7 @@ class Robot:
 
             self.route_action('{}_{}.png'.format(tag,j))
 
-        self.logger.info('Line route Complete ({})!'.format(y_steps))
+        self.logger.info('Line route Complete ({})!'.format(x_steps))
 
         if return_origin:
             self.cnc.calibration()
