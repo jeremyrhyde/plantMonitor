@@ -33,8 +33,6 @@ def main():
     robot_logger = logger.init('ROBOT', robot_id)
     cnc_logger = logger.init('CNC', robot_id)
 
-    self.logger.info('ROBOT INITIALIZATION...')
-
     robot = Robot(robot_id, robot_logger, cnc_logger)
 
     sched = Robot_Scheduler(robot)
@@ -46,8 +44,6 @@ def main():
     user_logger = logger.init("USER", user_id)
 
     robot_logger.info('User setup complete!')
-
-    self.logger.info('ROBOT INITIALIZATION COMPLETE!')
 
     while True:
 
