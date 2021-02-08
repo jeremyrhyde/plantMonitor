@@ -144,7 +144,6 @@ class Robot:
         self.logger.info('Connecting to API...')
 
         while(True):
-
             # Retrieve command values
             resp, content = self.h.request("http://0.0.0.0:5002/command/", "GET")
             command = json.loads(content.decode("utf-8"))
