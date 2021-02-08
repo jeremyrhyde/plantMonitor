@@ -26,12 +26,12 @@ def main():
 
     CNC_MOTION = False
     robot_id = '000'
-    #config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)
+    cnc_id = '00000'
 
     # Logging
     logger = Logger('temp.log')
     robot_logger = logger.init('ROBOT', robot_id)
-    cnc_logger = logger.init('CNC', robot_id)
+    cnc_logger = logger.init('CNC', cnc_id)
 
     robot = Robot(robot_id, robot_logger, cnc_logger)
 
@@ -40,7 +40,7 @@ def main():
 
 
     # ----- Manual User Loop -------
-    user_id = "000"
+    user_id = "0000"
     user_logger = logger.init("USER", user_id)
 
     robot_logger.info('User setup complete!')
