@@ -88,7 +88,9 @@ class Stepper:
             GPIO.output(self.step_pin, False)
             time.sleep(self.motor_step_delay)
 
-        if disable: self._disableDriver()
+        self.curr_pos = self.set_pos_cnc([1,0], True)
+
+        self.move_stepper([10,0])
 
     def release_motor(self):
         self._disableDriver()
