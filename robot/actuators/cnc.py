@@ -42,7 +42,7 @@ class CNC_Controller:
         return self.curr_pos
 
 
-    def set_pos(self, pos, logging = False):
+    def set_pos(self, pos, logging = True):
         if not self.safe_move(pos):
             if self.logger: self.logger.info('Improper move...')
             return self.curr_pos
@@ -50,7 +50,7 @@ class CNC_Controller:
             diff = [int(pos[0])- self.curr_pos[0],
                     int(pos[1])- self.curr_pos[1]]
 
-            if self.logger: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
+            if self.logger and logging: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
 
             self.stepper_x.move_stepper(diff[0])
             self.stepper_y.move_stepper(diff[1])
@@ -61,7 +61,7 @@ class CNC_Controller:
 
             return self.curr_pos
 
-    def set_pos_abs(self, pos_abs, logging = False):
+    def set_pos_abs(self, pos_abs, logging = True):
         if not self.safe_move_abs(pos_abs):
             if self.logger: self.logger.info('Improper move... (abs)')
             return self.curr_pos
@@ -70,7 +70,7 @@ class CNC_Controller:
             diff = [int(pos[0]) - self.curr_pos[0],
                     int(pos[1]) - self.curr_pos[1]]
 
-            if self.logger: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
+            if self.logger and logging: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
 
 
             self.stepper_x.move_stepper(diff[0])
@@ -88,7 +88,7 @@ class CNC_Controller:
 
         if self.logger: self.logger.info('Calibrating X...')
         self.stepper_x.calibration()
-        self.set_pos_abs([0,0.5]) # with additional bounce off
+        self.set_pos_abs([0,0.5], False) # with additional bounce off
 
         self.curr_pos[0] = 0
 
@@ -98,7 +98,7 @@ class CNC_Controller:
 
         if self.logger: self.logger.info('Calibrating Y...')
         self.stepper_y.calibration()
-        self.set_pos_abs([0,2.5]) # with additional bounce off
+        self.set_pos_abs([0,2.5], False) # with additional bounce off
 
         self.curr_pos[1] = 0
 
