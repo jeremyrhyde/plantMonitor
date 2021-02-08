@@ -82,21 +82,25 @@ class CNC_Controller:
 
         print('Calibrating X...')
         self.stepper_x.calibration()
-        self.set_pos_abs([0,1])
+        self.set_pos_abs([0,1]) # with additional bounce off
+
         self.curr_pos[0] = 0
+
         print('X calibration complete!')
 
         time.sleep(0.5)
 
         print('Calibrating Y...')
         self.stepper_y.calibration()
-        self.set_pos_abs([0,1])
+        self.set_pos_abs([0,1]) # with additional bounce off
+
         self.curr_pos[1] = 0
+
         print('Y calibration complete!')
 
 
 def main():
-    #stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
+    
     cnc = CNC_Controller()
 
     while True:
