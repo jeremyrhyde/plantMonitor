@@ -24,6 +24,8 @@ def user_input(logger):
 
 def main():
 
+    os.system('export DISPLAY=:0')
+
     CNC_MOTION = False
     robot_id = '000'
     #config = (Logger.Log_Config.STREAM_LOG | Logger.Log_Config.FILE_LOG)

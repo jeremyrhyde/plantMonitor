@@ -71,8 +71,6 @@ class Robot:
         self.robot_id = robot_id
         self.logger = logger
 
-        os.system('export DISPLAY=:0')
-
         #  ----- Initalize threading: Robot, API Interface ------
         self._q = Queue()
         self._stop_event = threading.Event()
