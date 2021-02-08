@@ -50,14 +50,14 @@ class CNC_Controller:
             diff = [int(pos[0])- self.curr_pos[0],
                     int(pos[1])- self.curr_pos[1]]
 
-            if self.logger and logging: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
+            if self.logger and logging: self.logger.info('Move difference: [{},{}] -> POS: '.format(diff[0], diff[1]) + str(self.curr_pos))
 
             self.stepper_x.move_stepper(diff[0])
             self.stepper_y.move_stepper(diff[1])
 
             self.curr_pos = pos
 
-            if logging: print('position set to ' + str(self.curr_pos))
+            #if logging: print('position set to ' + str(self.curr_pos))
 
             return self.curr_pos
 
@@ -70,7 +70,7 @@ class CNC_Controller:
             diff = [int(pos[0]) - self.curr_pos[0],
                     int(pos[1]) - self.curr_pos[1]]
 
-            if self.logger and logging: self.logger.info('Move difference: [{},{}]'.format(diff[0], diff[1]))
+            if self.logger and logging: self.logger.info('Move difference: [{},{}] -> POS: '.format(diff[0], diff[1]) + str(self.curr_pos))
 
 
             self.stepper_x.move_stepper(diff[0])
@@ -79,7 +79,7 @@ class CNC_Controller:
 
             self.curr_pos = pos
 
-            if logging: print('position set to ' + str(self.curr_pos))
+            #if logging: print('position set to ' + str(self.curr_pos))
 
             return self.curr_pos
 
