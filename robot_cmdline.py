@@ -40,10 +40,10 @@ def main():
 
 
     # ----- Manual User Loop -------
-    user_id = "0000"
-    user_logger = logger.init("USER", user_id)
+    user_id = "00"
+    user_logger = logger.init("USER R", user_id)
 
-    user_logger.info('User setup complete!')
+    user_logger.info('Robot user setup complete!')
 
     while True:
 
