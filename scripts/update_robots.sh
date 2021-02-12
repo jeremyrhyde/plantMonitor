@@ -13,6 +13,7 @@ update_command="
 
   cd /home/pi/plantmonitor/;
   git pull;
+  git reset --hard origin/master_dev;
 
   echo 'Finished pulling from git';
 
