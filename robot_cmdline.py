@@ -25,8 +25,8 @@ def user_input(logger):
 def main():
 
     CNC_MOTION = False
-    robot_id = '000'
-    cnc_id = '00000'
+    robot_id = '0000'
+    cnc_id = '000000'
 
     # Logging
     logger = Logger('temp.log', True)
@@ -40,7 +40,7 @@ def main():
 
 
     # ----- Manual User Loop -------
-    user_id = "00"
+    user_id = "000"
     user_logger = logger.init("USER R", user_id)
 
     user_logger.info('Robot user setup complete!')

@@ -24,7 +24,7 @@ def user_input(logger):
 
 def main():
 
-    gardener_id = ''
+    gardener_id = '0'
 
     # Logging
     logger = Logger('temp.log')
@@ -33,7 +33,7 @@ def main():
     gardener_logger.info('Gardener setup complete!')
 
     # ----- Manual User Loop -------
-    user_id = "00"
+    user_id = "000"
     user_logger = logger.init("USER G", user_id)
 
     user_logger.info('Gardener user setup complete!')
