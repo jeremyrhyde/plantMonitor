@@ -43,7 +43,7 @@ def main():
     user_id = "0000"
     user_logger = logger.init("USER", user_id)
 
-    robot_logger.info('User setup complete!')
+    user_logger.info('User setup complete!')
 
     while True:
 
