@@ -37,7 +37,6 @@ def main():
     user_logger = logger.init("USER", user_id)
 
     while True:
-
         user_option = user_input(user_logger).upper()
 
     # Clean up
