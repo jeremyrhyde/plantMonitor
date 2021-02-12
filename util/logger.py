@@ -42,6 +42,9 @@ class Logger:
             os.system('rm ' + self.log_file)
         os.system('touch ' + self.log_file)
 
+    def close(self):
+        pass
+
 if __name__ == '__main__':
 
     logger = Logger('temp.log')
