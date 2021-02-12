@@ -3,18 +3,10 @@ import os
 
 class Logger:
 
-    def __init__(self, log_file):
+    def __init__(self, log_file, clear_log = False):
         self.log_file = log_file
 
-        self.clear_log_file()
-        #self.log_type = log_type
-        #self.log_id = log_id
-
-        # self._log_methods = {
-        #     #self.Log_Config.PARSE_STREAM_LOG: lambda self: self._get_stream_handler(True),
-        #     self.Log_Config.STREAM_LOG: lambda self: self._get_stream_handler(),
-        #     self.Log_Config.FILE_LOG: lambda self: self._get_file_handler(),
-        # }
+        if clear_log: self.clear_log_file()
 
     def init(self, log_name, log_id, level=logging.INFO):
 

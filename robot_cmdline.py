@@ -29,7 +29,7 @@ def main():
     cnc_id = '00000'
 
     # Logging
-    logger = Logger('temp.log')
+    logger = Logger('temp.log', True)
     robot_logger = logger.init('ROBOT', robot_id)
     cnc_logger = logger.init('CNC', cnc_id)
 
