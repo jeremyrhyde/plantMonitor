@@ -6,7 +6,7 @@ After=network.target api.service
 Type=forking
 Restart=on-failure
 RestartSec=3
-Display=:0
+Environment=DISPLAY=:0
 ExecStart=/usr/bin/screen -L -dmS robot_screen bash -c 'cd "/home/pi/plantmonitor/" ; /usr/bin/python3 -u "robot_cmdline.py"'
 User=pi
 
