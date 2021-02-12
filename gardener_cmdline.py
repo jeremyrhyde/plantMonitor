@@ -35,7 +35,7 @@ def main():
 
     # Clean up
     print("Exiting program...")
-    gardener_logger.close()
+    logger.close()
 
 
 if __name__ == "__main__":
