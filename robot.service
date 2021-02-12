@@ -1,11 +1,12 @@
 [Unit]
 Description=Robot Program
-After=network.target robot.service
+After=network.target api.service
 
 [Service]
 Type=forking
 Restart=on-failure
 RestartSec=3
+Display=:0
 ExecStart=/usr/bin/screen -L -dmS gardener_screen bash -c 'cd "/home/pi/plantmonitor/" ; /usr/bin/python3 -u "robot_cmdline.py"'
 User=pi
 
