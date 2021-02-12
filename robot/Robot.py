@@ -113,6 +113,8 @@ class Robot:
         self.logger.info('ROBOT INITIALIZATION COMPLETE!')
         self.logger.info('------------------------------')
 
+        #Send command to gardner that the robot is ready to start
+
     # Stop threads and close out of all objects
     def close(self):
 

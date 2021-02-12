@@ -21,7 +21,6 @@ update_command="
   sudo cp /home/pi/plantmonitor/robot.service /etc/systemd/system/;
   sudo cp /home/pi/plantmonitor/gardener.service /etc/systemd/system/;
 
-  echo 'hi';
   sudo systemctl enable api.service;
   sudo systemctl enable robot.service;
   sudo systemctl enable gardener.service;

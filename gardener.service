@@ -1,5 +1,5 @@
 [Unit]
-Description=Robot Program
+Description=Gardener Program
 After=network.target robot.service
 
 [Service]
