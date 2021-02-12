@@ -32,6 +32,13 @@ def main():
 
     gardener_logger.info('Gardener setup complete!')
 
+    # ----- Manual User Loop -------
+    user_id = "0000"
+    user_logger = logger.init("USER", user_id)
+
+    while True:
+
+        user_option = user_input(user_logger).upper()
 
     # Clean up
     print("Exiting program...")
