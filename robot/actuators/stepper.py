@@ -88,6 +88,8 @@ class Stepper:
             GPIO.output(self.step_pin, False)
             time.sleep(self.motor_step_delay)
 
+        if disable: self._disableDriver()
+
     def release_motor(self):
         self._disableDriver()
 
