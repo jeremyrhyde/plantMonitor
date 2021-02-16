@@ -39,8 +39,8 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
     print('Done')
 
 def main():
-    input_dir = '/home/pi/plantMonitor/data/raw_images/'
-    output_dir = '/home/pi/plantMonitor/data/result_images/results.png'
+    input_dir = '/home/pi/plantmonitor/data/raw_images/'
+    output_dir = '/home/pi/plantmonitor/data/result_images/results.png'
 
     stitch_images(input_dir, output_dir)
 
