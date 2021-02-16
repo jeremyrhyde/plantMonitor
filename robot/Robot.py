@@ -333,14 +333,15 @@ class Robot:
         self.takeCameraImage(image_file)
 
     def image_map_bed(self):
+        image_dir = '/home/pi/plantmonitor/data/raw_images/'
+        os.system('rm {}/imagemap*'.format(image_dir))
+
         # Get images
         self.logger.info('Mapping bed...')
         self.route_line('imagemap', True)
         self.logger.info('Mapping finished!')
 
         # Stitch images into panorama
-        image_dir = '/home/pi/plantmonitor/data/raw_images/'
-        os.system('rm {}/imagemap*'.format(image_dir))
 
         output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
