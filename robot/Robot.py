@@ -270,6 +270,7 @@ class Robot:
     def cnc_calibartion(self):
         self.logger.info('Calibrating CNC...')
         self.cnc.calibration()
+        self.set_pos_cnc([0,50], True)
         self.logger.info('Calibration complete!')
 
     # ---------------------------------- ROUTE ---------------------------------
