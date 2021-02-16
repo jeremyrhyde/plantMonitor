@@ -23,7 +23,7 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
     for file in glob.glob(filt):
         img = cv.imread(cv.samples.findFile(input_dir + file))
         if img is None:
-            print("can't read image " + img_name)
+            print("can't read image " + img)
             sys.exit(-1)
         imgs.append(img)
 
