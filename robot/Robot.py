@@ -270,7 +270,7 @@ class Robot:
     def cnc_calibartion(self):
         self.logger.info('Calibrating CNC...')
         self.cnc.calibration()
-        self.set_pos_cnc([0,50], True)
+        #self.set_pos_cnc([0,50], True)
         self.logger.info('Calibration complete!')
 
     # ---------------------------------- ROUTE ---------------------------------
@@ -326,7 +326,8 @@ class Robot:
         self.logger.info('Line route Complete ({})!'.format(x_steps))
 
         if return_origin:
-            self.cnc.calibration()
+            #self.cnc.calibration()
+            self.set_pos_cnc([0,50], True)
             self.logger.info('Returning to origin')
 
     def route_action(self, tag):
