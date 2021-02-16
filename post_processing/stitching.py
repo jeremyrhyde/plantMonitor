@@ -21,6 +21,7 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
 
     # Read input images
     for file in glob.glob(filt):
+        print(file)
         img = cv.imread(cv.samples.findFile(input_dir + file))
         if img is None:
             print("can't read image ")
