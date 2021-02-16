@@ -31,7 +31,7 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
     print('Stitching image')
     stitcher = cv.Stitcher(cv.Stitcher_SCANS)
     status, pano = stitcher.stitch(imgs)
-    print(status, pano)
+    print(status)
 
     if status != cv.Stitcher_OK:
         print("Can't stitch images, error code = %d" % status)

@@ -330,15 +330,22 @@ class Robot:
 
     def route_action(self, tag):
         image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)
+        self.logger.info('Saving image to ' + str(image_file))
         self.takeCameraImage(image_file)
 
     def image_map_bed(self):
+        tag = 'imagemap'
+
         image_dir = '/home/pi/plantmonitor/data/raw_images/'
-        os.system('rm {}/imagemap*'.format(image_dir))
+
+        try:
+            os.remove('{}/{}*'.format(image_dir, tag))
+        except OSError:
+            pass
 
         # Get images
         self.logger.info('Mapping bed...')
-        self.route_line('imagemap', True)
+        self.route_line(tag, True)
         self.logger.info('Mapping finished!')
 
         # Stitch images into panorama
@@ -346,7 +353,7 @@ class Robot:
         output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
         self.logger.info('Stitching together images to form panorama...')
-        stitch_images(image_dir, output_file, 'imagemap*.png')
+        stitch_images(image_dir, output_file, '{}*.png'.format(tag))
         self.logger.info('Panorama created!')
 
     def route_action(self, tag):
