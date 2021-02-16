@@ -28,7 +28,8 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
             sys.exit(-1)
         imgs.append(img)
 
-    stitcher = cv.Stitcher.create(cv.Stitcher_SCANS)
+    print('Stitching image')
+    stitcher = cv.Stitcher(cv.Stitcher_SCANS)
     status, pano = stitcher.stitch(imgs)
 
     if status != cv.Stitcher_OK:
