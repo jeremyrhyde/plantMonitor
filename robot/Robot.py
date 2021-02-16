@@ -355,7 +355,3 @@ class Robot:
         self.logger.info('Stitching together images to form panorama...')
         stitch_images(image_dir, output_file, '{}*.png'.format(tag))
         self.logger.info('Panorama created!')
-
-    def route_action(self, tag):
-        image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)
-        self.takeCameraImage(image_file)
