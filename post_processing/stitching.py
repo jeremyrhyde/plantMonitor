@@ -42,8 +42,9 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
 def main():
     input_dir = '/home/pi/plantmonitor/data/raw_images/'
     output_dir = '/home/pi/plantmonitor/data/result_images/results.png'
+    filter = 'route_line_*.png'
 
-    stitch_images(input_dir, output_dir)
+    stitch_images(input_dir, output_dir, filter)
 
 if __name__ == '__main__':
     main()
