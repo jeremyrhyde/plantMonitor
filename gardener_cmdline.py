@@ -12,6 +12,7 @@ from util import Logger
 import time
 import httplib2
 import json
+import os
 
 
 # ---- Types of manual input ----
@@ -34,15 +35,14 @@ def send_api_cmd(api_endpoint, data_json):
         #print(content)
 
 def reset_log_file(log_file):
-        if os.path.isfile(log_file):
-            os.system('rm ' + log_file)
-        os.system('touch ' + log_file)
-
+    if os.path.isfile(log_file):
+        os.system('rm ' + log_file)
+    os.system('touch ' + log_file)
 
 def main():
 
     reset_log_file('/home/pi/temp.log')
-    
+
     # Logging
     logger = Logger('/home/pi/temp.log')
 
