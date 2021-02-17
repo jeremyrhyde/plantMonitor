@@ -46,7 +46,7 @@ def main():
     # Logging
     logger = Logger('/home/pi/temp.log')
 
-    time.sleep(3)
+    #time.sleep(3)
 
     gardener_id = '0'
     gardener_logger = logger.init('GARDENER', gardener_id)

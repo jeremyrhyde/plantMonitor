@@ -52,7 +52,7 @@ def main():
 
     # Wait until Gardener is finish initializing
     get_api_cmd('robot_ready', 'ready', 'yes')
-    time.sleep(3)
+    #time.sleep(3)
 
     robot_logger.info('---------------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
