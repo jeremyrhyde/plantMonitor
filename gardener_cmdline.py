@@ -38,7 +38,7 @@ def main():
     gardener_id = '0'
 
     # Logging
-    logger = Logger('temp.log', True)
+    logger = Logger('/home/pi/temp.log', True)
     gardener_logger = logger.init('GARDENER', gardener_id)
 
     gardener_logger.info('----------------------------')

@@ -45,7 +45,7 @@ def main():
     cnc_id = '000000'
 
     # Logging
-    logger = Logger('temp.log')
+    logger = Logger('/home/pi/temp.log')
     robot_logger = logger.init('ROBOT', robot_id)
     cnc_logger = logger.init('CNC', cnc_id)
 
