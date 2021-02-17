@@ -3,10 +3,8 @@ import os
 
 class Logger:
 
-    def __init__(self, log_file, clear_log = False):
+    def __init__(self, log_file):
         self.log_file = log_file
-
-        if clear_log: self.clear_log_file()
 
     def init(self, log_name, log_id, level=logging.INFO):
 

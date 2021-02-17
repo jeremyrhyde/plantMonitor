@@ -41,12 +41,13 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
 
 def main():
 
-    robot_id = '0000'
-    cnc_id = '000000'
-
     # Logging
     logger = Logger('/home/pi/temp.log')
+    
+    robot_id = '0000'
     robot_logger = logger.init('ROBOT', robot_id)
+
+    cnc_id = '000000'
     cnc_logger = logger.init('CNC', cnc_id)
 
     # Wait until Gardener is finish initializing
@@ -63,8 +64,8 @@ def main():
     # Initialize robot user
     user_id = "000"
     user_logger = logger.init("USER R", user_id)
-
     user_logger.info('Robot user setup complete!')
+
     robot_logger.info('ROBOT INITIALIZATION COMPLETE!')
     robot_logger.info('----------------------------')
 

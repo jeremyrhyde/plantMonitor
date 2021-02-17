@@ -35,10 +35,12 @@ def send_api_cmd(api_endpoint, data_json):
 
 def main():
 
-    gardener_id = '0'
 
     # Logging
-    logger = Logger('/home/pi/temp.log', True)
+    logger = Logger('/home/pi/temp.log')
+    logger.clear_log_file()
+
+    gardener_id = '0'
     gardener_logger = logger.init('GARDENER', gardener_id)
 
     gardener_logger.info('----------------------------')
@@ -48,8 +50,8 @@ def main():
     # Initialize gardener user
     user_id = "000"
     user_logger = logger.init("USER G", user_id)
-
     user_logger.info('Gardener user setup complete!')
+
     gardener_logger.info('GARDENER INITIALIZATION COMPLETE!')
 
     # Send to api that gardener setup is finished
