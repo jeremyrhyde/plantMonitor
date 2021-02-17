@@ -9,6 +9,9 @@ update_command="
   sudo systemctl stop robot.service;
   sudo systemctl stop api.service;
 
+  rm -f /home/pi/temp.log;
+  touch /home/pi/temp.log
+
   echo 'Archiving Finished! Updating...';
 
   cd /home/pi/plantmonitor/;

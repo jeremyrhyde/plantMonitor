@@ -51,8 +51,10 @@ def main():
     gardener_id = '0'
     gardener_logger = logger.init('GARDENER', gardener_id)
 
-    gardener_logger.info('------- PLANT MONITOR -------')
-    gardener_logger.info('-----------------------------')
+    gardener_logger.info('---------------------------------')
+    gardener_logger.info('--------- PLANT MONITOR ---------')
+    gardener_logger.info('---------------------------------')
+
     gardener_logger.info('GARDENER INITIALIZATION...')
     gardener_logger.info('Gardener setup complete!')
 
