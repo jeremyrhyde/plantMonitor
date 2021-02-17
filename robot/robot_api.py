@@ -31,9 +31,9 @@ def action():
 
     return action_item
 
-# ACTION
+# ROBOT READY
 @app.route('/robot_ready/', methods=['GET','POST'])
-def action():
+def robot_ready():
 
     if request.method == 'POST':
         data = request.data
