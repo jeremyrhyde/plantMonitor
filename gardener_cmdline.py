@@ -37,7 +37,9 @@ def main():
 
     # Logging
     logger = Logger('/home/pi/temp.log')
-    #logger.clear_log_file()
+    logger.clear_log_file()
+    
+    time.sleep(3)
 
     gardener_id = '0'
     gardener_logger = logger.init('GARDENER', gardener_id)
