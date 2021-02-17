@@ -26,7 +26,7 @@ def user_input(logger):
 
 def get_api_cmd(api_endpoint, json_key, json_filter):
     output = ''
-    
+
     h = httplib2.Http()
 
     while(output != json_filter):
@@ -48,7 +48,7 @@ def main():
     get_api_cmd('robot_ready', 'ready', 'yes')
 
     # Logging
-    logger = Logger('temp.log', True)
+    logger = Logger('temp.log')
     robot_logger = logger.init('ROBOT', robot_id)
     cnc_logger = logger.init('CNC', cnc_id)
 
