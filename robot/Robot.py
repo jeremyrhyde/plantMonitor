@@ -249,13 +249,13 @@ class Robot:
     def waterSystemAmount(self, water_amount):
         self.logger.info('Watering {} mL at [{}, {}]'.format(water_amount, self.curr_pos[0], self.curr_pos[1]))
 
-        self.logger.info('Turning on watering system')
+        self.logger.info(' - Turning on watering system')
         self.watering_mechanism.turn_on()
 
         time.sleep(water_amount * WATER_COEF)
 
         self.watering_mechanism.turn_off()
-        self.logger.info('Turning off watering system')
+        self.logger.info(' - Turning off watering system')
 
 
     # ----------------------------------- CNC ----------------------------------
