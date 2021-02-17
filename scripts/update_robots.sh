@@ -9,10 +9,12 @@ update_command="
   sudo systemctl stop robot.service;
   sudo systemctl stop api.service;
 
+  echo 'Resetting log file';
+
   rm -f /home/pi/temp.log;
   touch /home/pi/temp.log
 
-  echo 'Archiving Finished! Updating...';
+  echo 'Starting git update...';
 
   cd /home/pi/plantmonitor/;
   git pull;

@@ -2,8 +2,8 @@
 """Robot Config
 """
 
-DAILY_CSV = "logs/daily_actions.csv"
-SCHED_CSV = "logs/scheduled_actions.csv"
+DAILY_CSV = "logs/daily_actions_robot.csv"
+SCHED_CSV = "logs/scheduled_actions_robot.csv"
 
 DAILY_FMT = "%H:%M:%S.%f"
 SCHED_FMT = "%Y-%m-%d %H:%M:%S.%f"
