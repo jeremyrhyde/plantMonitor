@@ -41,7 +41,7 @@ def reset_log_file(log_file):
 
 def main():
 
-    reset_log_file('/home/pi/temp.log')
+    #reset_log_file('/home/pi/temp.log')
 
     # Logging
     logger = Logger('/home/pi/temp.log')
