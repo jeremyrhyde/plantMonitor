@@ -31,6 +31,8 @@ def send_api_cmd(api_endpoint, data_json):
         except Exception as e:
             print(e)
 
+        print(content)
+
 def main():
 
     gardener_id = '0'

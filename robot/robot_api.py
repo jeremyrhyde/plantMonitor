@@ -46,7 +46,7 @@ def robot_ready():
     else:
         ready_item = {'ready':'no'}
 
-    return action_item
+    return ready_item
 
 if __name__ == '__main__':
     print('STARTING API')
