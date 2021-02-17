@@ -10,6 +10,8 @@ from robot.robot_config import *
 from subprocess import Popen, PIPE
 from util import Logger
 import time
+import httplib2
+import json
 
 
 # ---- Types of manual input ----

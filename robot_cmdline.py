@@ -10,6 +10,8 @@ from robot.robot_config import *
 from subprocess import Popen, PIPE
 from util import Logger
 import time
+import json
+import httplib2
 
 
 # ---- Types of manual input ----
@@ -24,21 +26,24 @@ def user_input(logger):
 
 def get_api_cmd(api_endpoint, json_key, json_filter):
     output = ''
+    
+    h = httplib2.Http()
 
     while(output != json_filter):
         # Retrieve command values
-        resp, content = self.h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
+        resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
         output = json.loads(content.decode("utf-8"))[json_key]
         print(output)
 
         time.sleep(1)
+
+    return output
 
 def main():
 
     CNC_MOTION = False
     robot_id = '0000'
     cnc_id = '000000'
-
 
     get_api_cmd('robot_ready', 'ready', 'yes')
 
