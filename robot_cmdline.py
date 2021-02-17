@@ -52,8 +52,8 @@ def main():
     # Wait until Gardener is finish initializing
     get_api_cmd('robot_ready', 'ready', 'yes')
 
-    robot_logger.logger.info('----------------------------')
-    robot_logger.logger.info('ROBOT INITIALIZATION...')
+    robot_logger.info('----------------------------')
+    robot_logger.info('ROBOT INITIALIZATION...')
 
     # Initialize robot
     robot = Robot(robot_id, robot_logger, cnc_logger)
@@ -65,8 +65,8 @@ def main():
     user_logger = logger.init("USER R", user_id)
 
     user_logger.info('Robot user setup complete!')
-    robot_logger.logger.info('ROBOT INITIALIZATION COMPLETE!')
-    robot_logger.logger.info('----------------------------')
+    robot_logger.info('ROBOT INITIALIZATION COMPLETE!')
+    robot_logger.info('----------------------------')
 
     # ----- Manual User Loop -------
     while True:
