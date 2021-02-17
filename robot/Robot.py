@@ -73,9 +73,6 @@ class Robot:
         self.robot_id = robot_id
         self.logger = logger
 
-        self.logger.info('-----------------------')
-        self.logger.info('ROBOT INITIALIZATION...')
-
         #  ----- Initalize threading: Robot, API Interface ------
         self._q = Queue()
         self._stop_event = threading.Event()
@@ -111,9 +108,6 @@ class Robot:
 
         self.cnc.calibration()
         self.set_pos_cnc([0,50], True)
-
-        self.logger.info('ROBOT INITIALIZATION COMPLETE!')
-        self.logger.info('------------------------------')
 
         #Send command to gardner that the robot is ready to start
 

@@ -31,7 +31,7 @@ def send_api_cmd(api_endpoint, data_json):
         except Exception as e:
             print(e)
 
-        print(content)
+        #print(content)
 
 def main():
 
@@ -41,19 +41,23 @@ def main():
     logger = Logger('temp.log', True)
     gardener_logger = logger.init('GARDENER', gardener_id)
 
+    gardener_logger.info('----------------------------')
+    gardener_logger.info('GARDENER INITIALIZATION...')
     gardener_logger.info('Gardener setup complete!')
 
-    # ----- Manual User Loop -------
+    # Initialize gardener user
     user_id = "000"
     user_logger = logger.init("USER G", user_id)
 
     user_logger.info('Gardener user setup complete!')
+    gardener_logger.info('GARDENER INITIALIZATION COMPLETE!')
 
-
+    # Send to api that gardener setup is finished
     data = {'ready' : 'yes'}
     data_json = json.dumps(data)
     send_api_cmd('robot_ready', data_json)
 
+    # ----- Manual User Loop -------
     while True:
         user_option = user_input(user_logger).upper()
 

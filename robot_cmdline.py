@@ -33,7 +33,7 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
         # Retrieve command values
         resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
         output = json.loads(content.decode("utf-8"))[json_key]
-        print(output)
+        #print(output)
 
         time.sleep(1)
 
@@ -41,29 +41,34 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
 
 def main():
 
-    CNC_MOTION = False
     robot_id = '0000'
     cnc_id = '000000'
-
-    get_api_cmd('robot_ready', 'ready', 'yes')
 
     # Logging
     logger = Logger('temp.log')
     robot_logger = logger.init('ROBOT', robot_id)
     cnc_logger = logger.init('CNC', cnc_id)
 
-    robot = Robot(robot_id, robot_logger, cnc_logger)
+    # Wait until Gardener is finish initializing
+    get_api_cmd('robot_ready', 'ready', 'yes')
 
+    robot_logger.logger.info('----------------------------')
+    robot_logger.logger.info('ROBOT INITIALIZATION...')
+
+    # Initialize robot
+    robot = Robot(robot_id, robot_logger, cnc_logger)
     sched = Robot_Scheduler(robot)
     robot.register_scheduler(sched)
 
-
-    # ----- Manual User Loop -------
+    # Initialize robot user
     user_id = "000"
     user_logger = logger.init("USER R", user_id)
 
     user_logger.info('Robot user setup complete!')
+    robot_logger.logger.info('ROBOT INITIALIZATION COMPLETE!')
+    robot_logger.logger.info('----------------------------')
 
+    # ----- Manual User Loop -------
     while True:
 
         user_option = user_input(user_logger).upper()
