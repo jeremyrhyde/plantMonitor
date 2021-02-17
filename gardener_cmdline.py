@@ -33,18 +33,26 @@ def send_api_cmd(api_endpoint, data_json):
 
         #print(content)
 
+def reset_log_file(log_file):
+        if os.path.isfile(log_file):
+            os.system('rm ' + log_file)
+        os.system('touch ' + log_file)
+
+
 def main():
 
+    reset_log_file('/home/pi/temp.log')
+    
     # Logging
     logger = Logger('/home/pi/temp.log')
-    #logger.clear_log_file()
 
     time.sleep(3)
 
     gardener_id = '0'
     gardener_logger = logger.init('GARDENER', gardener_id)
 
-    gardener_logger.info('----------------------------')
+    gardener_logger.info('------- PLANT MONITOR -------')
+    gardener_logger.info('-----------------------------')
     gardener_logger.info('GARDENER INITIALIZATION...')
     gardener_logger.info('Gardener setup complete!')
 

@@ -54,7 +54,7 @@ def main():
     get_api_cmd('robot_ready', 'ready', 'yes')
     time.sleep(3)
 
-    robot_logger.info('----------------------------')
+    robot_logger.info('-----------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
 
     # Initialize robot
@@ -68,7 +68,7 @@ def main():
     user_logger.info('Robot user setup complete!')
 
     robot_logger.info('ROBOT INITIALIZATION COMPLETE!')
-    robot_logger.info('----------------------------')
+    robot_logger.info('-----------------------------')
 
     # ----- Manual User Loop -------
     while True:
