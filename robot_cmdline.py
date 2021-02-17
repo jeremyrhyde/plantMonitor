@@ -22,11 +22,25 @@ def user_input(logger):
 
     return user_option
 
+def get_api_cmd(api_endpoint, json_key, json_filter):
+    output = ''
+
+    while(output != json_filter):
+        # Retrieve command values
+        resp, content = self.h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
+        output = json.loads(content.decode("utf-8"))[json_key]
+        print(output)
+
+        time.sleep(1)
+
 def main():
 
     CNC_MOTION = False
     robot_id = '0000'
     cnc_id = '000000'
+
+
+    get_api_cmd('robot_ready', 'ready', 'yes')
 
     # Logging
     logger = Logger('temp.log', True)

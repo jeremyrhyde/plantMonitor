@@ -7,6 +7,7 @@ app = FlaskAPI(__name__)
 #CORS(app)
 
 action_list = []
+ready_list = []
 
 # HOME PAGE
 @app.route('/')
@@ -27,6 +28,23 @@ def action():
         action_item = action_list.pop(0)
     else:
         action_item = {'date':'','command':'', 'para':''}
+
+    return action_item
+
+# ACTION
+@app.route('/robot_ready/', methods=['GET','POST'])
+def action():
+
+    if request.method == 'POST':
+        data = request.data
+        ready = {'ready': data['ready']}
+        ready_list.append(ready)
+        return {'ready':'no'}
+
+    if len(ready_list) > 0:
+        ready_item = ready_list.pop(0)
+    else:
+        ready_item = {'ready':'no'}
 
     return action_item
 

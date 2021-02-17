@@ -22,6 +22,13 @@ def user_input(logger):
 
     return user_option
 
+def send_api_cmd(api_endpoint, data_json):
+        h = httplib2.Http()
+        try:
+            resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
+        except Exception as e:
+            print(e)
+
 def main():
 
     gardener_id = '0'
@@ -37,6 +44,11 @@ def main():
     user_logger = logger.init("USER G", user_id)
 
     user_logger.info('Gardener user setup complete!')
+
+
+    data = {'ready' : 'yes'}
+    data_json = json.dumps(data)
+    send_api_cmd('robot_ready', data_json)
 
     while True:
         user_option = user_input(user_logger).upper()
