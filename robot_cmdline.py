@@ -43,7 +43,7 @@ def main():
 
     # Logging
     logger = Logger('/home/pi/temp.log')
-    
+
     robot_id = '0000'
     robot_logger = logger.init('ROBOT', robot_id)
 
@@ -52,6 +52,7 @@ def main():
 
     # Wait until Gardener is finish initializing
     get_api_cmd('robot_ready', 'ready', 'yes')
+    time.sleep(3)
 
     robot_logger.info('----------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')

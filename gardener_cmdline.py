@@ -35,7 +35,6 @@ def send_api_cmd(api_endpoint, data_json):
 
 def main():
 
-
     # Logging
     logger = Logger('/home/pi/temp.log')
     logger.clear_log_file()
