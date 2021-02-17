@@ -33,7 +33,7 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
         # Retrieve command values
         resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
         output = json.loads(content.decode("utf-8"))[json_key]
-        #print(output)
+        print(output)
 
         time.sleep(1)
 
