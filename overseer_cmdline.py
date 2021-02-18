@@ -61,18 +61,18 @@ def main():
     overseer_logger.info('--------- PLANT MONITOR ---------')
     overseer_logger.info('---------------------------------')
 
-    overseer_logger.info('GARDENER INITIALIZATION...')
+    overseer_logger.info('OVERSEER INITIALIZATION...')
 
     overseer = Overseer(overseer_logger)
 
-    overseer_logger.info('Gardener setup complete!')
+    overseer_logger.info('Overseer setup complete!')
 
     # Initialize gardener user
     user_id = "000"
     user_logger = logger.init("USER G", user_id)
-    user_logger.info('Gardener user setup complete!')
+    user_logger.info('Overseer user setup complete!')
 
-    overseer_logger.info('GARDENER INITIALIZATION COMPLETE!')
+    overseer_logger.info('OVERSEER INITIALIZATION COMPLETE!')
 
     # ----------------- API Checks  ----------------
 
