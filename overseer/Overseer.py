@@ -32,7 +32,7 @@ class Overseer:
     def __init__(self, logger):
         self.logger = logger
 
-        self.plant_list = plant_dict
+        self.plant_dict = plant_dict
 
         self._q = Queue()
         self._stop_event = threading.Event()

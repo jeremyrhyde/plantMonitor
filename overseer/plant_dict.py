@@ -1,4 +1,4 @@
-robot_list = {
+plant_dict = {
     'Rosemary':         {'scientific_name': 'Salvia rosmarinus',   'type': 'herb',       'state': 'plant',  'position': '%(70,100)',  'water_schedule': '1week',  'water_amount': 5,  'present': 'yes'},
     'Gold-Leaf-Thyme':  {'scientific_name': 'Thymus citriodorus',  'type': 'herb',       'state': 'plant',  'position': '%(75,50)',   'water_schedule': '1week',  'water_amount': 5,  'present': 'yes'},
     'Sage':             {'scientific_name': 'Salvia officinalis',  'type': 'herb',       'state': 'plant',  'position': '%(70,0)',    'water_schedule': '1week',  'water_amount': 5,  'present': 'yes'},
