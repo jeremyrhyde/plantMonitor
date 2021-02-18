@@ -131,6 +131,10 @@ def main():
 
             if para != 'X':
                 overseer.queue_command(user_option, para)
+
+        if user_option == 'X':
+            break
+            
         else:
             overseer.queue_command(user_option)
 
@@ -142,7 +146,7 @@ def main():
     overseer_logger.info('---------------------------------')
 
     print("Exiting program...")
-    
+
     logger.close()
 
 
