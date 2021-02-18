@@ -20,7 +20,7 @@ import os
 def user_input(logger):
     print("\nOptions: WATER")
 
-    user_option = input("Enter option: ")
+    user_option = input("Enter option: ").upper()
 
     logger.info("User command input - {}".format(user_option))
 
@@ -123,7 +123,7 @@ def main():
     # --------------- Manual User Loop --------------
 
     while True:
-        user_option = user_input(user_logger).upper()
+        user_option = user_input(user_logger)
 
         if user_option == 'WATER':
             para = plant_input(user_logger)
