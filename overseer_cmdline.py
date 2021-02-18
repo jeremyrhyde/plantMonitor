@@ -41,6 +41,8 @@ def send_api_cmd(api_endpoint, data_key, data_value):
     data = {data_key : data_value}
     data_json = json.dumps(data)
 
+    output = ''
+
     h = httplib2.Http()
     try:
         resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
@@ -93,13 +95,13 @@ def main():
     overseer_logger.info('OVERSEER INITIALIZATION COMPLETE!')
 
     # ----------------- API Checks  ----------------
-
+    print('h')
     # Send to api that gardener setup is finished
     send_api_cmd('overseer_ready', 'ready', 'yes')
-
+    print('hi')
     # Recieve api signal that robot setup is complete
     get_api_cmd('robot_ready', 'ready', 'yes')
-
+    print('hii')
     # --------------- Manual User Loop --------------
 
     while True:

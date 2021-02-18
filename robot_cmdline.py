@@ -46,6 +46,8 @@ def send_api_cmd(api_endpoint, data_key, data_value):
     data = {data_key : data_value}
     data_json = json.dumps(data)
 
+    output = ''
+
     h = httplib2.Http()
 
     try:
@@ -89,9 +91,7 @@ def main():
     robot_logger.info('---------------------------------')
 
     # Send to api that gardener setup is finished
-    data = {'ready' : 'yes'}
-    data_json = json.dumps(data)
-    send_api_cmd('robot_ready', data_json)
+    send_api_cmd('robot_ready', 'ready', 'yes')
 
     # ----- Manual User Loop -------
     while True:
