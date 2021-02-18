@@ -19,7 +19,7 @@ import httplib2
 def user_input(logger):
     print("\nOptions: On / Off / X")
 
-    user_option = input("Enter option: ")
+    user_option = input("Enter option: ").upper()
 
     logger.info("User command input - {}".format(user_option))
 
@@ -55,7 +55,6 @@ def send_api_cmd(api_endpoint, data_key, data_value):
     except Exception as e:
         print(e)
 
-    #print(content)
 
 # --------------------- MAIN LOOP ----------------------
 
@@ -95,7 +94,7 @@ def main():
     # ----- Manual User Loop -------
     while True:
 
-        user_option = user_input(user_logger).upper()
+        user_option = user_input(user_logger)
 
         if len(user_option) > 0:
             robot.queue_command(user_option)

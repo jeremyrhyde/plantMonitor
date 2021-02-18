@@ -66,8 +66,6 @@ def send_api_cmd(api_endpoint, data_key, data_value):
     except Exception as e:
         print(e)
 
-    #print(content)
-
 def get_api_cmd(api_endpoint, json_key, json_filter):
     output = ''
 
