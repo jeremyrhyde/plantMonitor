@@ -42,8 +42,10 @@ def plant_input(logger):
     try:
         plant_num = int(plant_option)
     except Exception as e:
-        logger.info("Invalid input {}".format(plant_option))
+        logger.info("Invalid input {} must be integer".format(plant_option))
         return 'X'
+
+    if plant_num >= len(key_list): logger.info("Invalid input {} must be between (0 -> {})".format(plant_option, len(key_list)))
 
     logger.info("User plant input - {} [{}]".format(key_list[plant_num], plant_num))
     return plant_num
