@@ -42,7 +42,7 @@ def plant_input(logger):
     try:
         plant_num = int(plant_option)
     except Exception as e:
-        logger.info("Invalid input {}".format(platn_option)
+        logger.info("Invalid input {}".format(plant_option))
         return 'X'
 
     logger.info("User plant input - {} [{}]".format(key_list[plant_num], plant_num))
