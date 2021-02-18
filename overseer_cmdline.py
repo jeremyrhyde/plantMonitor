@@ -4,7 +4,7 @@ This application provides a CLI for the robots
 """
 
 from overseer.Overseer import Overseer
-from overseer.plant_config import *
+from overseer.overseer_config import *
 from overseer.plant_dict import *
 
 from subprocess import Popen, PIPE

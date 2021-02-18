@@ -14,7 +14,7 @@ from os import path
 from queue import *
 from subprocess import check_output, Popen, PIPE
 
-from .plant_config import *
+from .overseer_config import *
 from .plant_dict import *
 
 class Overseer:
