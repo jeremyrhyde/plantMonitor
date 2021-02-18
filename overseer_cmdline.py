@@ -3,9 +3,9 @@
 This application provides a CLI for the robots
 """
 
-from robot import Robot_Scheduler
-from robot.Robot import Robot
-from robot.robot_config import *
+from overseeer.Overseer import Overseer
+from overseer.plant_config import *
+from overseer.plant_dict import *
 
 from subprocess import Popen, PIPE
 from util import Logger
