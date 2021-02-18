@@ -70,6 +70,7 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
 
 def main():
 
+    time.sleep(3)
     # Logging
     logger = Logger('/home/pi/temp.log')
 
