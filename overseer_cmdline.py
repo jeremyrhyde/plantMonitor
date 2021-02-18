@@ -27,7 +27,13 @@ def user_input(logger):
     return user_option
 
 def plant_input(logger):
-    print("\nOptions: \n")
+
+    print("\nPlant options: \n")
+
+    i = 0
+    for key in plant_dict:
+        print('[{}] - {}'.format(i, key))
+        i = i + 1
 
     plant_option = input("Enter option: ")
 
