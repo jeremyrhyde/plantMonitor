@@ -18,7 +18,7 @@ import os
 # --------------- Types of manual input ---------------
 
 def user_input(logger):
-    print("\nOptions: WATER")
+    print("\nOptions: WATER / ETC")
 
     user_option = input("Enter option: ").upper()
 
@@ -86,6 +86,9 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
 def main():
 
     time.sleep(3)
+
+    # ----------------- Initializing  ------------------
+
     # Logging
     logger = Logger('/home/pi/temp.log')
 
@@ -131,8 +134,15 @@ def main():
         else:
             overseer.queue_command(user_option)
 
+    # --------------------- Close -------------------
+
     # Clean up
+    overseer_logger.info('---------------------------------')
+    overseer_logger.info('OVERSEER CLOSEOUT')
+    overseer_logger.info('---------------------------------')
+
     print("Exiting program...")
+    
     logger.close()
 
 

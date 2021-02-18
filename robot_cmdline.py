@@ -60,6 +60,13 @@ def send_api_cmd(api_endpoint, data_key, data_value):
 
 def main():
 
+    # ----------------- API Checks (P1)  ---------------
+
+    # Wait until Gardener is finish initializing
+    get_api_cmd('overseer_ready', 'ready', 'yes')
+
+    # ----------------- Initializing  ------------------
+
     # Logging
     logger = Logger('/home/pi/temp.log')
 
@@ -68,9 +75,6 @@ def main():
 
     cnc_id = '000000'
     cnc_logger = logger.init('CNC', cnc_id)
-
-    # Wait until Gardener is finish initializing
-    get_api_cmd('overseer_ready', 'ready', 'yes')
 
     robot_logger.info('---------------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
@@ -88,10 +92,12 @@ def main():
     robot_logger.info('ROBOT INITIALIZATION COMPLETE!')
     robot_logger.info('---------------------------------')
 
+    # ----------------- API Checks (P2)  --------------
+
     # Send to api that gardener setup is finished
     send_api_cmd('robot_ready', 'ready', 'yes')
 
-    # ----- Manual User Loop -------
+    # --------------- Manual User Loop ----------------
     while True:
 
         user_option = user_input(user_logger)
@@ -102,15 +108,16 @@ def main():
         if user_option == 'X':
             break
 
+    # --------------------- Close -------------------
+
     # Clean up
+    overseer_logger.info('---------------------------------')
+    robot_logger.info('ROBOT CLOSEOUT')
+    overseer_logger.info('---------------------------------')
+
     print("Exiting program...")
+    
     logger.close()
-
-    # if log_file:
-    #     log_uart.close()
-    # if serial_port or serial_file:
-    #     uart.close()
-
     sched.close()
     robot.close()
 
