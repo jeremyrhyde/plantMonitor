@@ -55,7 +55,7 @@ def send_api_cmd(api_endpoint, data_key, data_value):
     except Exception as e:
         print(e)
 
-    print(content)
+    #print(content)
 
 def get_api_cmd(api_endpoint, json_key, json_filter):
     output = ''
@@ -66,7 +66,7 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
         # Retrieve command values
         resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
         output = json.loads(content.decode("utf-8"))[json_key]
-        print(output)
+        #print(output)
 
         time.sleep(1)
 
@@ -115,7 +115,7 @@ def main():
         user_option = user_input(user_logger).upper()
 
         if user_option == 'WATER':
-            para = plant_option(user_logger)
+            para = plant_input(user_logger)
 
         overseer.queue_command(user_option, para)
 

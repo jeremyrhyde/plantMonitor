@@ -36,7 +36,7 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
         # Retrieve command values
         resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
         output = json.loads(content.decode("utf-8"))[json_key]
-        print(output)
+        #print(output)
 
         time.sleep(1)
 
@@ -55,7 +55,7 @@ def send_api_cmd(api_endpoint, data_key, data_value):
     except Exception as e:
         print(e)
 
-    print(content)
+    #print(content)
 
 # --------------------- MAIN LOOP ----------------------
 
@@ -72,7 +72,6 @@ def main():
 
     # Wait until Gardener is finish initializing
     get_api_cmd('overseer_ready', 'ready', 'yes')
-
 
     robot_logger.info('---------------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
