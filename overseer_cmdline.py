@@ -46,6 +46,21 @@ def send_api_cmd(api_endpoint, data_json):
 
         #print(content)
 
+def get_api_cmd(api_endpoint, json_key, json_filter):
+    output = ''
+
+    h = httplib2.Http()
+
+    while(output != json_filter):
+        # Retrieve command values
+        resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "GET")
+        output = json.loads(content.decode("utf-8"))[json_key]
+        print(output)
+
+        time.sleep(1)
+
+    return output
+
 # --------------------- MAIN LOOP ----------------------
 
 def main():
@@ -79,12 +94,10 @@ def main():
     # Send to api that gardener setup is finished
     data = {'ready' : 'yes'}
     data_json = json.dumps(data)
-    send_api_cmd('robot_ready', data_json)
+    send_api_cmd('overseer_ready', data_json)
 
     # Recieve api signal that robot setup is complete
-    ##
-    ##
-    ##
+    get_api_cmd('robot_ready', 'ready', 'yes')
 
     # --------------- Manual User Loop --------------
 

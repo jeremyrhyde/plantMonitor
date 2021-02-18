@@ -14,7 +14,8 @@ import json
 import httplib2
 
 
-# ---- Types of manual input ----
+# --------------- Types of manual input ---------------
+
 def user_input(logger):
     print("\nOptions: On / Off / X")
 
@@ -23,6 +24,8 @@ def user_input(logger):
     logger.info("User input - {}".format(user_option))
 
     return user_option
+
+# ------------- API get and pull requests --------------
 
 def get_api_cmd(api_endpoint, json_key, json_filter):
     output = ''
@@ -39,6 +42,15 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
 
     return output
 
+def send_api_cmd(api_endpoint, data_json):
+        h = httplib2.Http()
+        try:
+            resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
+        except Exception as e:
+            print(e)
+
+# --------------------- MAIN LOOP ----------------------
+
 def main():
 
     # Logging
@@ -51,8 +63,8 @@ def main():
     cnc_logger = logger.init('CNC', cnc_id)
 
     # Wait until Gardener is finish initializing
-    get_api_cmd('robot_ready', 'ready', 'yes')
-    #time.sleep(3)
+    get_api_cmd('overseer_ready', 'ready', 'yes')
+
 
     robot_logger.info('---------------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
@@ -69,6 +81,11 @@ def main():
 
     robot_logger.info('ROBOT INITIALIZATION COMPLETE!')
     robot_logger.info('---------------------------------')
+
+    # Send to api that gardener setup is finished
+    data = {'ready' : 'yes'}
+    data_json = json.dumps(data)
+    send_api_cmd('robot_ready', data_json)
 
     # ----- Manual User Loop -------
     while True:

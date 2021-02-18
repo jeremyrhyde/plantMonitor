@@ -6,7 +6,7 @@ After=network.target
 Type=forking
 Restart=on-failure
 RestartSec=3
-ExecStart=/usr/bin/screen -L -dmS api_interface bash -c 'cd "/home/pi/plantmonitor/robot/" ; /usr/bin/python3 "robot_api.py"'
+ExecStart=/usr/bin/screen -L -dmS api_interface bash -c 'cd "/home/pi/plantmonitor/api_interface/" ; /usr/bin/python3 "plantmonitor_api.py"'
 User=pi
 
 [Install]

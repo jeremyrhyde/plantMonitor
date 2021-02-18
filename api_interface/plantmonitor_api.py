@@ -7,7 +7,8 @@ app = FlaskAPI(__name__)
 #CORS(app)
 
 action_list = []
-ready_list = []
+overseer_ready_list = []
+robot_ready_list = []
 
 # HOME PAGE
 @app.route('/')
@@ -38,11 +39,28 @@ def robot_ready():
     if request.method == 'POST':
         data = request.data
         ready = {'ready': data['ready']}
-        ready_list.append(ready)
+        robot_ready_list.append(ready)
         return {'ready':'no'}
 
     if len(ready_list) > 0:
-        ready_item = ready_list.pop(0)
+        ready_item = robot_ready_list.pop(0)
+    else:
+        ready_item = {'ready':'no'}
+
+    return ready_item
+
+# OVERSEER READY
+@app.route('/overseer_ready/', methods=['GET','POST'])
+def overseer_ready():
+
+    if request.method == 'POST':
+        data = request.data
+        ready = {'ready': data['ready']}
+        overseer_ready_list.append(ready)
+        return {'ready':'no'}
+
+    if len(overseer_ready_list) > 0:
+        ready_item = overseer_ready_list.pop(0)
     else:
         ready_item = {'ready':'no'}
 
