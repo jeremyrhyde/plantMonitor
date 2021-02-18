@@ -15,7 +15,8 @@ import json
 import os
 
 
-# ---- Types of manual input ----
+# --------------- Types of manual input ---------------
+
 def user_input(logger):
     print("\nOptions: On / Off / X")
 
@@ -24,6 +25,17 @@ def user_input(logger):
     logger.info("User input - {}".format(user_option))
 
     return user_option
+
+def plant_input(logger):
+    print("\nOptions: \n")
+
+    plant_option = input("Enter option: ")
+
+    logger.info("User input - {}".format(plant_option))
+
+    return plant_option
+
+# ------------- API get and pull requests --------------
 
 def send_api_cmd(api_endpoint, data_json):
         h = httplib2.Http()
@@ -34,45 +46,55 @@ def send_api_cmd(api_endpoint, data_json):
 
         #print(content)
 
-def reset_log_file(log_file):
-    if os.path.isfile(log_file):
-        os.system('rm ' + log_file)
-    os.system('touch ' + log_file)
+# --------------------- MAIN LOOP ----------------------
 
 def main():
-
-    #reset_log_file('/home/pi/temp.log')
 
     # Logging
     logger = Logger('/home/pi/temp.log')
 
-    #time.sleep(3)
+    # Initialize overseer
+    overseer_id = '0'
+    overseer_logger = logger.init('OVERSEER', overseer_id)
 
-    gardener_id = '0'
-    gardener_logger = logger.init('GARDENER', gardener_id)
+    overseer_logger.info('---------------------------------')
+    overseer_logger.info('--------- PLANT MONITOR ---------')
+    overseer_logger.info('---------------------------------')
 
-    gardener_logger.info('---------------------------------')
-    gardener_logger.info('--------- PLANT MONITOR ---------')
-    gardener_logger.info('---------------------------------')
+    overseer_logger.info('GARDENER INITIALIZATION...')
 
-    gardener_logger.info('GARDENER INITIALIZATION...')
-    gardener_logger.info('Gardener setup complete!')
+    overseer = Overseer(overseer_logger)
+
+    overseer_logger.info('Gardener setup complete!')
 
     # Initialize gardener user
     user_id = "000"
     user_logger = logger.init("USER G", user_id)
     user_logger.info('Gardener user setup complete!')
 
-    gardener_logger.info('GARDENER INITIALIZATION COMPLETE!')
+    overseer_logger.info('GARDENER INITIALIZATION COMPLETE!')
+
+    # ----------------- API Checks  ----------------
 
     # Send to api that gardener setup is finished
     data = {'ready' : 'yes'}
     data_json = json.dumps(data)
     send_api_cmd('robot_ready', data_json)
 
-    # ----- Manual User Loop -------
+    # Recieve api signal that robot setup is complete
+    ##
+    ##
+    ##
+
+    # --------------- Manual User Loop --------------
+
     while True:
         user_option = user_input(user_logger).upper()
+
+        if user_option == 'WATER':
+            para = plant_option(user_logger)
+
+        overseer.queue_command(user_option, para)
 
     # Clean up
     print("Exiting program...")

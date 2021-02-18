@@ -1,11 +1,11 @@
 #!/bin/bash
 
 update_command="
-  sudo systemctl stop gardener.service;
+  sudo systemctl stop overseer.service;
   sudo systemctl disable api.service;
   sudo systemctl disable robot.service;
 
-  sudo systemctl stop gardener.service;
+  sudo systemctl stop overseer.service;
   sudo systemctl stop robot.service;
   sudo systemctl stop api.service;
 
@@ -24,14 +24,14 @@ update_command="
 
   sudo cp /home/pi/plantmonitor/api.service /etc/systemd/system/;
   sudo cp /home/pi/plantmonitor/robot.service /etc/systemd/system/;
-  sudo cp /home/pi/plantmonitor/gardener.service /etc/systemd/system/;
+  sudo cp /home/pi/plantmonitor/overseer.service /etc/systemd/system/;
 
   sudo systemctl enable api.service;
   sudo systemctl enable robot.service;
-  sudo systemctl enable gardener.service;
+  sudo systemctl enable overseer.service;
   sudo systemctl start api.service;
   sudo systemctl start robot.service;
-  sudo systemctl start gardener.service;
+  sudo systemctl start overseer.service;
   "
 
 reboot_robots="
