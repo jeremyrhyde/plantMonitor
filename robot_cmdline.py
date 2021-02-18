@@ -42,12 +42,18 @@ def get_api_cmd(api_endpoint, json_key, json_filter):
 
     return output
 
-def send_api_cmd(api_endpoint, data_json):
-        h = httplib2.Http()
-        try:
-            resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
-        except Exception as e:
-            print(e)
+def send_api_cmd(api_endpoint, data_key, data_value):
+    data = {data_key : data_value}
+    data_json = json.dumps(data)
+
+    h = httplib2.Http()
+
+    try:
+        resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
+    except Exception as e:
+        print(e)
+
+    print(content)
 
 # --------------------- MAIN LOOP ----------------------
 

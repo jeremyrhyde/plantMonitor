@@ -37,14 +37,17 @@ def plant_input(logger):
 
 # ------------- API get and pull requests --------------
 
-def send_api_cmd(api_endpoint, data_json):
-        h = httplib2.Http()
-        try:
-            resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
-        except Exception as e:
-            print(e)
+def send_api_cmd(api_endpoint, data_key, data_value):
+    data = {data_key : data_value}
+    data_json = json.dumps(data)
 
-        #print(content)
+    h = httplib2.Http()
+    try:
+        resp, content = h.request("http://0.0.0.0:5002/{}/".format(api_endpoint), "POST", data_json, {"content-type":"application/json"})
+    except Exception as e:
+        print(e)
+
+    print(content)
 
 def get_api_cmd(api_endpoint, json_key, json_filter):
     output = ''
@@ -92,9 +95,7 @@ def main():
     # ----------------- API Checks  ----------------
 
     # Send to api that gardener setup is finished
-    data = {'ready' : 'yes'}
-    data_json = json.dumps(data)
-    send_api_cmd('overseer_ready', data_json)
+    send_api_cmd('overseer_ready', 'ready', 'yes')
 
     # Recieve api signal that robot setup is complete
     get_api_cmd('robot_ready', 'ready', 'yes')
