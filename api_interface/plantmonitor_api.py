@@ -42,7 +42,7 @@ def robot_ready():
         robot_ready_list.append(ready)
         return {'ready':'no'}
 
-    if len(ready_list) > 0:
+    if len(robot_ready_list) > 0:
         ready_item = robot_ready_list.pop(0)
     else:
         ready_item = {'ready':'no'}
