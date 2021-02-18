@@ -30,16 +30,23 @@ def plant_input(logger):
 
     print("\nPlant options:")
 
+    key_list = []
     i = 0
     for key in plant_dict:
         print('[{}] - {}'.format(i, key))
+        key_list.append(key)
         i = i + 1
 
     plant_option = input("Enter option: ")
 
-    logger.info("User plant input - {}".format(plant_option))
+    try:
+        plant_num = int(plant_option)
+    except Exception as e:
+        logger.info("Invalid input {}".format(platn_option)
+        return 'X'
 
-    return plant_option
+    logger.info("User plant input - {} [{}]".format(key_list[plant_num], plant_num))
+    return plant_num
 
 # ------------- API get and pull requests --------------
 
@@ -117,7 +124,10 @@ def main():
         if user_option == 'WATER':
             para = plant_input(user_logger)
 
-        overseer.queue_command(user_option, para)
+            if para != 'X':
+                overseer.queue_command(user_option, para)
+        else:
+            overseer.queue_command(user_option)
 
     # Clean up
     print("Exiting program...")
