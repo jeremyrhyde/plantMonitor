@@ -18,17 +18,17 @@ import os
 # --------------- Types of manual input ---------------
 
 def user_input(logger):
-    print("\nOptions: On / Off / X")
+    print("\nOptions: WATER")
 
     user_option = input("Enter option: ")
 
-    logger.info("User input - {}".format(user_option))
+    logger.info("User command input - {}".format(user_option))
 
     return user_option
 
 def plant_input(logger):
 
-    print("\nPlant options: \n")
+    print("\nPlant options:")
 
     i = 0
     for key in plant_dict:
@@ -37,7 +37,7 @@ def plant_input(logger):
 
     plant_option = input("Enter option: ")
 
-    logger.info("User input - {}".format(plant_option))
+    logger.info("User plant input - {}".format(plant_option))
 
     return plant_option
 
@@ -102,13 +102,13 @@ def main():
     overseer_logger.info('OVERSEER INITIALIZATION COMPLETE!')
 
     # ----------------- API Checks  ----------------
-    print('h')
+
     # Send to api that gardener setup is finished
     send_api_cmd('overseer_ready', 'ready', 'yes')
-    print('hi')
+
     # Recieve api signal that robot setup is complete
     get_api_cmd('robot_ready', 'ready', 'yes')
-    print('hii')
+
     # --------------- Manual User Loop --------------
 
     while True:

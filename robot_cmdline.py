@@ -21,7 +21,7 @@ def user_input(logger):
 
     user_option = input("Enter option: ")
 
-    logger.info("User input - {}".format(user_option))
+    logger.info("User command input - {}".format(user_option))
 
     return user_option
 
