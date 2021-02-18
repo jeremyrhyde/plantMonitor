@@ -16,11 +16,11 @@ class WaterPump:
         GPIO.setup(self.water_pin, GPIO.OUT)
         self.turn_off()
 
-    def turn_on(self):
-        GPIO.output(self.water_pin, GPIO.HIGH)
-
     def turn_off(self):
         GPIO.output(self.water_pin, GPIO.LOW)
+
+    def turn_on(self):
+        GPIO.output(self.water_pin, GPIO.HIGH)
 
     def close(self):
         self.turn_off()
