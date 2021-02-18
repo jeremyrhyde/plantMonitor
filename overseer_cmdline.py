@@ -3,7 +3,7 @@
 This application provides a CLI for the robots
 """
 
-from overseeer.Overseer import Overseer
+from overseer.Overseer import Overseer
 from overseer.plant_config import *
 from overseer.plant_dict import *
 
