@@ -77,6 +77,8 @@ class Overseer:
     def water_plant(self, plant_key):
 
         # Get metadata
+        print(plant_key)
+        print(plant_dict[plant_key])
         present = plant_dict[plant_key]['present']
         pos = plant_dict[plant_key]['position']
         water_amount = plant_dict[plant_key]['water_amount']
