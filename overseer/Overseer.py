@@ -67,6 +67,7 @@ class Overseer:
     def queue_command(self, command, para = ''):
 
         if command == 'WATER':
+            print('para: ' + para)
             self.plant_name = para
 
         self._q.put(command)
