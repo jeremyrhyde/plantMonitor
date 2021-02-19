@@ -25,7 +25,7 @@ class Overseer:
 
 
     COMMANDS = {
-        "WATER" : lambda self: self.water(self.plant_name),
+        "WATER" : lambda self: self.water_plant(self.plant_name),
     }
 
 
@@ -84,7 +84,7 @@ class Overseer:
         if present == 'yes':
             #Send move command
             self.send_robot_command(pos)
-            
+
             #Send water Command
             self.send_robot_command('WATER', water_amount)
 
