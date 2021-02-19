@@ -98,6 +98,7 @@ class Overseer:
 
     def send_robot_command(command, para = ''):
         data = {'command' : command, 'para' : para}
+        print(str(data))
         data_json = json.dumps(data)
 
         try:
