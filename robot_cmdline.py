@@ -25,6 +25,13 @@ def user_input(logger):
 
     return user_option
 
+def ater_input(logger):
+    user_option = input("\nEnter amount of water (in mL): ")
+
+    logger.info("User water amount input - {}".format(user_option))
+
+    return user_option
+
 # ------------- API get and pull requests --------------
 
 def get_api_cmd(api_endpoint, json_key, json_filter):
@@ -102,7 +109,11 @@ def main():
 
         user_option = user_input(user_logger)
 
-        if len(user_option) > 0:
+        if user_option == 'WATER':
+            para = water_input(user_logger)
+            robot.queue_command(user_option, para)
+
+        elif len(user_option) > 0:
             robot.queue_command(user_option)
 
         if user_option == 'X':
@@ -116,7 +127,7 @@ def main():
     overseer_logger.info('---------------------------------')
 
     print("Exiting program...")
-    
+
     logger.close()
     sched.close()
     robot.close()

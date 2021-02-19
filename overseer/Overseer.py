@@ -25,7 +25,7 @@ class Overseer:
 
 
     COMMANDS = {
-        "WATER" : lambda self: self.water(),
+        "WATER" : lambda self: self.water(self.plant_name),
     }
 
 
@@ -74,5 +74,30 @@ class Overseer:
     def register_schedule(self):
         pass
 
-    def water(self):
-        pass
+    def water_plant(self, plant_key):
+
+        # Get metadata
+        present = plant_dict[plant_key]['present']
+        pos = plant_dict[plant_key]['position']
+        water_amount = plant_dict[plant_key]['water_amount']
+
+        if present == 'yes':
+            #Send move command
+            self.send_robot_command(pos)
+            
+            #Send water Command
+            self.send_robot_command('WATER', water_amount)
+
+            #REturn to origin
+        else:
+            self.logger.info('WARNING! Plant is not in plantMonitor bed')
+
+
+    def send_robot_command(command, para = ''):
+        data = {'command' : command, 'para' : para}
+        data_json = json.dumps(data)
+
+        try:
+            resp, content = self.h.request("http://0.0.0.0:5002/command/", "POST", data_json, {"content-type":"application/json"})
+        except Exception as e:
+            print(e)

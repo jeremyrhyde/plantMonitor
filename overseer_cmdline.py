@@ -50,7 +50,7 @@ def plant_input(logger):
         return 'X'
 
     logger.info("User plant input - {} [{}]".format(key_list[plant_num], plant_num))
-    return plant_num
+    return key_list[plant_num]
 
 # ------------- API get and pull requests --------------
 
@@ -134,7 +134,7 @@ def main():
 
         if user_option == 'X':
             break
-            
+
         else:
             overseer.queue_command(user_option)
 

@@ -53,7 +53,7 @@ class Robot:
         #"OFF_AL" : lambda self: self.activeLightingOnOff(),
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
-        "W" : lambda self: self.waterSystemAmount(self.water_amount),
+        "WATER" : lambda self: self.waterSystemAmount(self.water_amount),
         "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
         "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
         "GET_POS" : lambda self: self.get_pos_cnc(),
@@ -177,9 +177,9 @@ class Robot:
             self.new_pos_abs[0] = int(command[2:-1].split(',')[0])
             self.new_pos_abs[1] = int(command[2:-1].split(',')[1])
             self._q.put('CNC_POS_ABS')
-        elif command[0] == 'W':
-            self.water_amount = int(command[2:])
-            self._q.put('W')
+        elif command == 'WATER':
+            self.water_amount = para
+            self._q.put('WATER')
         else:
             self._q.put(command)
 
@@ -246,7 +246,7 @@ class Robot:
         self.logger.info(' - Turning on watering system')
         self.watering_mechanism.turn_on()
 
-        time.sleep(water_amount * WATER_COEF)
+        time.sleep(int(water_amount) * WATER_COEF)
 
         self.watering_mechanism.turn_off()
         self.logger.info(' - Turning off watering system')
