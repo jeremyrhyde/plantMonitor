@@ -132,7 +132,7 @@ def main():
             if para != 'X':
                 overseer.queue_command(user_option, para)
 
-        if user_option == 'X':
+        elif user_option == 'X':
             break
 
         else:
