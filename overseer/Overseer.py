@@ -75,11 +75,9 @@ class Overseer:
     def register_schedule(self):
         pass
 
-    def water_plant(self, plant_key):
+    def water_plant(self, plant_key, return_origin = False):
 
         # Get metadata
-        print(plant_key)
-        print(plant_dict[plant_key])
         present = plant_dict[plant_key]['present']
         pos = plant_dict[plant_key]['position']
         water_amount = plant_dict[plant_key]['water_amount']
@@ -91,7 +89,9 @@ class Overseer:
             #Send water Command
             self.send_robot_command('WATER', water_amount)
 
-            #REturn to origin
+            #Return to origin
+            if return_origin:
+                self.send_robot_command('%[0,0]')
         else:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
 
