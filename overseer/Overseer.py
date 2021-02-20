@@ -91,7 +91,7 @@ class Overseer:
 
             #Return to origin
             if return_origin:
-                self.send_robot_command('%[0,0]')
+                self.send_robot_command('%[0,50]')
         else:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
 
