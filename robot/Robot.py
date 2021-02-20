@@ -251,6 +251,8 @@ class Robot:
         self.watering_mechanism.turn_off()
         self.logger.info(' - Turning off watering system')
 
+        time.sleep(1)
+
 
     # ----------------------------------- CNC ----------------------------------
 
