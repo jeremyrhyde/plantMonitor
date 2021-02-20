@@ -96,7 +96,7 @@ class Overseer:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
 
 
-    def send_robot_command(command, para = ''):
+    def send_robot_command(self, command, para = ''):
         data = {'command' : command, 'para' : para}
         print(str(data))
         data_json = json.dumps(data)
