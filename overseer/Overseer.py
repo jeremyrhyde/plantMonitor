@@ -75,7 +75,7 @@ class Overseer:
     def register_schedule(self):
         pass
 
-    def water_plant(self, plant_key, return_origin = False):
+    def water_plant(self, plant_key, return_origin = True):
 
         # Get metadata
         present = plant_dict[plant_key]['present']
