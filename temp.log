@@ -68,3 +68,5 @@
 2021-02-21 18:29:15,004 [OVERSEER] [0] INFO | Watering Shishito-Peppers - at positon: %(50,50), water_amount: 3
 2021-02-21 18:29:20,003 [OVERSEER] [0] INFO | Watering Jade-Plant - at positon: %(100,50), water_amount: 3
 2021-02-21 18:29:25,004 [OVERSEER] [0] INFO | Watering Ponthos - at positon: %(0,50), water_amount: 3
+2021-02-21 18:30:00,002 [OVERSEER] [0] INFO | Watering Rosemary - at positon: %(60,100), water_amount: 3
+2021-02-21 18:30:05,006 [OVERSEER] [0] INFO | Watering Gold-Leaf-Thyme - at positon: %(75,50), water_amount: 3
