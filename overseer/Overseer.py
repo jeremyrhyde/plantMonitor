@@ -44,8 +44,10 @@ class Overseer:
         self.overseer_thread = threading.Thread(target=self._overseer_run)
         self.overseer_thread.start()
 
+        # Setting up schedule
+        self.sched = BackgroundScheduler(daemon=True)
         self.register_schedule()
-
+        self.sched.start()
 
     # Stop threads and close out of all objects
     def close(self):
@@ -76,13 +78,26 @@ class Overseer:
 
     def register_schedule(self):
 
-        self.sched = BackgroundScheduler(daemon=True)
-        self.sched.add_job(sensor, args=['param1', param2], 'cron', minute='*')
-        self.sched.start()
+        self.logger.info('Registering schedule...')
 
-    def print_test(self, param1):
+        i = 0
+        key_list = []
 
-        self.logger.info('Test: ' + param1)
+        for key in plant_dict:
+            key_list.append(key)
+            self.logger.info(' - Scheduling watering of [{}]'.format(key_list[i]))
+            sched.add_job(self.print_test, 'cron', minute='*', second='{}'.format(i*5), args=[overseer_logger, key_list[i]], id='{} job'.format(key_list[i]))
+            i = i + 1
+
+        self.logger.info('Registering schedule complete!')
+
+    def print_test(self, logger, plant_key):
+        present = plant_dict[plant_key]['present']
+        pos = plant_dict[plant_key]['position']
+        water_amount = plant_dict[plant_key]['water_amount']
+        water_schedule = plant_dict[plant_key]['water_schedule']
+
+        self.logger.info('Watering {} - at positon: {}, water_amount: {}, frequency: {}'.format(plant_key, pos, water_amount, str(water_schedule)))
 
 
     def water_plant(self, plant_key, return_origin = True):

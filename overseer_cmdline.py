@@ -116,10 +116,10 @@ def main():
     # ----------------- API Checks  ----------------
 
     # Send to api that gardener setup is finished
-    send_api_cmd('overseer_ready', 'ready', 'yes')
+    #send_api_cmd('overseer_ready', 'ready', 'yes')
 
     # Recieve api signal that robot setup is complete
-    get_api_cmd('robot_ready', 'ready', 'yes')
+    #get_api_cmd('robot_ready', 'ready', 'yes')
 
     # --------------- Manual User Loop --------------
 
