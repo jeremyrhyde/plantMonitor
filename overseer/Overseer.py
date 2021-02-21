@@ -17,6 +17,8 @@ from subprocess import check_output, Popen, PIPE
 from .overseer_config import *
 from .plant_dict import *
 
+from apscheduler.schedulers.background import BackgroundScheduler
+
 class Overseer:
 
     h = httplib2.Http()
@@ -73,7 +75,15 @@ class Overseer:
         self._q.put(command)
 
     def register_schedule(self):
-        pass
+
+        self.sched = BackgroundScheduler(daemon=True)
+        self.sched.add_job(sensor, args=['param1', param2], 'cron', minute='*')
+        self.sched.start()
+
+    def print_test(self, param1):
+
+        self.logger.info('Test: ' + param1)
+
 
     def water_plant(self, plant_key, return_origin = True):
 
