@@ -86,12 +86,12 @@ class Overseer:
         for key in plant_dict:
             key_list.append(key)
             self.logger.info(' - Scheduling watering of [{}]'.format(key_list[i]))
-            self.sched.add_job(self.print_test, 'cron', minute='*', second='{}'.format(i*5), args=[logger, key_list[i]], id='{} job'.format(key_list[i]))
+            self.sched.add_job(self.print_test, 'cron', minute='*', second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             i = i + 1
 
         self.logger.info('Registering schedule complete!')
 
-    def print_test(self, logger, plant_key):
+    def print_test(self, plant_key):
         present = plant_dict[plant_key]['present']
         pos = plant_dict[plant_key]['position']
         water_amount = plant_dict[plant_key]['water_amount']
