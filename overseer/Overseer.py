@@ -127,7 +127,7 @@ class Overseer:
         elif interval == 'week':
             self.sched.add_job(self.calibrate_robot, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format((i%12)*5), id='{} job'.format(key_list[i]))
         elif interval == 'day':
-            self.sched.add_job(self.calibrate_robot, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format((i%12)*5), id='{} job'.format(key_list[i]))
+            self.sched.add_job(self.calibrate_robot, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format((i%12)*5), id='Calibration job')
         else:
             self.logger.info('Error! Bad interval input (day, week, month)')
 
