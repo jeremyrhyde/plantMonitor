@@ -93,6 +93,12 @@ class Overseer:
 
     ## -------------------------- REGISTERING SCHEDULE -------------------------
 
+    # Register calibration schedule
+    def register_passive_lighting_schedule(self):
+        self.logger.info('Setting up calibration schedule...')
+
+        self.sched.add_job(self.calibrate_robot, 'cron', hour = 10, id='Calibration job')
+
     # Register watering schedule
     def register_passive_lighting_schedule(self):
         self.logger.info('Setting up passive lighting schedule...')
@@ -119,7 +125,7 @@ class Overseer:
     def register_watering_schedule(self):
         i = 0
         key_list = []
-        most_freq_water = ['month', 1]
+        # most_freq_water = ['month', 1]
 
         self.logger.info('Setting up water schedule...')
 
@@ -133,59 +139,59 @@ class Overseer:
 
             if interval == 'month':
                 if freq == 1:
-                    self.sched.add_job(self.water_plant, 'cron', day = '1'.format(math.ceil(30/freq)), hour = '12', minute=i, args=[key_list[i]], id='{} job'.format(key_list[i]))
+                    self.sched.add_job(self.water_plant, 'cron', day = '1'.format(math.ceil(30/freq)), hour = '12', minute=i, args=[key_list[i], True], id='{} job'.format(key_list[i]))
                 else:
-                    self.sched.add_job(self.water_plant, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute=i, args=[key_list[i]], id='{} job'.format(key_list[i]))
+                    self.sched.add_job(self.water_plant, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute=i, args=[key_list[i], True], id='{} job'.format(key_list[i]))
             elif interval == 'week':
                 if freq == 1:
-                    self.sched.add_job(self.water_plant, 'cron', day_of_week = '0'.format(math.ceil(6/freq)), hour = '12', minute=i, args=[key_list[i]], id='{} job'.format(key_list[i]))
+                    self.sched.add_job(self.water_plant, 'cron', day_of_week = '0'.format(math.ceil(6/freq)), hour = '12', minute=i, args=[key_list[i], True], id='{} job'.format(key_list[i]))
                 else:
-                    self.sched.add_job(self.water_plant, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute=i, args=[key_list[i]], id='{} job'.format(key_list[i]))
+                    self.sched.add_job(self.water_plant, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute=i, args=[key_list[i], True], id='{} job'.format(key_list[i]))
             elif interval == 'day':
                 if freq == 1:
-                    self.sched.add_job(self.water_plant, 'cron', hour = '12'.format(math.ceil(11/freq)), minute=i, args=[key_list[i]], id='{} job'.format(key_list[i]))
+                    self.sched.add_job(self.water_plant, 'cron', hour = '12'.format(math.ceil(11/freq)), minute=i, args=[key_list[i], True], id='{} job'.format(key_list[i]))
                 else:
-                    self.sched.add_job(self.water_plant, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute=i, args=[key_list[i]], id='{} job'.format(key_list[i]))
+                    self.sched.add_job(self.water_plant, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute=i, args=[key_list[i], True], id='{} job'.format(key_list[i]))
             else:
                 self.logger.info('Error! Bad interval input (day, week, month)')
 
-            if most_freq_water[0] == 'month':
-                if interval == 'month':
-                    most_freq_water[1] = max(most_freq_water[1], freq)
-                elif (interval == 'week' or interval == 'day'):
-                    most_freq_water = [interval, freq]
-            elif most_freq_water[0] == 'week':
-                if interval == 'week':
-                    most_freq_water[1] = max(most_freq_water[1], freq)
-                elif (interval == 'day'):
-                    most_freq_water = [interval, freq]
-            elif most_freq_water[0] == 'day':
-                if interval == 'day':
-                    most_freq_water[1] = max(most_freq_water[1], freq)
+            # if most_freq_water[0] == 'month':
+            #     if interval == 'month':
+            #         most_freq_water[1] = max(most_freq_water[1], freq)
+            #     elif (interval == 'week' or interval == 'day'):
+            #         most_freq_water = [interval, freq]
+            # elif most_freq_water[0] == 'week':
+            #     if interval == 'week':
+            #         most_freq_water[1] = max(most_freq_water[1], freq)
+            #     elif (interval == 'day'):
+            #         most_freq_water = [interval, freq]
+            # elif most_freq_water[0] == 'day':
+            #     if interval == 'day':
+            #         most_freq_water[1] = max(most_freq_water[1], freq)
 
             i = i + 1
 
-        # Add calibration schedule
-        interval = most_freq_water[0]
-        freq = most_freq_water[1]
-
-        if interval == 'month':
-            if freq == 1:
-                self.sched.add_job(self.calibrate_robot, 'cron', day = '1'.format(math.ceil(30/freq)), hour = '12', minute=i, id='Calibration job')
-            else:
-                self.sched.add_job(self.calibrate_robot, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute=i, id='Calibration job')
-        elif interval == 'week':
-            if freq == 1:
-                self.sched.add_job(self.calibrate_robot, 'cron', day_of_week = '0'.format(math.ceil(6/freq)), hour = '12', minute=i, id='Calibration job')
-            else:
-                self.sched.add_job(self.calibrate_robot, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute=i, id='Calibration job')
-        elif interval == 'day':
-            if freq == 1:
-                self.sched.add_job(self.calibrate_robot, 'cron', hour = '12'.format(math.ceil(11/freq)), minute=i, id='Calibration job')
-            else:
-                self.sched.add_job(self.calibrate_robot, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute=i, id='Calibration job')
-        else:
-            self.logger.info('Error! Bad interval input (day, week, month)')
+        # # Add calibration schedule
+        # interval = most_freq_water[0]
+        # freq = most_freq_water[1]
+        #
+        # if interval == 'month':
+        #     if freq == 1:
+        #         self.sched.add_job(self.calibrate_robot, 'cron', day = '1'.format(math.ceil(30/freq)), hour = '12', minute=i, id='Calibration job')
+        #     else:
+        #         self.sched.add_job(self.calibrate_robot, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute=i, id='Calibration job')
+        # elif interval == 'week':
+        #     if freq == 1:
+        #         self.sched.add_job(self.calibrate_robot, 'cron', day_of_week = '0'.format(math.ceil(6/freq)), hour = '12', minute=i, id='Calibration job')
+        #     else:
+        #         self.sched.add_job(self.calibrate_robot, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute=i, id='Calibration job')
+        # elif interval == 'day':
+        #     if freq == 1:
+        #         self.sched.add_job(self.calibrate_robot, 'cron', hour = '12'.format(math.ceil(11/freq)), minute=i, id='Calibration job')
+        #     else:
+        #         self.sched.add_job(self.calibrate_robot, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute=i, id='Calibration job')
+        # else:
+        #     self.logger.info('Error! Bad interval input (day, week, month)')
 
     def print_schedule(self):
         self.logger.info('Print overseer schedule')
