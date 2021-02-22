@@ -149,7 +149,6 @@ def main():
     print("Exiting program...")
 
     logger.close()
-    sys.exit()
 
 
 if __name__ == "__main__":
