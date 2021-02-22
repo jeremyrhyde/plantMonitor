@@ -96,13 +96,13 @@ class Overseer:
 
     # Register calibration schedule
     def register_calibration_schedule(self):
-        self.logger.info('Setting up calibration schedule...')
+        self.logger.info(' - Setting up calibration schedule...')
 
         self.sched.add_job(self.calibrate_robot, 'cron', hour = 10, id='Calibration job')
 
     # Register watering schedule
     def register_passive_lighting_schedule(self):
-        self.logger.info('Setting up passive lighting schedule...')
+        self.logger.info(' - Setting up passive lighting schedule...')
 
         ON_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[0].split(':')
         OFF_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[1].split(':')
@@ -114,7 +114,7 @@ class Overseer:
 
     # Register mapping schedule
     def register_mapping_schedule(self):
-        self.logger.info('Setting up mapping schedule...')
+        self.logger.info(' - Setting up mapping schedule...')
 
         for t in range(0, len(MAPPING_SCHEDULE)):
             t_array = MAPPING_SCHEDULE[t].split(':')
@@ -128,12 +128,12 @@ class Overseer:
         key_list = []
         # most_freq_water = ['month', 1]
 
-        self.logger.info('Setting up water schedule...')
+        self.logger.info(' - Setting up water schedule...')
 
         # Add watering schedule
         for plant_key in plant_dict:
             key_list.append(plant_key)
-            self.logger.info(' - Scheduling watering of [{}]'.format(key_list[i]))
+            self.logger.info('\t - Scheduling watering of [{}]'.format(key_list[i]))
 
             interval = plant_dict[plant_key]['water_schedule'][0]
             freq = int(plant_dict[plant_key]['water_schedule'][1])
