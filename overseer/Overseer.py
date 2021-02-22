@@ -198,7 +198,7 @@ class Overseer:
         start = datetime.time(int(ON_SCHEDULE[0]), int(ON_SCHEDULE[1]), 0, 0)
         end = datetime.time(int(OFF_SCHEDULE[0]), int(OFF_SCHEDULE[1]), 0, 0)
 
-        passive_lighting_robot(time_in_range(start, end, now))
+        self.passive_lighting_robot(time_in_range(start, end, now))
 
 
     def calibrate_robot(self):
