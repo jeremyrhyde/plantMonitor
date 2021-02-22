@@ -210,10 +210,10 @@ class Overseer:
     def passive_lighting_robot(self, onoff):
         if onoff:
             self.logger.info('Overseer controlled turning ON passive lighting')
-            self.send_robot_command(self, 'ON_PL')
+            self.send_robot_command('ON_PL')
         else:
             self.logger.info('Overseer controlled turning OFF passive lighting')
-            self.send_robot_command(self, 'OFF_PL')
+            self.send_robot_command('OFF_PL')
 
     def water_plant(self, plant_key, return_origin = False):
 
