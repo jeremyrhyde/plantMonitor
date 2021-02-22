@@ -18,7 +18,7 @@ import os
 # --------------- Types of manual input ---------------
 
 def user_input(logger):
-    print("\nOptions: WATER / ETC")
+    print("\nOptions: WATER / SCH / CAL / ETC")
 
     user_option = input("Enter option: ").upper()
 
