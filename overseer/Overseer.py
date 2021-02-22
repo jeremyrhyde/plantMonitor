@@ -221,6 +221,7 @@ class Overseer:
 
         self.passive_lighting_robot(time_in_range(start, end, now))
 
+
     def mapping_robot(self):
         self.logger.info('Overseer controlled mapping of robot')
 
@@ -240,6 +241,9 @@ class Overseer:
         else:
             self.logger.info('Overseer controlled turning OFF passive lighting')
             self.send_robot_command('OFF_PL')
+
+
+    ## --------------------------- MAIN COMMANDS ---------------------------
 
     def water_plant(self, plant_key, return_origin = False):
 
