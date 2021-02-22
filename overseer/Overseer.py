@@ -96,8 +96,8 @@ class Overseer:
     def register_passive_lighting_schedule(self):
         self.logger.info('Setting up passive lighting schedule...')
 
-        ON_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[0].split(':')
-        OFF_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[1].split(':')
+        ON_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[0].split(':')
+        OFF_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[1].split(':')
 
 
         self.sched.add_job(self.passive_lighting_robot, 'cron', hour = ON_SCHEDULE[0], minute = ON_SCHEDULE[1], args=[True], id='Turn on passive lighting job')
@@ -191,8 +191,8 @@ class Overseer:
             else:
                 return start <= x or x <= end
 
-        ON_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[0].split(':')
-        OFF_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[1].split(':')
+        ON_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[0].split(':')
+        OFF_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[1].split(':')
 
         now = datetime.datetime.now().time()
         start = datetime.time(ON_SCHEDULE[0], ON_SCHEDULE[1], 0, 0)

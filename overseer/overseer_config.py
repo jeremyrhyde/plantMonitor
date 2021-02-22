@@ -12,7 +12,5 @@ OLED_FMT = "%m/%d %H:%M - "
 
 TIMEZONE = "America/New_York"
 
-ON_PL = '9:30'
-OFF_PL = '23:30'
-
-MAPPING_NUM = 3
+PASSIVE_LIGHTING_SCHEDULE = ['9:30', '23:30']
+MAPPING_SCHEDULE = ['9:30', '23:30']
