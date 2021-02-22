@@ -54,6 +54,7 @@ class Overseer:
         self.register_passive_lighting_schedule()
         self.register_mapping_schedule()
         self.register_watering_schedule()
+        self.register_calibration_schedule()
         self.logger.info('Registering schedule complete!')
 
         self.sched.start()
@@ -94,7 +95,7 @@ class Overseer:
     ## -------------------------- REGISTERING SCHEDULE -------------------------
 
     # Register calibration schedule
-    def register_passive_lighting_schedule(self):
+    def register_calibration_schedule(self):
         self.logger.info('Setting up calibration schedule...')
 
         self.sched.add_job(self.calibrate_robot, 'cron', hour = 10, id='Calibration job')
