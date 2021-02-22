@@ -52,7 +52,7 @@ class Overseer:
 
         self.logger.info('Registering schedule...')
         self.register_passive_lighting_schedule()
-        #self.register_mapping_schedule()
+        self.register_mapping_schedule()
         self.register_watering_schedule()
         self.logger.info('Registering schedule complete!')
 
@@ -102,6 +102,17 @@ class Overseer:
 
         self.sched.add_job(self.passive_lighting_robot, 'cron', hour = ON_SCHEDULE[0], minute = ON_SCHEDULE[1], args=[True], id='Turn on passive lighting job')
         self.sched.add_job(self.passive_lighting_robot, 'cron', hour = OFF_SCHEDULE[0], minute = OFF_SCHEDULE[1], args=[False], id='Turn off passive lighting job')
+
+
+    # Register mapping schedule
+    def register_mapping_schedule(self):
+        self.logger.info('Setting up mapping schedule...')
+
+        for t in range(0, len(MAPPING_SCHEDULE)):
+            t_array = MAPPING_SCHEDULE[t].split(':')
+
+            self.sched.add_job(self.mapping_robot, 'cron', hour = t_array[0], minute = t_array[1], args=[True], id='Turn on mapping job [{}]'.format(t))
+
 
     # Register watering schedule
     def register_watering_schedule(self):
@@ -199,6 +210,11 @@ class Overseer:
         end = datetime.time(int(OFF_SCHEDULE[0]), int(OFF_SCHEDULE[1]), 0, 0)
 
         self.passive_lighting_robot(time_in_range(start, end, now))
+
+    def mapping_robot(self):
+        self.logger.info('Overseer controlled mapping of robot')
+
+        self.send_robot_command('MAP')
 
 
     def calibrate_robot(self):
