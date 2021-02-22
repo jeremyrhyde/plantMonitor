@@ -60,7 +60,7 @@ class Overseer:
 
         # Setting passive lighting state
         self.logger.info('Initial overseer actions...')
-        #self.passive_lighting_state()
+        self.passive_lighting_state()
 
     # Stop threads and close out of all objects
     def close(self):
