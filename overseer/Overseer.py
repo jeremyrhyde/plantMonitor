@@ -29,6 +29,7 @@ class Overseer:
 
     COMMANDS = {
         "WATER" : lambda self: self.water_plant(self.plant_name),
+        "SCH" : lambda self: self.print_schedule(), 
     }
 
 
@@ -102,6 +103,9 @@ class Overseer:
             i = i + 1
 
         self.logger.info('Registering schedule complete!')
+
+    def print_schedule(self):
+        self.sched.print_jobs()
 
     def print_test(self, plant_key):
         present = plant_dict[plant_key]['present']
