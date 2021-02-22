@@ -11,3 +11,8 @@ CSV_FMT = "%Y-%m-%d %H:%M:%S"
 OLED_FMT = "%m/%d %H:%M - "
 
 TIMEZONE = "America/New_York"
+
+ON_PL = '9:30'
+OFF_PL = '23:30'
+
+MAPPING_NUM = 3

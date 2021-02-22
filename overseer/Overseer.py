@@ -49,13 +49,22 @@ class Overseer:
 
         # Setting up schedule
         self.sched = BackgroundScheduler(daemon=True)
-        self.register_schedule()
+
+        self.logger.info('Registering schedule...')
+        self.register_passive_lighting_schedule()
+        self.register_mapping_schedule()
+        self.register_watering_schedule()
+        self.logger.info('Registering schedule complete!')
+
         self.sched.start()
+
+        # Setting passive lighting state
+        self.passive_lighting_state()
 
     # Stop threads and close out of all objects
     def close(self):
         self._stop_event.set()
-
+        self.sched.shutdown()
         self.overseer_thread.join()
 
     def _overseer_run(self):
@@ -79,14 +88,30 @@ class Overseer:
 
         self._q.put(command)
 
-    def register_schedule(self):
 
-        self.logger.info('Registering schedule...')
 
+    ## -------------------------- REGISTERING SCHEDULE -------------------------
+
+    # Register watering schedule
+    def register_passive_lighting_schedule(self):
+        self.logger.info('Setting up passive lighting schedule...')
+
+        ON_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[0].split(':')
+        OFF_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[1].split(':')
+
+
+        self.sched.add_job(self.passive_lighting_robot, 'cron', hour = ON_SCHEDULE[0], minute = ON_SCHEDULE[1], args=[True], id='Turn on passive lighting job')
+        self.sched.add_job(self.passive_lighting_robot, 'cron', hour = OFF_SCHEDULE[0], minute = OFF_SCHEDULE[1], args=[False], id='Turn off passive lighting job')
+
+    # Register watering schedule
+    def register_watering_schedule(self):
         i = 0
         key_list = []
         most_freq_water = ['month', 1]
 
+        self.logger.info('Setting up water schedule...')
+
+        # Add watering schedule
         for plant_key in plant_dict:
             key_list.append(plant_key)
             self.logger.info(' - Scheduling watering of [{}]'.format(key_list[i]))
@@ -128,6 +153,7 @@ class Overseer:
 
             i = i + 1
 
+        # Add calibration schedule
         interval = most_freq_water[0]
         freq = most_freq_water[1]
 
@@ -149,27 +175,45 @@ class Overseer:
         else:
             self.logger.info('Error! Bad interval input (day, week, month)')
 
-        self.logger.info('Registering schedule complete!')
-
     def print_schedule(self):
         self.logger.info('Print overseer schedule')
 
         self.sched.print_jobs()
 
-    # def water_schedule(self, plant_key):
-    #     present = plant_dict[plant_key]['present']
-    #     pos = plant_dict[plant_key]['position']
-    #     water_amount = plant_dict[plant_key]['water_amount']
-    #     water_schedule = plant_dict[plant_key]['water_schedule']
-    #
-    #     self.logger.info('Watering {} - at positon: {}, water_amount: {}, frequency: {}'.format(plant_key, pos, water_amount, str(water_schedule)))
+    ## --------------------------- COMMANDS TO ROBOT ---------------------------
+
+    def passive_lighting_state(self):
+
+        def time_in_range(start, end, x):
+            """Return true if x is in the range [start, end]"""
+            if start <= end:
+                return start <= x <= end
+            else:
+                return start <= x or x <= end
+
+        ON_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[0].split(':')
+        OFF_SCHEDULE = PASSTIVE_LIGHTING_SCHEDULE[1].split(':')
+
+        now = datetime.datetime.now().time()
+        start = datetime.time(ON_SCHEDULE[0], ON_SCHEDULE[1], 0, 0)
+        end = datetime.time(OFF_SCHEDULE[0], OFF_SCHEDULE[1], 0, 0)
+
+        passive_lighting_robot(time_in_range(start, end, now))
+
 
     def calibrate_robot(self):
-
         self.logger.info('Overseer controlled calibration of robot')
 
         self.send_robot_command('CAL')
 
+
+    def passive_lighting_robot(self, onoff):
+        if onoff:
+            self.logger.info('Overseer controlled turning ON passive lighting')
+            send_robot_command(self, 'ON_PL')
+        else:
+            self.logger.info('Overseer controlled turning OFF passive lighting')
+            send_robot_command(self, 'OFF_PL')
 
     def water_plant(self, plant_key, return_origin = False):
 
@@ -194,6 +238,8 @@ class Overseer:
         else:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
 
+
+    ## ------------------------------ API COMMANDS -----------------------------
 
     def send_robot_command(self, command, para = ''):
         data = {'command' : command, 'para' : para}

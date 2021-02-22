@@ -104,7 +104,7 @@ class Robot:
 
         # Initial actions
         self.logger.info('Initial actions...')
-        self.passive_led.turn_on()
+        #self.passive_led.turn_on()
 
         self.cnc.calibration()
         self.set_pos_cnc([0,50], True)
