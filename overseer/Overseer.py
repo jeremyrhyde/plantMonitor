@@ -199,7 +199,7 @@ class Overseer:
 
         job_list = self.sched.get_jobs()
         for job in job_list:
-            self.logger.info(' - {}'.foramt(job))
+            self.logger.info(' - {}'.format(job))
 
     ## --------------------------- COMMANDS TO ROBOT ---------------------------
 
