@@ -85,7 +85,7 @@ class Overseer:
 
         i = 0
         key_list = []
-        most_freq_water = ('month', 1)
+        most_freq_water = ['month', 1]
 
         for plant_key in plant_dict:
             key_list.append(plant_key)
