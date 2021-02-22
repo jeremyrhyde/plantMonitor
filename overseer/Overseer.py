@@ -52,7 +52,7 @@ class Overseer:
 
         self.logger.info('Registering schedule...')
         self.register_passive_lighting_schedule()
-        self.register_mapping_schedule()
+        #self.register_mapping_schedule()
         self.register_watering_schedule()
         self.logger.info('Registering schedule complete!')
 
