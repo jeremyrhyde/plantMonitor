@@ -195,8 +195,8 @@ class Overseer:
         OFF_SCHEDULE = PASSIVE_LIGHTING_SCHEDULE[1].split(':')
 
         now = datetime.datetime.now().time()
-        start = datetime.time(ON_SCHEDULE[0], ON_SCHEDULE[1], 0, 0)
-        end = datetime.time(OFF_SCHEDULE[0], OFF_SCHEDULE[1], 0, 0)
+        start = datetime.time(int(ON_SCHEDULE[0]), int(ON_SCHEDULE[1]), 0, 0)
+        end = datetime.time(int(OFF_SCHEDULE[0]), int(OFF_SCHEDULE[1]), 0, 0)
 
         passive_lighting_robot(time_in_range(start, end, now))
 
