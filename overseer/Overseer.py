@@ -107,12 +107,12 @@ class Overseer:
                 if interval == 'month':
                     most_freq_water[1] = max(most_freq_water[1], freq)
                 elif (interval == 'week' or interval == 'day'):
-                    most_freq_water[1] = freq
+                    most_freq_water = [interval, freq]
             elif most_freq_water[0] == 'week':
                 if interval == 'week':
                     most_freq_water[1] = max(most_freq_water[1], freq)
                 elif (interval == 'day'):
-                    most_freq_water[1] = freq
+                    most_freq_water = [interval, freq]
             elif most_freq_water[0] == 'day':
                 if interval == 'day':
                     most_freq_water[1] = max(most_freq_water[1], freq)
