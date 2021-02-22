@@ -6,6 +6,7 @@ import csv
 import os
 import sys
 import json
+import math
 import datetime
 import threading
 import httplib2
@@ -86,8 +87,18 @@ class Overseer:
         for plant_key in plant_dict:
             key_list.append(plant_key)
             self.logger.info(' - Scheduling watering of [{}]'.format(key_list[i]))
-            self.logger.info('{}, {}'.format(plant_dict[plant_key]['water_schedule'][0], plant_dict[plant_key]['water_schedule'][1]))
-            self.sched.add_job(self.print_test, 'cron', minute='*', second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+
+            interval = plant_dict[plant_key]['water_schedule'][0]
+            freq = int(plant_dict[plant_key]['water_schedule'][1])
+
+            if interval == 'week':
+                self.sched.add_job(self.print_test, 'cron', day = '1-31/{}'.format(math.ceil(31/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+            elif interval == 'week':
+                self.sched.add_job(self.print_test, 'cron', day_of_week = '0-6/{}'.format(math.ceil(7/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+            elif interval == 'day':
+                self.sched.add_job(self.print_test, 'cron', hour = '12-23/{}'.format(math.ceil(12/freq)), minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+            else:
+                self.logger.info('Error! Bad interval input (day, week, month)')
             i = i + 1
 
         self.logger.info('Registering schedule complete!')

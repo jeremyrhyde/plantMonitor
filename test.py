@@ -1,6 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from util import Logger
 from overseer.plant_dict import *
+import math
 
 def print_test(logger, plant_key):
     present = plant_dict[plant_key]['present']
@@ -29,7 +30,7 @@ key_list = []
 for key in plant_dict:
     key_list.append(key)
     print('Scheduling job [{}]'.format(i))
-    sched.add_job(print_test, 'cron', minute='*', second='{}'.format(i*5), args=[overseer_logger, key_list[i]], id='{} job'.format(key_list[i]))
+    sched.add_job(print_test, 'cron', minute='0-6/{}'.format(math.ceil(7/2)), second='{}'.format(i*5), args=[overseer_logger, key_list[i]], id='{} job'.format(key_list[i]))
     i = i +1
 
 
