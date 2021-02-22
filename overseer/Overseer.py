@@ -92,11 +92,11 @@ class Overseer:
             freq = int(plant_dict[plant_key]['water_schedule'][1])
 
             if interval == 'month':
-                self.sched.add_job(self.print_test, 'cron', day = '1-31/{}'.format(math.ceil(31/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+                self.sched.add_job(self.print_test, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             elif interval == 'week':
-                self.sched.add_job(self.print_test, 'cron', day_of_week = '0-6/{}'.format(math.ceil(7/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+                self.sched.add_job(self.print_test, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             elif interval == 'day':
-                self.sched.add_job(self.print_test, 'cron', hour = '12-23/{}'.format(math.ceil(12/freq)), minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+                self.sched.add_job(self.print_test, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             else:
                 self.logger.info('Error! Bad interval input (day, week, month)')
             i = i + 1
