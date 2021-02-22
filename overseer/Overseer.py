@@ -111,7 +111,7 @@ class Overseer:
         for t in range(0, len(MAPPING_SCHEDULE)):
             t_array = MAPPING_SCHEDULE[t].split(':')
 
-            self.sched.add_job(self.mapping_robot, 'cron', hour = t_array[0], minute = t_array[1], args=[True], id='Turn on mapping job [{}]'.format(t))
+            self.sched.add_job(self.mapping_robot, 'cron', hour = t_array[0], minute = t_array[1], id='Turn on mapping job [{}]'.format(t))
 
 
     # Register watering schedule
