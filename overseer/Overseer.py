@@ -130,7 +130,6 @@ class Overseer:
             self.sched.add_job(self.calibrate_robot, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format((i%12)*5), id='{} job'.format(key_list[i]))
         else:
             self.logger.info('Error! Bad interval input (day, week, month)')
-            break
 
         self.logger.info('Registering schedule complete!')
 
