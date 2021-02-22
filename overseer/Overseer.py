@@ -133,7 +133,7 @@ class Overseer:
         # Add watering schedule
         for plant_key in plant_dict:
             key_list.append(plant_key)
-            self.logger.info('\t - Scheduling watering of [{}]'.format(key_list[i]))
+            self.logger.info('     - Scheduling watering of [{}]'.format(key_list[i]))
 
             interval = plant_dict[plant_key]['water_schedule'][0]
             freq = int(plant_dict[plant_key]['water_schedule'][1])
@@ -195,11 +195,11 @@ class Overseer:
         #     self.logger.info('Error! Bad interval input (day, week, month)')
 
     def print_schedule(self):
-        self.logger.info('Print overseer schedule\n')
+        self.logger.info('Print overseer schedule: ')
 
         job_list = self.sched.get_jobs()
         for job in job_list:
-            self.logger.info(job)
+            self.logger.info(' - {}'.foramt(job))
 
     ## --------------------------- COMMANDS TO ROBOT ---------------------------
 
