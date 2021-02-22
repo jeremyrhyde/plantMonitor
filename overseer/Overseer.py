@@ -102,7 +102,6 @@ class Overseer:
                 self.sched.add_job(self.water_plant, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format((i%12)*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             else:
                 self.logger.info('Error! Bad interval input (day, week, month)')
-                break
 
             if most_freq_water[0] == 'month':
                 if interval == 'month':
