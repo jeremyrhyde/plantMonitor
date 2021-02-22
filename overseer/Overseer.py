@@ -28,8 +28,8 @@ class Overseer:
 
 
     COMMANDS = {
-        "WATER" : lambda self: self.water_plant(self.plant_name),
-        "SCH" : lambda self: self.print_schedule(), 
+        "WATER" : lambda self: self.water_plant(self.plant_name, True),
+        "SCH" : lambda self: self.print_schedule(),
     }
 
 
@@ -93,11 +93,11 @@ class Overseer:
             freq = int(plant_dict[plant_key]['water_schedule'][1])
 
             if interval == 'month':
-                self.sched.add_job(self.print_test, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+                self.sched.add_job(self.water_plant, 'cron', day = '1-31/{}'.format(math.ceil(30/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             elif interval == 'week':
-                self.sched.add_job(self.print_test, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+                self.sched.add_job(self.water_plant, 'cron', day_of_week = '0-6/{}'.format(math.ceil(6/freq)), hour = '12', minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             elif interval == 'day':
-                self.sched.add_job(self.print_test, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
+                self.sched.add_job(self.water_plant, 'cron', hour = '12-23/{}'.format(math.ceil(11/freq)), minute='{}'.format(int(i/12)), second='{}'.format(i*5), args=[key_list[i]], id='{} job'.format(key_list[i]))
             else:
                 self.logger.info('Error! Bad interval input (day, week, month)')
             i = i + 1
@@ -107,7 +107,7 @@ class Overseer:
     def print_schedule(self):
         self.sched.print_jobs()
 
-    def print_test(self, plant_key):
+    def water_schedule(self, plant_key):
         present = plant_dict[plant_key]['present']
         pos = plant_dict[plant_key]['position']
         water_amount = plant_dict[plant_key]['water_amount']
@@ -116,12 +116,15 @@ class Overseer:
         self.logger.info('Watering {} - at positon: {}, water_amount: {}, frequency: {}'.format(plant_key, pos, water_amount, str(water_schedule)))
 
 
-    def water_plant(self, plant_key, return_origin = True):
+    def water_plant(self, plant_key, return_origin = False):
 
         # Get metadata
         present = plant_dict[plant_key]['present']
         pos = plant_dict[plant_key]['position']
         water_amount = plant_dict[plant_key]['water_amount']
+        water_schedule = plant_dict[plant_key]['water_schedule']
+
+        self.logger.info('Watering {} with {} mL of water at positon {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
 
         if present == 'yes':
             #Send move command
