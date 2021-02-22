@@ -195,9 +195,9 @@ class Overseer:
         #     self.logger.info('Error! Bad interval input (day, week, month)')
 
     def print_schedule(self):
-        self.logger.info('Print overseer schedule')
+        self.logger.info('Print overseer schedule\n')
 
-        self.sched.print_jobs()
+        self.logger.info(self.sched.get_jobs())
 
     ## --------------------------- COMMANDS TO ROBOT ---------------------------
 
