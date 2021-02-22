@@ -103,7 +103,7 @@ class Robot:
         self.logger.info(' - CAMERA [READY]')
 
         # Initial actions
-        self.logger.info('Initial actions...')
+        self.logger.info('Initial robot actions...')
         #self.passive_led.turn_on()
 
         self.cnc.calibration()

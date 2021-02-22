@@ -59,6 +59,7 @@ class Overseer:
         self.sched.start()
 
         # Setting passive lighting state
+        self.logger.info('Initial overseer actions...')
         self.passive_lighting_state()
 
     # Stop threads and close out of all objects
