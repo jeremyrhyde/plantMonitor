@@ -259,7 +259,7 @@ class Overseer:
 
     def send_robot_command(self, command, para = ''):
         data = {'command' : command, 'para' : para}
-        print(str(data))
+        #print(str(data))
         data_json = json.dumps(data)
 
         try:
