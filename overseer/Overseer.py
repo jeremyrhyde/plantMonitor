@@ -197,7 +197,9 @@ class Overseer:
     def print_schedule(self):
         self.logger.info('Print overseer schedule\n')
 
-        self.logger.info(self.sched.get_jobs())
+        job_list = self.sched.get_jobs()
+        for job in job_list:
+            self.logger.info(job)
 
     ## --------------------------- COMMANDS TO ROBOT ---------------------------
 
