@@ -43,6 +43,8 @@ class Robot:
     new_pos = [0,0]
     new_pos_abs = [0,0]
     water_amount = 0
+    tube_fill = True
+
 
     COMMANDS = {
         "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
@@ -246,25 +248,25 @@ class Robot:
         self.logger.info(' - Turning on watering system')
         self.watering_mechanism.turn_on()
 
-        time.sleep(int(water_amount) * WATER_COEF)
+        # Water for x time accounting for tube fill
+        if tube_fill:
+            time.sleep(int(water_amount) * WATER_COEF)
+        else:
+            time.sleep(int(water_amount) * WATER_COEF + 2)
 
         self.watering_mechanism.turn_off()
         self.logger.info(' - Turning off watering system')
 
         time.sleep(1)
 
+        # Check tube filled
+        if (self.curr_pos[0] > 0.50 * X_MAX):
+            tube_fill = False
+        else:
+            tube_fill = True
+
 
     # ----------------------------------- CNC ----------------------------------
-
-    # Move central mount a certain direction and distance
-    # def move_cnc(self, cnc_direction, cnc_dist):
-    #     try:
-    #         state, pos = self.cnc.send_move_cmd(cnc_direction, cnc_dist)#self.cnc.send_move_command('G21 G91 ' + cmd)
-    #     except Exception as e:
-    #         self.logger.warn('Improper position command: ' + str(e))
-    #
-    #     self.curr_pos = self.cnc.get_pos()
-    #     self.logger.info('Current position: [{:.1f}, {:.1f}]'.format(float(self.curr_pos[0]), float(self.curr_pos[1])))
 
     # Move central mount a certain direction and distance
     def get_pos_cnc(self):
@@ -275,6 +277,7 @@ class Robot:
         if abs:
             self.curr_pos = self.cnc.set_pos_abs(new_pos)
             self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
+
         else:
             self.curr_pos = self.cnc.set_pos(new_pos)
             self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))

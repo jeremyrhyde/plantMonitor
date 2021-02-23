@@ -90,6 +90,30 @@ class Overseer:
 
         self._q.put(command)
 
+    ## ----------------------------- MAIN COMMANDS -----------------------------
+
+    def water_plant(self, plant_key, return_origin = False):
+
+        # Get metadata
+        present = plant_dict[plant_key]['present']
+        pos = plant_dict[plant_key]['position']
+        water_amount = plant_dict[plant_key]['water_amount']
+        water_schedule = plant_dict[plant_key]['water_schedule']
+
+        self.logger.info('Watering {} with {} mL of water at positon {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
+
+        if present == 'yes':
+            #Send move command
+            self.send_robot_command(pos)
+
+            #Send water Command
+            self.send_robot_command('WATER', water_amount)
+
+            #Return to origin
+            if return_origin:
+                self.send_robot_command('%[0,50]')
+        else:
+            self.logger.info('WARNING! Plant is not in plantMonitor bed')
 
 
     ## -------------------------- REGISTERING SCHEDULE -------------------------
@@ -241,32 +265,6 @@ class Overseer:
         else:
             self.logger.info('Overseer controlled turning OFF passive lighting')
             self.send_robot_command('OFF_PL')
-
-
-    ## --------------------------- MAIN COMMANDS ---------------------------
-
-    def water_plant(self, plant_key, return_origin = False):
-
-        # Get metadata
-        present = plant_dict[plant_key]['present']
-        pos = plant_dict[plant_key]['position']
-        water_amount = plant_dict[plant_key]['water_amount']
-        water_schedule = plant_dict[plant_key]['water_schedule']
-
-        self.logger.info('Watering {} with {} mL of water at positon {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
-
-        if present == 'yes':
-            #Send move command
-            self.send_robot_command(pos)
-
-            #Send water Command
-            self.send_robot_command('WATER', water_amount)
-
-            #Return to origin
-            if return_origin:
-                self.send_robot_command('%[0,50]')
-        else:
-            self.logger.info('WARNING! Plant is not in plantMonitor bed')
 
 
     ## ------------------------------ API COMMANDS -----------------------------
