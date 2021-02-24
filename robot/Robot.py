@@ -249,7 +249,7 @@ class Robot:
         self.watering_mechanism.turn_on()
 
         # Water for x time accounting for tube fill
-        if tube_fill:
+        if self.tube_fill:
             time.sleep(int(water_amount) * WATER_COEF)
         else:
             time.sleep(int(water_amount) * WATER_COEF + 2)
@@ -261,10 +261,9 @@ class Robot:
 
         # Check tube filled
         if (self.curr_pos[0] > 0.50 * X_MAX):
-            tube_fill = False
+            self.tube_fill = False
         else:
-            tube_fill = True
-
+            self.tube_fill = True
 
     # ----------------------------------- CNC ----------------------------------
 
