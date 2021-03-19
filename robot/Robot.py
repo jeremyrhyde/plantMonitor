@@ -369,5 +369,8 @@ class Robot:
         output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
         self.logger.info('Stitching together images to form panorama...')
-        stitch_images(image_dir, output_file, '{}*.png'.format(tag))
+        try:
+            stitch_images(image_dir, output_file, '{}*.png'.format(tag))
+        except Exception as e:
+            self.logger.warn('Stitching failed!')
         self.logger.info('Panorama created!')
