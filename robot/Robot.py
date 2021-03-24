@@ -373,4 +373,5 @@ class Robot:
             stitch_images(image_dir, output_file, '{}*.png'.format(tag))
         except Exception as e:
             self.logger.warn('Stitching failed!')
-        self.logger.info('Panorama created!')
+        else:
+            self.logger.info('Panorama created!!')
