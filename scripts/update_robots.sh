@@ -16,15 +16,15 @@ update_command="
 
   echo 'Starting git update...';
 
-  cd /home/pi/plantmonitor/;
+  cd /home/pi/plantMonitor/;
   git pull;
   git reset --hard origin/master_dev;
 
   echo 'Finished pulling from git';
 
-  sudo cp /home/pi/plantmonitor/api.service /etc/systemd/system/;
-  sudo cp /home/pi/plantmonitor/robot.service /etc/systemd/system/;
-  sudo cp /home/pi/plantmonitor/overseer.service /etc/systemd/system/;
+  sudo cp /home/pi/plantMonitor/api.service /etc/systemd/system/;
+  sudo cp /home/pi/plantMonitor/robot.service /etc/systemd/system/;
+  sudo cp /home/pi/plantMonitor/overseer.service /etc/systemd/system/;
 
   sudo systemctl enable api.service;
   sudo systemctl enable robot.service;
