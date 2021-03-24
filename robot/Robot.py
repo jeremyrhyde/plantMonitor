@@ -345,14 +345,14 @@ class Robot:
             self.logger.info('Returning to origin')
 
     def route_action(self, tag):
-        image_file = '/home/pi/plantmonitor/data/raw_images/{}'.format(tag)
+        image_file = '/home/pi/plantMonitor/data/raw_images/{}'.format(tag)
         self.logger.info('Saving image to ' + str(image_file))
         self.takeCameraImage(image_file)
 
     def image_map_bed(self):
         tag = 'imagemap'
 
-        image_dir = '/home/pi/plantmonitor/data/raw_images/'
+        image_dir = '/home/pi/plantMonitor/data/raw_images/'
 
         try:
             os.remove('{}/{}*'.format(image_dir, tag))
@@ -366,7 +366,7 @@ class Robot:
 
         # Stitch images into panorama
 
-        output_file = '/home/pi/plantmonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
+        output_file = '/home/pi/plantMonitor/data/result_images/bed_scan_map_{}.png'.format(time.strftime("%Y-%m-%d_%H_%M_%S",time.gmtime()))
 
         self.logger.info('Stitching together images to form panorama...')
         try:
