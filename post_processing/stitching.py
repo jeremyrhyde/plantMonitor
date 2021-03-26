@@ -35,7 +35,7 @@ def stitch_images(input_dir, output_file, filt = '*.png'):
 
     if status != cv.Stitcher_OK:
         print("Can't stitch images, error code = %d" % status)
-        sys.exit(-1)
+        #sys.exit(-1)
 
     cv.imwrite(output_file, pano)
 
