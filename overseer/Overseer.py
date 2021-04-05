@@ -96,63 +96,59 @@ class Overseer:
 
         # Get metadata
         present = plant_dict[plant_key]['present']
-        pos = plant_dict[plant_key]['position']
+        pos_list = plant_dict[plant_key]['position']
         water_amount = plant_dict[plant_key]['water_amount']
         water_schedule = plant_dict[plant_key]['water_schedule']
 
         if present == 'yes':
 
-            if '-' in pos:
+            for pos in pos_list.split('|'):
 
-                self.logger.info('Watering {} with {} mL from {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
+                if '-' in pos:
 
-                temp0 = pos.split(',')
+                    self.logger.info('Watering {} with {} mL from {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
 
-                # Turn on water
-                if '-' in temp0[0] and '-' in temp0[1]:
-                    tempx = temp0[0].split('-')
-                    tempy = temp0[1].split('-')
+                    temp0 = pos.split(',')
 
-                    pos1 = tempx[0] + ',' + tempy[0] + ']'
-                    pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy[1]
+                    # Turn on water
+                    if '-' in temp0[0] and '-' in temp0[1]:
+                        tempx = temp0[0].split('-')
+                        tempy = temp0[1].split('-')
 
-                # Check straight line
-                elif '-' in temp0[0]:
-                    tempx = temp0[0].split('-')
-                    tempy = temp0[1]
+                        pos1 = tempx[0] + ',' + tempy[0] + ']'
+                        pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy[1]
 
-                    pos1 = tempx[0] + ',' + tempy
-                    pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy
+                    # Check straight line
+                    elif '-' in temp0[0]:
+                        tempx = temp0[0].split('-')
+                        tempy = temp0[1]
+
+                        pos1 = tempx[0] + ',' + tempy
+                        pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy
+
+                    else:
+                        tempx = temp0[0]
+                        tempy = temp0[1].split('-')
+
+                        pos1 = tempx + ',' + tempy[0] + ']'
+                        pos2 = tempx + ',' + tempy[1]
+
+                        self.logger.info('Moving from {} to {}'.format(pos1, pos2))
+
+                    self.send_robot_command(pos1)
+                    self.send_robot_command('ON_W')
+
+                    self.send_robot_command(pos2)
+                    self.send_robot_command('OFF_W')
 
                 else:
-                    tempx = temp0[0]
-                    tempy = temp0[1].split('-')
+                    self.logger.info('Watering {} with {} mL at {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
 
-                    pos1 = tempx + ',' + tempy[0] + ']'
-                    pos2 = tempx + ',' + tempy[1]
+                    #Send move command
+                    self.send_robot_command(pos)
 
-                    self.logger.info('Moving from {} to {}'.format(pos1, pos2))
-
-                self.send_robot_command(pos1)
-                self.send_robot_command('ON_W')
-
-                self.send_robot_command(pos2)
-                self.send_robot_command('OFF_W')
-
-                #Send move command
-                #self.send_robot_command(pos)
-
-                # Turn on water
-                #self.send_robot_command('OFF_W')
-
-            else:
-                self.logger.info('Watering {} with {} mL at {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
-
-                #Send move command
-                self.send_robot_command(pos)
-
-                #Send water Command
-                self.send_robot_command('WATER', water_amount)
+                    #Send water Command
+                    self.send_robot_command('WATER', water_amount)
 
             #Return to origin
             if return_origin:
