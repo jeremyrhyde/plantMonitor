@@ -307,15 +307,15 @@ class Robot:
                 tempx = temp0[0].split('-')
                 tempy = temp0[1]
 
-                pos1 = tempx[0] + ',' +tempy[1]
+                pos1 = tempx[0] + ',' +tempy[1] + ']'
                 pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + temp0[1]
 
             else:
                 tempx = temp0[0]
                 tempy = temp0[1].split('-')
 
-                pos1 = tempx[0] + ',' + tempy[0] + ']'
-                pos2 = tempx[0] + ',' + tempy[1]
+                pos1 = tempx + ',' + tempy[0] + ']'
+                pos2 = tempx + ',' + tempy[1]
 
             self.set_pos(new_pos)
             self.set_pos(new_pos)
