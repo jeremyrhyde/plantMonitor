@@ -104,7 +104,7 @@ class Overseer:
 
             if '-' in pos:
 
-                self.logger.info('Watering {} with {} mL from {} to {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos1, pos2, str(water_schedule)))
+                self.logger.info('Watering {} with {} mL from {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
 
                 # Turn on water
                 self.send_robot_command('ON_W')

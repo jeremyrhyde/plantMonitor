@@ -290,7 +290,7 @@ class Robot:
             pos2 = temp2[0] + ',' + str(temp1[1])
 
             #Send line command
-            self.logger.info('Moving from {} to {} [FREQUENCY: {}]'.format(pos1, pos2))
+            self.logger.info('Moving from {} to {} - ([{}, {}])'.format(pos1, pos2, self.curr_pos[0], self.curr_pos[1]))
             self.set_pos_cnc(pos1, abs)
             self.set_pos_cnc(pos2, abs)
 
