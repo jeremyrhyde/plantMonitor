@@ -266,18 +266,18 @@ class Robot:
         self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
 
-    def set_pos(self, command):
-        if command[0] == '[':
-            new_pos[0] = command[1:-1].split(',')[0])
-            new_pos[1] = command[1:-1].split(',')[1])
-            self.set_pos_cnc(new_pos, False)
+    def set_pos(self, new_pos):
+        abs_cmd = str(new_pos.split('[')) is ''
 
-        elif command[0] == '%':
-            new_pos[0] = command[2:-1].split(',')[0
-            new_pos[1] = command[2:-1].split(',')[1]
-            self.set_pos_cnc(new_pos, True)
+        new_pos[0] = new_pos.split('[')[1].split(',')[0]
+        new_pos[1] = new_pos.split('[')[1].split(',')[1].split(']')[0]
+
+        if abs_cmd
+            self.set_pos_cnc(new_pos, False)
         else:
-            self.logger.info('Error: No [ % for motion command]')
+            new_pos[0] = int(command[2:-1].split(',')[0])
+            new_pos[1] = int(command[2:-1].split(',')[1])
+            self.set_pos_cnc(new_pos, True)
 
     def set_pos_cnc(self, new_pos, abs = False):
         if abs:
