@@ -147,6 +147,9 @@ class Overseer:
                     #Send move command
                     self.send_robot_command(pos)
 
+                    time.sleep(1)
+                    self.logger.info('w')
+
                     #Send water Command
                     self.send_robot_command('WATER', water_amount)
 
