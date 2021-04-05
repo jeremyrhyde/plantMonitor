@@ -148,7 +148,7 @@ class Overseer:
                     self.send_robot_command(pos)
 
                     #Send water Command
-                    self.send_robot_command('WATER', water_amount)
+                    #self.send_robot_command('WATER', water_amount)
 
             #Return to origin
             if return_origin:
