@@ -237,21 +237,16 @@ class Robot:
     def waterSystemOnOff(self, on = False):
         if on:
             self.watering_mechanism.turn_on()
-            self.logger.info('Turning on watering system')
+            self.logger.info(' - Turning on watering system')
         else:
             self.watering_mechanism.turn_off()
-            self.logger.info('Turning off watering system')
+            self.logger.info(' - Turning off watering system')
 
     def waterSystemAmount(self, water_amount):
 
-        if False:
-
         self.logger.info('Watering {} mL at [{}, {}]'.format(water_amount, self.curr_pos[0], self.curr_pos[1]))
 
-        self.logger.info(' - Turning on watering system')
-        self.watering_mechanism.turn_on()
-
-        if
+        self.waterSystemOnOff(True)
 
         # Water for x time accounting for tube fill
         if self.tube_fill:
@@ -259,8 +254,7 @@ class Robot:
         else:
             time.sleep(int(water_amount) * WATER_COEF + 1)
 
-        self.watering_mechanism.turn_off()
-        self.logger.info(' - Turning off watering system')
+        self.waterSystemOnOff(False)
 
         time.sleep(1)
 
