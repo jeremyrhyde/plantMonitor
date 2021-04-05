@@ -319,8 +319,8 @@ class Robot:
 
                 self.logger.info('Moving from {} to {}'.format(pos1, pos2))
 
-            self.set_pos(new_pos)
-            self.set_pos(new_pos)
+            self.set_pos(pos1)
+            self.set_pos(pos2)
 
         else:
             self.logger.info('Moving to {}'.format(pos1))
