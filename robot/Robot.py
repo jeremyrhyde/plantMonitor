@@ -166,7 +166,7 @@ class Robot:
         for key, value in self.COMMANDS.items():
             if key == command:
                 value(self)
-                print(str(command))
+                self.logger.info(str(command))
                 break
 
     # Queue a command under the threaded function
