@@ -135,6 +135,7 @@ class Overseer:
 
                 self.send_robot_command(pos1)
                 self.send_robot_command('ON_W')
+
                 self.send_robot_command(pos2)
                 self.send_robot_command('OFF_W')
 
