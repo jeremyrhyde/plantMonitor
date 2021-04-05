@@ -172,7 +172,7 @@ class Robot:
 
     # Queue a command under the threaded function
     def queue_command(self, command, para = ''):
-
+        self.logger.info('hi')
         if command[0] == '[' or command[0] == '%':
             self.perform_move(command)
         elif command == 'WATER':
