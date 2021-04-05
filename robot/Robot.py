@@ -45,8 +45,6 @@ class Robot:
     water_amount = 0
     tube_fill = True
 
-    task_ongoing = False
-
 
     COMMANDS = {
         "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
@@ -144,7 +142,7 @@ class Robot:
         while not self._stop_event.is_set() and not self.task_ongoing:
             command = self._q.get()
             self.command(command)
-            self.logger.info('hiiiiii ' + str(command))
+            #self.logger.info('hiiiiii ' + str(command))
             self._q.task_done()
 
     # Thread for monitoring api interface
@@ -244,8 +242,6 @@ class Robot:
 
     def waterSystemAmount(self, water_amount):
 
-        self.task_ongoing = True
-
         self.logger.info('Watering {} mL at [{}, {}]'.format(water_amount, self.curr_pos[0], self.curr_pos[1]))
 
         self.waterSystemOnOff(True)
@@ -262,8 +258,6 @@ class Robot:
             self.tube_fill = False
         else:
             self.tube_fill = True
-
-        self.task_ongoing = False
 
 
     # ----------------------------------- CNC ----------------------------------

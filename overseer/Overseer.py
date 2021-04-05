@@ -147,15 +147,12 @@ class Overseer:
                     #Send move command
                     self.send_robot_command(pos)
 
-                    time.sleep(1)
-                    self.logger.info('w')
-
-                    #Send water Command
+                    #Send water command
                     self.send_robot_command('WATER', water_amount)
 
             #Return to origin
             if return_origin:
-                #time.sleep(20)
+                time.sleep(int(water_amount)*2)
                 self.send_robot_command('%[0,50]')
         else:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
