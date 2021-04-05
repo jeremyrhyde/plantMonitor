@@ -232,6 +232,9 @@ class Robot:
         if on:
             self.watering_mechanism.turn_on()
             self.logger.info(' - Turning on watering system')
+
+            if self.tube_fill:
+                time.sleep(1)
         else:
             self.watering_mechanism.turn_off()
             self.logger.info(' - Turning off watering system')
