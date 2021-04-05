@@ -100,14 +100,34 @@ class Overseer:
         water_amount = plant_dict[plant_key]['water_amount']
         water_schedule = plant_dict[plant_key]['water_schedule']
 
-        self.logger.info('Watering {} with {} mL of water at positon {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
-
         if present == 'yes':
-            #Send move command
-            self.send_robot_command(pos)
 
-            #Send water Command
-            self.send_robot_command('WATER', water_amount)
+            if '-' in pos:
+                temp1 = pos.split('-')
+                temp2 = temp1[0].split(',')
+                pos1 = temp1[0] + ']'
+                pos2 = temp2[0] + ',' + str(temp1[1])
+
+                self.logger.info('Watering {} with {} mL from {} to {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos1, pos2, str(water_schedule)))
+
+                # Turn on water
+                self.send_robot_command('ON_W')
+
+                #Send move command
+                self.send_robot_command(pos1)
+                self.send_robot_command(pos2)
+
+                # Turn on water
+                self.send_robot_command('OFF_W')
+                
+            else:
+                self.logger.info('Watering {} with {} mL at {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
+
+                #Send move command
+                self.send_robot_command(pos)
+
+                #Send water Command
+                self.send_robot_command('WATER', water_amount)
 
             #Return to origin
             if return_origin:
