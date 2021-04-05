@@ -272,7 +272,7 @@ class Robot:
         new_pos[0] = new_pos.split('[')[1].split(',')[0]
         new_pos[1] = new_pos.split('[')[1].split(',')[1].split(']')[0]
 
-        if abs_cmd
+        if abs_cmd:
             self.set_pos_cnc(new_pos, False)
         else:
             new_pos[0] = int(command[2:-1].split(',')[0])
@@ -296,7 +296,6 @@ class Robot:
 
             # Check diagonal line
             if '-' in temp0[0] and '-' in temp0[0]:
-
                 tempx = temp0[0].split('-')
                 tempy = temp0[1].split('-')
 
@@ -305,7 +304,6 @@ class Robot:
 
             # Check straight line
             elif '-' in temp0[0]:
-
                 tempx = temp0[0].split('-')
                 tempy = temp0[1]
 
@@ -313,7 +311,6 @@ class Robot:
                 pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + temp0[1]
 
             else:
-
                 tempx = temp0[0]
                 tempy = temp0[1].split('-')
 
