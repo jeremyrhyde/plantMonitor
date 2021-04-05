@@ -307,8 +307,8 @@ class Robot:
                 tempx = temp0[0].split('-')
                 tempy = temp0[1]
 
-                pos1 = tempx[0] + ',' +tempy[1] + ']'
-                pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + temp0[1]
+                pos1 = tempx[0] + ',' + tempy
+                pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy
 
             else:
                 tempx = temp0[0]
