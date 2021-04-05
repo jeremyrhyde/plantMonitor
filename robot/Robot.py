@@ -267,7 +267,7 @@ class Robot:
 
 
     def set_pos(self, new_pos):
-        abs_cmd = str(new_pos.split('[')) is '%'
+        abs_cmd = str(new_pos.split('[')[0]) is '%'
 
         pos = [0,0]
 
