@@ -267,7 +267,7 @@ class Robot:
 
 
     def set_pos(self, new_pos):
-        abs_cmd = str(new_pos.split('[')) is ''
+        abs_cmd = str(new_pos.split('[')) is '%'
 
         pos = [0,0]
 
@@ -275,11 +275,9 @@ class Robot:
         pos[1] = new_pos.split('[')[1].split(',')[1].split(']')[0]
 
         if abs_cmd:
-            self.set_pos_cnc(pos, False)
-        else:
-            pos[0] = int(command[2:-1].split(',')[0])
-            pos[1] = int(command[2:-1].split(',')[1])
             self.set_pos_cnc(pos, True)
+        else:
+            self.set_pos_cnc(pos, False)
 
     def set_pos_cnc(self, new_pos, abs = False):
         if abs:
