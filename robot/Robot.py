@@ -56,8 +56,8 @@ class Robot:
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
         "WATER" : lambda self: self.waterSystemAmount(self.water_amount),
-        "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
-        "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
+        "CNC_POS" : lambda self: self.go_to(self.new_pos, False),
+        "CNC_POS_ABS" : lambda self: self.go_to(self.new_pos_abs, True),
         "GET_POS" : lambda self: self.get_pos_cnc(),
         "CAL" : lambda self: self.cnc_calibartion(),
         "ROUTE_Z" : lambda self: self.route_zigzag('route_zigzag', True),
@@ -171,8 +171,8 @@ class Robot:
     def queue_command(self, command, para = ''):
 
         if command[0] == '[':
-            self.new_pos[0] = int(command[1:-1].split(',')[0])
-            self.new_pos[1] = int(command[1:-1].split(',')[1])
+            new_pos[0] = int(command[1:-1].split(',')[0])
+            new_pos[1] = int(command[1:-1].split(',')[1])
             self._q.put('CNC_POS')
 
         elif command[0] == '%':
@@ -243,10 +243,15 @@ class Robot:
             self.logger.info('Turning off watering system')
 
     def waterSystemAmount(self, water_amount):
+
+        if False:
+
         self.logger.info('Watering {} mL at [{}, {}]'.format(water_amount, self.curr_pos[0], self.curr_pos[1]))
 
         self.logger.info(' - Turning on watering system')
         self.watering_mechanism.turn_on()
+
+        if
 
         # Water for x time accounting for tube fill
         if self.tube_fill:
@@ -273,14 +278,33 @@ class Robot:
         self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
     def set_pos_cnc(self, new_pos, abs = False):
-
         if abs:
+            if '-'
             self.curr_pos = self.cnc.set_pos_abs(new_pos)
             self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
 
         else:
             self.curr_pos = self.cnc.set_pos(new_pos)
             self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
+
+    def go_to(self, new_pos, abs = False):
+
+        # Check if line
+        if '-' in new_pos:
+            temp1 = new_pos.split('-')
+            temp2 = temp1[0].split(',')
+            pos1 = temp1[0] + ']'
+            pos2 = temp2[0] + ',' + str(temp1[1])
+
+            #Send line command
+            self.logger.info('Moving from {} to {} [FREQUENCY: {}]'.format(pos1, pos2))
+            self.set_pos_cnc(pos1, abs)
+            self.set_pos_cnc(pos2, abs)
+
+        else:
+            self.logger.info('Going to [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
+            self.set_pos_cnc(new_pos, abs)
+
 
     def cnc_calibartion(self):
         self.logger.info('Calibrating CNC...')
