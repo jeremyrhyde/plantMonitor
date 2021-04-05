@@ -324,7 +324,7 @@ class Robot:
             self.set_pos(pos2)
 
         else:
-            self.logger.info('Moving to {}'.format(pos1))
+            self.logger.info('Moving to {}'.format(new_pos))
             self.set_pos(new_pos)
 
 
