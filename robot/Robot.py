@@ -271,8 +271,8 @@ class Robot:
 
         pos = [0,0]
 
-        pos[0] = new_pos.split('[')[1].split(',')[0]
-        pos[1] = new_pos.split('[')[1].split(',')[1].split(']')[0]
+        pos[0] = int(new_pos.split('[')[1].split(',')[0])
+        pos[1] = int(new_pos.split('[')[1].split(',')[1].split(']')[0])
 
         if abs_cmd:
             self.set_pos_cnc(pos, True)
