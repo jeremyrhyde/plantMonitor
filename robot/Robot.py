@@ -142,6 +142,7 @@ class Robot:
         while not self._stop_event.is_set():
             command = self._q.get()
             self.command(command)
+            self.logger.info('hiiiiii ' + str(command))
             self._q.task_done()
 
     # Thread for monitoring api interface
@@ -166,7 +167,6 @@ class Robot:
         for key, value in self.COMMANDS.items():
             if key == command:
                 value(self)
-                self.logger.info(str(command))
                 break
 
     # Queue a command under the threaded function
