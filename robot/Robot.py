@@ -231,7 +231,7 @@ class Robot:
     #     self.logger.info('Active Lighting Color')
 
 
-    # ---------------------------- PASSIVE LIGHTING ----------------------------
+    # ---------------------------- WATERING SYSTEM -----------------------------
 
     # Turn watering system on or off
     def waterSystemOnOff(self, on = False):

@@ -25,7 +25,7 @@ def user_input(logger):
 
     return user_option
 
-def ater_input(logger):
+def water_input(logger):
     user_option = input("\nEnter amount of water (in mL): ")
 
     logger.info("User water amount input - {}".format(user_option))
