@@ -273,7 +273,6 @@ class Robot:
 
     def set_pos_cnc(self, new_pos, abs = False):
         if abs:
-            if '-'
             self.curr_pos = self.cnc.set_pos_abs(new_pos)
             self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
 
