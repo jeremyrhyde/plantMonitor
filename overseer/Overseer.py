@@ -152,7 +152,7 @@ class Overseer:
 
             #Return to origin
             if return_origin:
-                time.sleep(20)
+                #time.sleep(20)
                 self.send_robot_command('%[0,50]')
         else:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
