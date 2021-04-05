@@ -295,6 +295,7 @@ class Robot:
             temp0 = new_pos.split(',')
 
             # Check diagonal line
+            # still needs multi stepper movement
             if '-' in temp0[0] and '-' in temp0[1]:
                 tempx = temp0[0].split('-')
                 tempy = temp0[1].split('-')
