@@ -269,15 +269,17 @@ class Robot:
     def set_pos(self, new_pos):
         abs_cmd = str(new_pos.split('[')) is ''
 
-        new_pos[0] = new_pos.split('[')[1].split(',')[0]
-        new_pos[1] = new_pos.split('[')[1].split(',')[1].split(']')[0]
+        pos = [0,0]
+
+        pos[0] = new_pos.split('[')[1].split(',')[0]
+        pos[1] = new_pos.split('[')[1].split(',')[1].split(']')[0]
 
         if abs_cmd:
-            self.set_pos_cnc(new_pos, False)
+            self.set_pos_cnc(pos, False)
         else:
-            new_pos[0] = int(command[2:-1].split(',')[0])
-            new_pos[1] = int(command[2:-1].split(',')[1])
-            self.set_pos_cnc(new_pos, True)
+            pos[0] = int(command[2:-1].split(',')[0])
+            pos[1] = int(command[2:-1].split(',')[1])
+            self.set_pos_cnc(pos, True)
 
     def set_pos_cnc(self, new_pos, abs = False):
         if abs:
