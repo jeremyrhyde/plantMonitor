@@ -141,7 +141,7 @@ class Robot:
 
     # This is the thread run function
     def _robot_run(self):
-        while not self._stop_event.is_set() and self.task_ongoing:
+        while not self._stop_event.is_set() and not self.task_ongoing:
             command = self._q.get()
             self.command(command)
             self.logger.info('hiiiiii ' + str(command))
