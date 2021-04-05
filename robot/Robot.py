@@ -166,6 +166,7 @@ class Robot:
     def command(self, command):
         for key, value in self.COMMANDS.items():
             if key == command:
+                self.logger.info(str(command))
                 value(self)
                 break
 
