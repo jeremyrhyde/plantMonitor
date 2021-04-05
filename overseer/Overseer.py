@@ -106,8 +106,8 @@ class Overseer:
 
                 self.logger.info('Watering {} with {} mL from {} [FREQUENCY: {}]'.format(plant_key, water_amount, pos, str(water_schedule)))
 
-                temp0 = new_pos.split(',')
-                
+                temp0 = pos.split(',')
+
                 # Turn on water
                 if '-' in temp0[0] and '-' in temp0[1]:
                     tempx = temp0[0].split('-')
