@@ -139,7 +139,7 @@ class Overseer:
                 self.send_robot_command('OFF_W')
 
                 #Send move command
-                self.send_robot_command(pos)
+                #self.send_robot_command(pos)
 
                 # Turn on water
                 #self.send_robot_command('OFF_W')
