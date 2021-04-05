@@ -56,8 +56,9 @@ class Robot:
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
         "WATER" : lambda self: self.waterSystemAmount(self.water_amount),
-        "CNC_POS" : lambda self: self.go_to(self.new_pos, False),
-        "CNC_POS_ABS" : lambda self: self.go_to(self.new_pos_abs, True),
+        "MOVE" : lambda self: self.perform_move(self.new_pos),
+        "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
+        "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
         "GET_POS" : lambda self: self.get_pos_cnc(),
         "CAL" : lambda self: self.cnc_calibartion(),
         "ROUTE_Z" : lambda self: self.route_zigzag('route_zigzag', True),
@@ -170,15 +171,8 @@ class Robot:
     # Queue a command under the threaded function
     def queue_command(self, command, para = ''):
 
-        if command[0] == '[':
-            new_pos[0] = int(command[1:-1].split(',')[0])
-            new_pos[1] = int(command[1:-1].split(',')[1])
-            self._q.put('CNC_POS')
-
-        elif command[0] == '%':
-            self.new_pos_abs[0] = int(command[2:-1].split(',')[0])
-            self.new_pos_abs[1] = int(command[2:-1].split(',')[1])
-            self._q.put('CNC_POS_ABS')
+        if command[0] == '[' or command[0] == '%':
+            self.perform_move(command)
         elif command == 'WATER':
             self.water_amount = para
             self._q.put('WATER')
@@ -271,6 +265,20 @@ class Robot:
     def get_pos_cnc(self):
         self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
+
+    def set_pos(self, command):
+        if command[0] == '[':
+            new_pos[0] = command[1:-1].split(',')[0])
+            new_pos[1] = command[1:-1].split(',')[1])
+            self.set_pos_cnc(new_pos, False)
+
+        elif command[0] == '%':
+            new_pos[0] = command[2:-1].split(',')[0
+            new_pos[1] = command[2:-1].split(',')[1]
+            self.set_pos_cnc(new_pos, True)
+        else:
+            self.logger.info('Error: No [ % for motion command]')
+
     def set_pos_cnc(self, new_pos, abs = False):
         if abs:
             self.curr_pos = self.cnc.set_pos_abs(new_pos)
@@ -280,23 +288,44 @@ class Robot:
             self.curr_pos = self.cnc.set_pos(new_pos)
             self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
-    def go_to(self, new_pos, abs = False):
+    def perform_move(self, new_pos, abs = False):
 
-        # Check if line
         if '-' in new_pos:
-            temp1 = new_pos.split('-')
-            temp2 = temp1[0].split(',')
-            pos1 = temp1[0] + ']'
-            pos2 = temp2[0] + ',' + str(temp1[1])
 
-            #Send line command
-            self.logger.info('Moving from {} to {} - ([{}, {}])'.format(pos1, pos2, self.curr_pos[0], self.curr_pos[1]))
-            self.set_pos_cnc(pos1, abs)
-            self.set_pos_cnc(pos2, abs)
+            temp0 = new_pos.split(',')
+
+            # Check diagonal line
+            if '-' in temp0[0] and '-' in temp0[0]:
+
+                tempx = temp0[0].split('-')
+                tempy = temp0[1].split('-')
+
+                pos1 = tempx[0] + ',' + tempy[0] + ']'
+                pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy[1]
+
+            # Check straight line
+            elif '-' in temp0[0]:
+
+                tempx = temp0[0].split('-')
+                tempy = temp0[1]
+
+                pos1 = tempx[0] + ',' +tempy[1]
+                pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + temp0[1]
+
+            else:
+
+                tempx = temp0[0]
+                tempy = temp0[1].split('-')
+
+                pos1 = tempx[0] + ',' + tempy[0] + ']'
+                pos2 = tempx[0] + ',' + tempy[1]
+
+            self.set_pos(new_pos)
+            self.set_pos(new_pos)
 
         else:
-            self.logger.info('Going to [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
-            self.set_pos_cnc(new_pos, abs)
+            self.set_pos(new_pos)
+
 
 
     def cnc_calibartion(self):
