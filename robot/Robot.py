@@ -317,10 +317,13 @@ class Robot:
                 pos1 = tempx + ',' + tempy[0] + ']'
                 pos2 = tempx + ',' + tempy[1]
 
+                self.logger.info('Moving from {} to {}'.format(pos1, pos2))
+
             self.set_pos(new_pos)
             self.set_pos(new_pos)
 
         else:
+            self.logger.info('Moving to {}'.format(pos1))
             self.set_pos(new_pos)
 
 
