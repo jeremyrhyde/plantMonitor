@@ -139,7 +139,7 @@ class Robot:
 
     # This is the thread run function
     def _robot_run(self):
-        while not self._stop_event.is_set() and not self.task_ongoing:
+        while not self._stop_event.is_set():
             command = self._q.get()
             self.command(command)
             #self.logger.info('hiiiiii ' + str(command))
@@ -166,17 +166,17 @@ class Robot:
     def command(self, command):
         for key, value in self.COMMANDS.items():
             if key == command:
-                self.logger.info(str(command))
+                #self.logger.info(str(command))
                 value(self)
                 break
 
     # Queue a command under the threaded function
     def queue_command(self, command, para = ''):
-        self.logger.info('hi')
         if command[0] == '[' or command[0] == '%':
             self.perform_move(command)
         elif command == 'WATER':
             self.water_amount = para
+            #self.logger.info('hi')
             self._q.put('WATER')
         else:
             self._q.put(command)
