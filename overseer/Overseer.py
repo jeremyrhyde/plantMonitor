@@ -150,6 +150,8 @@ class Overseer:
                     #Send water command
                     self.send_robot_command('WATER', water_amount)
 
+            time.sleep(1)
+
             #Return to origin
             if return_origin:
                 time.sleep(int(water_amount)*2)
