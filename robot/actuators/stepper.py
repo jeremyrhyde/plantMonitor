@@ -35,7 +35,7 @@ class Stepper:
 
         self._disableDriver()
 
-        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True)
+        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True, True)
 
     def _enableDriver(self):
         GPIO.output(self.enable_pin, GPIO.LOW)
