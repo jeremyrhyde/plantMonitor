@@ -4,7 +4,7 @@
 
 import RPi.GPIO as GPIO
 import time
-import Queue
+from queue import *
 import threading
 
 from limit_switch_sensor import Limit_Switch_Sensor
