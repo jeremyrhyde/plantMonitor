@@ -109,7 +109,7 @@ def main():
         elif user_input == 'C':
             stepper.calibration()
         elif user_input.isdigit():
-            stepper.move_stepper(200)
+            elif user_input.isdigit() or (user_input[0] == '-' and user_input[1:].isdigit()):
         elif user_input[0] == 'S':
             stepper._set_step_delay(float(user_input[1:]))
         else:
