@@ -41,6 +41,18 @@ class CNC_Controller:
     def get_pos(self):
         return self.curr_pos
 
+    def move_line(self, pos, abs = False):
+        if abs:
+            move_pos = [int(pos[0]/100*self.X_MAX), int(pos[1]/100*self.Y_MAX)]
+            self.stepper_x.queue_move(move_pos[0])
+            self.stepper_y.queue_move(move_pos[1])
+        else:
+            self.stepper_x.queue_move(pos[0])
+            self.stepper_y.queue_move(pos[0])
+
+        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+
+        print(str(self.curr_pos))
 
     def set_pos(self, pos, logging = True):
         if not self.safe_move(pos):
@@ -116,11 +128,11 @@ def main():
 
         elif user_input[0] == '[':
             pos = [int(user_input[1:-1].split(',')[0]), int(user_input[1:-1].split(',')[1])]
-            cnc.set_pos(pos)
+            cnc.move_line(pos, False)
 
         elif user_input[0] == '%':
             pos = [int(user_input[2:-1].split(',')[0]), int(user_input[2:-1].split(',')[1])]
-            cnc.set_pos_abs(pos)
+            cnc.move_line(pos, True)
 
 
 if __name__ == "__main__":

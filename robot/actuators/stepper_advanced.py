@@ -73,16 +73,16 @@ class Stepper:
         self._q.put([dist,disable])
 
 
-    def move(self, dist, disable = True):
+    def move(self, desired_pos, disable = True):
 
         if disable: self._enableDriver()
 
-        desired_pos = self.pos + dist
+        #desired_pos = self.pos + dist
+        dist = desired_pos - self.pos
         i = self.pos
 
         if dist < 0:
             GPIO.output(self.dir_pin, False)
-
 
             while i > desired_pos and not self._kill and self.switch.state:
                 self._movement()
