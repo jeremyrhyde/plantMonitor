@@ -44,6 +44,7 @@ class Limit_Switch_Sensor:
     def _output_state(self):
         while not self._stop_event.is_set():
             self._state  = GPIO.input(self._LIMIT_SWITCH_PIN)
+            time.sleep(0.1)
 
     def close(self):
         self._stop_event.set()
