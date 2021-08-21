@@ -4,8 +4,10 @@
 
 import RPi.GPIO as GPIO
 import time
+import Queue
+import threading
 
-from .limit_switch_sensor import Limit_Switch_Sensor
+from limit_switch_sensor import Limit_Switch_Sensor
 
 class Stepper:
     # Initialise the PCA9685 using the default address (0x40).
@@ -143,7 +145,7 @@ class Stepper:
             time.sleep(self.motor_step_delay)
 
         if disable: self._disableDriver()
-        
+
     # --------------------------------------------------------------------------
 
 def main():
