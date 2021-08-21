@@ -20,6 +20,7 @@ class Limit_Switch_Sensor:
         self._LIMIT_SWITCH_PIN = limit_switch_pin
 
         self._stop_event = threading.Event()
+        self.verbose = verbose
 
         GPIO.setmode(GPIO.BCM)
 
