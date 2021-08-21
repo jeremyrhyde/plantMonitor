@@ -13,7 +13,6 @@ class Stepper:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
     _kill = 0
 
-
     def __init__(self, step_pin = 6, dir_pin = 5, enable_pin = 19, limit_switch_pin = 26, motor_step_delay=0.00125):
         #self.res_pins = res_pins#(14,15,18)
         self.step_pin = step_pin#21
@@ -21,7 +20,8 @@ class Stepper:
         self.enable_pin = enable_pin#16
         self.limit_switch_pin = limit_switch_pin
 
-        #self.step_size = step_size
+        self._q = Queue()
+        self._stop_event = threading.Event()
 
         self.motor_init_time = 0.05
         self.motor_step_delay = motor_step_delay
@@ -35,7 +35,12 @@ class Stepper:
 
         self._disableDriver()
 
+        self.stepper_thread = threading.Thread(target=self._stepper_run)
+        self.stepper_thread.start()
+
         self.switch =  Limit_Switch_Sensor(self.limit_switch_pin)
+
+    # --------------------------------------------------------------------------
 
     def _enableDriver(self):
         GPIO.output(self.enable_pin, GPIO.LOW)
@@ -46,7 +51,23 @@ class Stepper:
     def _set_step_delay(self, motor_step_delay):
         self.motor_step_delay = motor_step_delay
 
-    def move_stepper(self, dist, disable = True):
+    def _stepper_run(self):
+        while not self._stop_event.is_set():
+            command = self._q.get()
+            self.move(command[0], command[1])
+            #self.logger.info('hiiiiii ' + str(command))
+            self._q.task_done()
+
+    def release_motor(self):
+        self._disableDriver()
+
+    # --------------------------------------------------------------------------
+
+    def queue_move(self, dist, disable = True):
+        self._q.put([dist,disable])
+
+
+    def move(self, dist, disable = True):
 
         if disable: self._enableDriver()
 
@@ -56,14 +77,45 @@ class Stepper:
             GPIO.output(self.dir_pin, True)
 
         i = 0
-        while i < abs(dist) and not self._kill:
+        while i < abs(dist) and not self._kill and self.switch.state:
             GPIO.output(self.step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, GPIO.LOW)
             time.sleep(self.motor_step_delay)
             i = i + 1
 
+        while not self.switch.state:
+            GPIO.output(self.step_pin, True)
+            time.sleep(self.motor_step_delay)
+            GPIO.output(self.step_pin, False)
+            time.sleep(self.motor_step_delay)
+
+
         if disable: self._disableDriver()
+
+    def stop_motor(self):
+        self._kill = 1
+
+    # --------------------------------------------------------------------------
+
+    # def move_stepper(self, dist, disable = True):
+    #
+    #     if disable: self._enableDriver()
+    #
+    #     if dist < 0:
+    #         GPIO.output(self.dir_pin, False)
+    #     else:
+    #         GPIO.output(self.dir_pin, True)
+    #
+    #     i = 0
+    #     while i < abs(dist):
+    #         GPIO.output(self.step_pin, GPIO.HIGH)
+    #         time.sleep(self.motor_step_delay)
+    #         GPIO.output(self.step_pin, GPIO.LOW)
+    #         time.sleep(self.motor_step_delay)
+    #         i = i + 1
+    #
+    #     if disable: self._disableDriver()
 
     def calibration(self, disable = True):
 
@@ -73,7 +125,7 @@ class Stepper:
 
         GPIO.output(self.dir_pin, False)
 
-        while self.switch.read_output():
+        while self.switch.read_output_state():
 
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
@@ -83,7 +135,7 @@ class Stepper:
 
         GPIO.output(self.dir_pin, True)
 
-        while not self.switch.read_output():
+        while not self.switch.read_output_state():
 
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
@@ -91,9 +143,8 @@ class Stepper:
             time.sleep(self.motor_step_delay)
 
         if disable: self._disableDriver()
-
-    def release_motor(self):
-        self._disableDriver()
+        
+    # --------------------------------------------------------------------------
 
 def main():
     #stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
@@ -109,7 +160,7 @@ def main():
         elif user_input == 'C':
             stepper.calibration()
         elif user_input.isdigit():
-            stepper.move_stepper(200)
+            stepper.queue_move(int(user_input))
         elif user_input[0] == 'S':
             stepper._set_step_delay(float(user_input[1:]))
         else:

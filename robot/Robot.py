@@ -394,6 +394,12 @@ class Robot:
             self.set_pos_cnc([0,50], True)
             self.logger.info('Returning to origin')
 
+    def move_line(self, point1, point2):
+        pass
+
+    def move_arc(self, point1, point2, point3):
+        pass
+
     def route_action(self, tag):
         image_file = '/home/pi/plantMonitor/data/raw_images/{}'.format(tag)
         self.logger.info('Saving image to ' + str(image_file))
