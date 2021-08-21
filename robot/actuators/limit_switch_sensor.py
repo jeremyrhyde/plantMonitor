@@ -8,6 +8,7 @@ __credits__ = ["Sharan Juangphanich", "Aaron Sirken"]
 
 import RPi.GPIO as GPIO
 import time
+import threading
 
 class Limit_Switch_Sensor:
 
@@ -49,7 +50,7 @@ class Limit_Switch_Sensor:
         GPIO.cleanup()
 
     # --------------------------------------------------------------------------
-    
+
 def main():
 
     limit_switch = Limit_Switch_Sensor(19)
