@@ -5,7 +5,7 @@
 import RPi.GPIO as GPIO
 import time
 
-from .limit_switch_sensor import Limit_Switch_Sensor
+from limit_switch_sensor import Limit_Switch_Sensor
 
 class Stepper:
     # Initialise the PCA9685 using the default address (0x40).
