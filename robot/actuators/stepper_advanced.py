@@ -40,7 +40,7 @@ class Stepper:
         self.stepper_thread = threading.Thread(target=self._stepper_run)
         self.stepper_thread.start()
 
-        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True)
+        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True, True)
 
     # --------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ class Stepper:
 
         i = 0
         while i < abs(dist) and not self._kill and self.switch.state:
-            print(self.switch.state)
+            #print()
             GPIO.output(self.step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, GPIO.LOW)
