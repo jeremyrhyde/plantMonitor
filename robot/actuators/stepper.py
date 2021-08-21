@@ -56,7 +56,8 @@ class Stepper:
             GPIO.output(self.dir_pin, True)
 
         i = 0
-        while i < abs(dist) and not self._kill and self.switch:
+        while i < abs(dist) and not self._kill and self.switch.state:
+            print(self.switch.state)
             GPIO.output(self.step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, GPIO.LOW)
