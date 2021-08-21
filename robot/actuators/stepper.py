@@ -64,6 +64,8 @@ class Stepper:
             time.sleep(self.motor_step_delay)
             i = i + 1
 
+        print('done')
+
         while not self.switch.state:
             GPIO.output(self.step_pin, True)
             time.sleep(self.motor_step_delay)
