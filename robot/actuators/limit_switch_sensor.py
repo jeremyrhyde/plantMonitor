@@ -55,12 +55,16 @@ class Limit_Switch_Sensor:
 
 def main():
 
-    limit_switch = Limit_Switch_Sensor(19)
+    limit_switch = Limit_Switch_Sensor(19, True)
 
-    while True:
-        input = limit_switch.read_output()
-        print(input)
-        time.sleep(.1)
+    #while True:
+    #    input = limit_switch.read_output()
+    #    print(input)
+    #    time.sleep(.1)
+
+    user_input = input('Press Q to stop')
+
+    limit_switch.close()
 
 
 if __name__ == "__main__":
