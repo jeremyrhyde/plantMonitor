@@ -80,19 +80,10 @@ class Stepper:
 
         i = 0
         while i < abs(dist) and not self._kill and self.switch.state:
-            #print()
-            GPIO.output(self.step_pin, GPIO.HIGH)
-            time.sleep(self.motor_step_delay)
-            GPIO.output(self.step_pin, GPIO.LOW)
-            time.sleep(self.motor_step_delay)
+            self._movement()
             i = i + 1
 
-        while not self.switch.state:
-            GPIO.output(self.step_pin, True)
-            time.sleep(self.motor_step_delay)
-            GPIO.output(self.step_pin, False)
-            time.sleep(self.motor_step_delay)
-
+        if not self.switch.state: self.bounce_back()
 
         if disable: self._disableDriver()
 
@@ -120,6 +111,19 @@ class Stepper:
     #
     #     if disable: self._disableDriver()
 
+    def bounce_back(self):
+        GPIO.output(self.dir_pin, True)
+
+        while not self.switch.state:
+            self._movement()
+
+    def _movement(self):
+        GPIO.output(self.step_pin, GPIO.HIGH)
+        time.sleep(self.motor_step_delay)
+        GPIO.output(self.step_pin, GPIO.LOW)
+        time.sleep(self.motor_step_delay)
+
+
     def calibration(self, disable = True):
 
         time.sleep(1)
@@ -127,23 +131,8 @@ class Stepper:
         if disable: self._enableDriver()
 
         GPIO.output(self.dir_pin, False)
-
-        while self.switch.read_output_state():
-
-            GPIO.output(self.step_pin, True)
-            time.sleep(self.motor_step_delay)
-            GPIO.output(self.step_pin, False)
-            time.sleep(self.motor_step_delay)
-
-
-        GPIO.output(self.dir_pin, True)
-
-        while not self.switch.read_output_state():
-
-            GPIO.output(self.step_pin, True)
-            time.sleep(self.motor_step_delay)
-            GPIO.output(self.step_pin, False)
-            time.sleep(self.motor_step_delay)
+        while self.switch.read_output_state(): self._movement()
+        self.bounce_back()
 
         if disable: self._disableDriver()
 
@@ -151,7 +140,7 @@ class Stepper:
 
 def main():
     #stepper = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19)
-    stepper = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13, motor_step_delay=0.0001)
+    stepper = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13)#, motor_step_delay=0.0001)
     while True:
         user_input = input('Position: ')
 
