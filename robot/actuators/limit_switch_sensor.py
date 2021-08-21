@@ -16,7 +16,7 @@ class Limit_Switch_Sensor:
     _state = 0
 
     # Do not refer to the servo channels, refer to GPIO pin #
-    def __init__(self, limit_switch_pin, l_thread = True):
+    def __init__(self, limit_switch_pin, l_thread = True, verbose = False):
         self._LIMIT_SWITCH_PIN = limit_switch_pin
 
         self._stop_event = threading.Event()
@@ -44,6 +44,7 @@ class Limit_Switch_Sensor:
     def _output_state(self):
         while not self._stop_event.is_set():
             self._state  = GPIO.input(self._LIMIT_SWITCH_PIN)
+            print(self._state)
             time.sleep(0.1)
 
     def close(self):
@@ -55,7 +56,7 @@ class Limit_Switch_Sensor:
 
 def main():
 
-    limit_switch = Limit_Switch_Sensor(19, True)
+    limit_switch = Limit_Switch_Sensor(19, True, True)
 
     #while True:
     #    input = limit_switch.read_output()
