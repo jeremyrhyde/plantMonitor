@@ -57,7 +57,7 @@ class Stepper:
 
         i = 0
         while i < abs(dist) and not self._kill and self.switch.state:
-            #print(self.switch.state)
+            print(self.switch.state)
             GPIO.output(self.step_pin, GPIO.HIGH)
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, GPIO.LOW)
@@ -69,7 +69,7 @@ class Stepper:
             time.sleep(self.motor_step_delay)
             GPIO.output(self.step_pin, False)
             time.sleep(self.motor_step_delay)
-            
+
         if disable: self._disableDriver()
 
     def calibration(self, disable = True):
