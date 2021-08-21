@@ -42,6 +42,10 @@ class Stepper:
 
         self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True, True)
 
+
+        self.calibration()
+        self.pos = 0
+
     # --------------------------------------------------------------------------
 
     def _enableDriver(self):
@@ -83,6 +87,8 @@ class Stepper:
             self._movement()
             i = i + 1
 
+        self.pos = i
+
         if not self.switch.state: self.bounce_back()
 
         if disable: self._disableDriver()
@@ -116,6 +122,8 @@ class Stepper:
 
         while not self.switch.state:
             self._movement()
+
+        self.pos = 0
 
     def _movement(self):
         GPIO.output(self.step_pin, GPIO.HIGH)
