@@ -77,17 +77,24 @@ class Stepper:
 
         if disable: self._enableDriver()
 
+        desired_pos = self.pos + dist
+        i = self.pos
+
         if dist < 0:
             GPIO.output(self.dir_pin, False)
+
+
+            while i > desired_pos and not self._kill and self.switch.state:
+                self._movement()
+                i = i + 1
         else:
             GPIO.output(self.dir_pin, True)
 
-        i = 0
-        while i < abs(dist) and not self._kill and self.switch.state:
-            self._movement()
-            i = i + 1
+            while i < desired_pos and not self._kill and self.switch.state:
+                self._movement()
+                i = i + 1
 
-        self.pos = i
+        self.pos = self.pos + i
 
         if not self.switch.state: self.bounce_back()
 
