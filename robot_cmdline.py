@@ -40,12 +40,14 @@ def water_input(logger):
         end = input('End pos: ')
         water_info = {'type': 'CIRCLE', 'start' : start, 'end': end}
 
+    elif user_input=='POINT':
+        water_info = {'type': 'POINT'}
     else:
         water_info = {'type': ''}
 
     logger.info("User water amount input - {}".format(str(water_info)))
 
-    return user_option
+    return water_info
 
 def move_input(logger):
     user_input = input('Pos:')
