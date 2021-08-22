@@ -34,17 +34,17 @@ def water_input(logger):
         theta1 = input('Theta1: ')
         theta2 = input('Theta2: ')
         amount = input('Amount: ')
-        water_info = {'type': 'CIRCLE', 'radius' : radius, 'angle':[theta1,theta2], 'amount': amount}
+        water_info = {'type': user_input, 'radius' : radius, 'angle':[theta1,theta2], 'amount': amount}
 
     elif user_input=='LINE':
         start = input('Start pos: ')
         end = input('End pos: ')
         amount = input('Amount: ')
-        water_info = {'type': 'CIRCLE', 'start' : start, 'end': end, 'amount': amount}
+        water_info = {'type': user_input, 'start' : start, 'end': end, 'amount': amount}
 
     elif user_input=='POINT':
         amount = input('Amount: ')
-        water_info = {'type': 'POINT', 'amount': amount}
+        water_info = {'type': user_input, 'amount': amount}
     else:
         water_info = {'type': ''}
 
