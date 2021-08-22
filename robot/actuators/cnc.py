@@ -135,7 +135,7 @@ class CNC_Controller:
         time.sleep(.1)
 
         self.move_wait()
-        self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
+        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
         #self.curr_pos = [0,0]
         #print('HI: ' + str(self.curr_pos))
