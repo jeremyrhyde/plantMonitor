@@ -342,15 +342,16 @@ class Robot:
 
         pos, abs = self.convert_to_pos(new_pos)
 
-        self.curr_pos = self.move_to(pos, abs)
+        self.move_to(pos, abs)
 
 
     def move_to(self, new_pos, abs = False):
         self.cnc.move_line(new_pos, abs)
 
-        self.curr_pos = self.cnc.move_line(new_pos, abs)
+        self.curr_pos = self.cnc.get_pos
 
         if abs: self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
+
         else: self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
     # def perform_move(self, new_pos, abs = False):
