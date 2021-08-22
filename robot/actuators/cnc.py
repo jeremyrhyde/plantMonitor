@@ -124,7 +124,11 @@ class CNC_Controller:
         self.stepper_x.queue_move('C')
         self.stepper_y.queue_move('C')
 
-        self.curr_pos = self.curr_pos[0,0]
+        while not self.stepper_x._complete or not self.stepper_y._complete:
+            self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
+
+        #self.curr_pos = [0,0]
+        print('HI: ' + str(self.curr_pos))
 
         if self.logger: self.logger.info('Calibration complete!')
 
