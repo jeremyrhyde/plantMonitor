@@ -57,7 +57,7 @@ class Robot:
         "OFF_W" : lambda self, para: self.waterSystemOnOff(),
         "WATER" : lambda self, para: self.water_plant(para),
         #"MOVE" : lambda self, new_pos: self.perform_move(new_pos),
-        "CNC_POS" : lambda self, para: self.set_pos(para),
+        "MOVE" : lambda self, para: self.set_pos(para),
         "GET_POS" : lambda self, para: self.get_pos_cnc(),
         "CAL" : lambda self, para: self.cnc_calibartion(),
         "ROUTE_Z" : lambda self, para: self.route_zigzag('route_zigzag', True),
