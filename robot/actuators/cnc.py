@@ -63,7 +63,7 @@ class CNC_Controller:
 
     def move_circle(self, r, theta1, theta2, abs = False):
 
-        dtheta = 2
+        dtheta = 10
 
         start_x = int(self.curr_pos[0] + r*math.cos(theta1))
         start_y = int(self.curr_pos[1] + r*math.sin(theta1))
@@ -87,7 +87,7 @@ class CNC_Controller:
             self.move_wait()
             self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
-            print('DONE: ' + str(self.curr_pos))
+            print('DONE: {}, ({})'.format(str(self.curr_pos), theta1))
 
             theta1 = theta1 + dtheta
 
