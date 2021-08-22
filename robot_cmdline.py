@@ -107,12 +107,11 @@ def main():
 
     robot_logger.info('---------------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
-    print('h')
+
     # Initialize robot
     robot = Robot(robot_id, robot_logger, cnc_logger)
     sched = Robot_Scheduler(robot)
     robot.register_scheduler(sched)
-    print('hi')
 
     # Initialize robot user
     user_id = "000"
@@ -121,12 +120,12 @@ def main():
 
     robot_logger.info('ROBOT INITIALIZATION COMPLETE!')
     robot_logger.info('---------------------------------')
-    print('h2')
+
     # ----------------- API Checks (P2)  --------------
 
     # Send to api that gardener setup is finished
     send_api_cmd('robot_ready', 'ready', 'yes')
-    print('hi3')
+
     # --------------- Manual User Loop ----------------
     while True:
 

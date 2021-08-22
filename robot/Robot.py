@@ -111,7 +111,7 @@ class Robot:
         self.logger.info('Initial robot actions...')
         #self.passive_led.turn_on()
 
-        self.cnc.calibration()
+        #self.cnc.calibration()
         self.move_to([0,50], True)
 
         #Send command to gardner that the robot is ready to start
