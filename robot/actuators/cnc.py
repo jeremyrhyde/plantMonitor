@@ -78,16 +78,19 @@ class CNC_Controller:
         #print('DONE: ' + str(self.curr_pos))
         #self.stepper_x._set_step_delay(0.002)
         #self.stepper_y._set_step_delay(0.002)
+        saved_pos = self.curr_pos
 
         while theta1 < theta2:
 
-            move_x = int(self.curr_pos[0] + r*math.cos(math.radians(theta1)))
-            move_y = int(self.curr_pos[1] + r*math.sin(math.radians(theta1)))
+            move_x = int(self.curr_pos[0] + r*math.cos(math.radians(theta1))) + (self.curr_pos[0] - saved_pos[0])
+            move_y = int(self.curr_pos[1] + r*math.sin(math.radians(theta1))) + (self.curr_pos[1] - saved_pos[1])
             #print('MOVE: [{},{}], ({})'.format(move_x, move_y, theta1))
 
             self.stepper_x.queue_move(move_x)
             self.stepper_y.queue_move(move_y)
             self.move_wait()
+
+            saved_pos = [self.stepper_x.pos, self.stepper_y.pos]
             #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
             #print('DONE: [{},{}], ({})'.format(self.stepper_x.pos, self.stepper_y.pos, theta1))
