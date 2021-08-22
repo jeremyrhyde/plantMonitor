@@ -80,7 +80,7 @@ class CNC_Controller:
 
             move_x = int(self.curr_pos[0] + r*math.cos(theta1))
             move_y = int(self.curr_pos[1] + r*math.sin(theta1))
-            print('MOVE: [{},{}], ({})'.format(move_x,move_y, theta1))
+            print('MOVE: [{},{}], ({})'.format(move_x, move_y, theta1))
 
             self.stepper_x.queue_move(move_x)
             self.stepper_y.queue_move(move_y)
@@ -91,6 +91,8 @@ class CNC_Controller:
             print('DONE: {}, ({})'.format(str(self.curr_pos), theta1))
 
             theta1 = theta1 + dtheta
+
+            time.sleep(1)
 
 
         time.sleep(.1)
