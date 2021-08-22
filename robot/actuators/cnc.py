@@ -190,22 +190,22 @@ def main():
         user_input = input('COMMAND: ')
         if user_input == 'CAL':
             cnc.calibration_advanced()
+            
         elif user_input=='CIRCLE':
             radius = input('Radius: ')
             theta1 = input('Theta1: ')
             theta2 = input('Theta2: ')
-
             cnc.move_circle(int(radius), int(theta1), int(theta2))
 
-        elif user_input=='LINE'
+        elif user_input=='LINE':
             line_pos = input('Pos: ')
-            if user_input[0] == '[':
-                pos = [int(line_pos[1:-1].split(',')[0]), int(line_pos[1:-1].split(',')[1])]
-                cnc.move_line(pos, False)
+            pos = [int(line_pos[1:-1].split(',')[0]), int(line_pos[1:-1].split(',')[1])]
+            cnc.move_line(pos, False)
 
-            if user_input[0] == '%':
-                pos = [int(line_pos[2:-1].split(',')[0]), int(line_pos[2:-1].split(',')[1])]
-                cnc.move_line(pos, True)
+        elif user_input=='ABS_LINE':
+            line_pos = input('Abs Pos: ')
+            pos = [int(line_pos[1:-1].split(',')[0]), int(line_pos[1:-1].split(',')[1])]
+            cnc.move_line(pos, True)
 
 
 if __name__ == "__main__":
