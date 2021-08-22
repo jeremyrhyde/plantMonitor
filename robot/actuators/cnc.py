@@ -38,7 +38,7 @@ class CNC_Controller:
             return True
         return False
 
-
+    @property
     def get_pos(self):
         return self.curr_pos
 
@@ -52,71 +52,73 @@ class CNC_Controller:
             self.stepper_y.queue_move(pos[1])
 
         while not self.stepper_x._complete or not self.stepper_y._complete:
-            self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
+            pass
+            
+        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
         print('DONE: ' + str(self.curr_pos))
 
-    def set_pos(self, pos, logging = True):
-        if not self.safe_move(pos):
-            if self.logger: self.logger.info('Improper move...')
-            return self.curr_pos
-        else:
-            diff = [int(pos[0])- self.curr_pos[0],
-                    int(pos[1])- self.curr_pos[1]]
-
-            if self.logger and logging: self.logger.info('Move difference: [{},{}] -> POS: '.format(diff[0], diff[1]) + str(self.curr_pos))
-
-            self.stepper_x.move_stepper(diff[0])
-            self.stepper_y.move_stepper(diff[1])
-
-            self.curr_pos = pos
-
-            #if logging: print('position set to ' + str(self.curr_pos))
-
-            return self.curr_pos
-
-    def set_pos_abs(self, pos_abs, logging = True):
-        if not self.safe_move_abs(pos_abs):
-            if self.logger: self.logger.info('Improper move... (abs)')
-            return self.curr_pos
-        else:
-            pos = [int(pos_abs[0]/100*self.X_MAX), int(pos_abs[1]/100*self.Y_MAX)]
-            diff = [int(pos[0]) - self.curr_pos[0],
-                    int(pos[1]) - self.curr_pos[1]]
-
-            if self.logger and logging: self.logger.info('Move difference: [{},{}] -> POS: '.format(diff[0], diff[1]) + str(self.curr_pos))
-
-
-            self.stepper_x.move_stepper(diff[0])
-
-            self.stepper_y.move_stepper(diff[1])
-
-            self.curr_pos = pos
-
-            #if logging: print('position set to ' + str(self.curr_pos))
-
-            return self.curr_pos
-
-
-    def calibration(self, disable = True):
-
-        if self.logger: self.logger.info('Calibrating X...')
-        self.stepper_x.calibration()
-        self.set_pos_abs([0,0.5], False) # with additional bounce off
-
-        self.curr_pos[0] = 0
-
-        if self.logger: self.logger.info('X calibration complete!')
-
-        time.sleep(0.5)
-
-        if self.logger: self.logger.info('Calibrating Y...')
-        self.stepper_y.calibration()
-        self.set_pos_abs([0,2.5], False) # with additional bounce off
-
-        self.curr_pos[1] = 0
-
-        if self.logger: self.logger.info('Y calibration complete!')
+    # def set_pos(self, pos, logging = True):
+    #     if not self.safe_move(pos):
+    #         if self.logger: self.logger.info('Improper move...')
+    #         return self.curr_pos
+    #     else:
+    #         diff = [int(pos[0])- self.curr_pos[0],
+    #                 int(pos[1])- self.curr_pos[1]]
+    #
+    #         if self.logger and logging: self.logger.info('Move difference: [{},{}] -> POS: '.format(diff[0], diff[1]) + str(self.curr_pos))
+    #
+    #         self.stepper_x.move_stepper(diff[0])
+    #         self.stepper_y.move_stepper(diff[1])
+    #
+    #         self.curr_pos = pos
+    #
+    #         #if logging: print('position set to ' + str(self.curr_pos))
+    #
+    #         return self.curr_pos
+    #
+    # def set_pos_abs(self, pos_abs, logging = True):
+    #     if not self.safe_move_abs(pos_abs):
+    #         if self.logger: self.logger.info('Improper move... (abs)')
+    #         return self.curr_pos
+    #     else:
+    #         pos = [int(pos_abs[0]/100*self.X_MAX), int(pos_abs[1]/100*self.Y_MAX)]
+    #         diff = [int(pos[0]) - self.curr_pos[0],
+    #                 int(pos[1]) - self.curr_pos[1]]
+    #
+    #         if self.logger and logging: self.logger.info('Move difference: [{},{}] -> POS: '.format(diff[0], diff[1]) + str(self.curr_pos))
+    #
+    #
+    #         self.stepper_x.move_stepper(diff[0])
+    #
+    #         self.stepper_y.move_stepper(diff[1])
+    #
+    #         self.curr_pos = pos
+    #
+    #         #if logging: print('position set to ' + str(self.curr_pos))
+    #
+    #         return self.curr_pos
+    #
+    #
+    # def calibration(self, disable = True):
+    #
+    #     if self.logger: self.logger.info('Calibrating X...')
+    #     self.stepper_x.calibration()
+    #     self.set_pos_abs([0,0.5], False) # with additional bounce off
+    #
+    #     self.curr_pos[0] = 0
+    #
+    #     if self.logger: self.logger.info('X calibration complete!')
+    #
+    #     time.sleep(0.5)
+    #
+    #     if self.logger: self.logger.info('Calibrating Y...')
+    #     self.stepper_y.calibration()
+    #     self.set_pos_abs([0,2.5], False) # with additional bounce off
+    #
+    #     self.curr_pos[1] = 0
+    #
+    #     if self.logger: self.logger.info('Y calibration complete!')
 
     def calibration_advanced(self, disable = True):
 
@@ -128,7 +130,7 @@ class CNC_Controller:
             self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
 
         #self.curr_pos = [0,0]
-        print('HI: ' + str(self.curr_pos))
+        #print('HI: ' + str(self.curr_pos))
 
         if self.logger: self.logger.info('Calibration complete!')
 
