@@ -74,6 +74,8 @@ class CNC_Controller:
         #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
         #print('DONE: ' + str(self.curr_pos))
+        self.stepper_x._set_step_delay(0.0001)
+        self.stepper_y._set_step_delay(0.0001)
 
         while theta1 < theta2:
 
@@ -91,7 +93,8 @@ class CNC_Controller:
             theta1 = theta1 + dtheta
 
             #time.sleep(5)
-
+        self.stepper_x._set_step_delay(0.0006)
+        self.stepper_y._set_step_delay(0.0006)
 
         self.stepper_x.queue_move(start_x)
         self.stepper_y.queue_move(start_y)
