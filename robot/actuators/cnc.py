@@ -123,7 +123,7 @@ class CNC_Controller:
 
     def move_wait(self):
         while not self.stepper_x._complete or not self.stepper_y._complete:
-            print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
+            #print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
             time.sleep(0.1)
 
     def calibration_advanced(self, disable = True):
@@ -149,7 +149,7 @@ def main():
     while True:
         user_input = input('Position: ')
         if user_input == 'C':
-            cnc.calibration()
+            cnc.calibration_advanced()
 
         elif user_input[0] == '[':
             pos = [int(user_input[1:-1].split(',')[0]), int(user_input[1:-1].split(',')[1])]
