@@ -46,6 +46,8 @@ class Stepper:
         self.calibration()
         self.pos = 0
 
+        self._complete = True
+
     # --------------------------------------------------------------------------
 
     def _enableDriver(self):
@@ -60,8 +62,11 @@ class Stepper:
     def _stepper_run(self):
         while not self._stop_event.is_set():
             command = self._q.get()
+
+            self._complete = False
             self.move(command[0], command[1])
-            #self.logger.info('hiiiiii ' + str(command))
+            self._complete = True
+            
             self._q.task_done()
 
     def release_motor(self):
@@ -81,6 +86,8 @@ class Stepper:
         dist = desired_pos - self.pos
         i = self.pos
 
+        #self._complete = False
+
         if dist < 0:
             GPIO.output(self.dir_pin, False)
             di = -1
@@ -99,6 +106,7 @@ class Stepper:
         if not self.switch.state: self.bounce_back()
 
         if disable: self._disableDriver()
+        #self._complete = True
 
     def stop_motor(self):
         self._kill = 1
