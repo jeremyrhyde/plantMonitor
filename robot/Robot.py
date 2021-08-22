@@ -323,8 +323,8 @@ class Robot:
 
     # ----------------------------------- CNC ----------------------------------
 
-    def convert_to_pos(self, desired_pos):
-        abs = desired_pos[0]=='%'
+    def convert_to_pos(self, new_pos):
+        abs = new_pos[0]=='%'
 
         pos = [int(new_pos.split('[')[1].split(',')[0]), int(new_pos.split('[')[1].split(',')[1].split(']')[0])]
 
