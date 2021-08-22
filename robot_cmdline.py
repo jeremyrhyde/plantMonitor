@@ -26,11 +26,33 @@ def user_input(logger):
     return user_option
 
 def water_input(logger):
-    user_option = input("\nEnter amount of water (in mL): ")
+        user_input = input('Type:')
+        water_info = {'type': user_input]
 
-    logger.info("User water amount input - {}".format(user_option))
+        if user_input=='CIRCLE':
+            radius = input('Radius: ')
+            theta1 = input('Theta1: ')
+            theta2 = input('Theta2: ')
+            water_info = {'type': 'CIRCLE', 'radius' : radius, 'angle':[theta1,theta2]}
+
+        elif user_input=='LINE':
+            start = input('Start pos: ')
+            end = input('End pos: ')
+            water_info = {'type': 'CIRCLE', 'start' : start, 'end': end}
+
+        else:
+            water_info = {'type': ''}
+
+    logger.info("User water amount input - {}".format(str(water_info)))
 
     return user_option
+
+def move_input(logger):
+    user_input = input('Pos:')
+
+    #logger.info("User water amount input - {}".format(str(water_info)))
+
+    return user_input
 
 # ------------- API get and pull requests --------------
 
@@ -110,9 +132,12 @@ def main():
         user_option = user_input(user_logger)
 
         if user_option == 'WATER':
-            para = water_input(user_logger)
-            robot.queue_command(user_option, para)
-
+            water_info = water_input(user_logger)
+            if water_info['type'] != '':
+                robot.queue_command(user_option, water_info)
+        elif user_option == 'MOVE':
+            move_info = move_input(user_logger)
+            robot.queue_command(user_option, move_info)
         elif len(user_option) > 0:
             robot.queue_command(user_option)
 
