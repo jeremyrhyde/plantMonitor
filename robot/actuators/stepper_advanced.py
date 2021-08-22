@@ -64,9 +64,12 @@ class Stepper:
             command = self._q.get()
 
             self._complete = False
-            self.move(command[0], command[1])
+
+            if command == 'C': self.calibration()
+            else: self.move(command[0], command[1])
+
             self._complete = True
-            
+
             self._q.task_done()
 
     def release_motor(self):

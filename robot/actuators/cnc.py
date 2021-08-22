@@ -11,6 +11,8 @@ class CNC_Controller:
     # Initialise the PCA9685 using the default address (0x40).
     # Alternatively specify a different address and/or bus:
     # pwm = Adafruit_PCA9685.PCA9685(address=0x41, busnum=2)
+    curr_pos = [0, 0]
+
     X_MAX = 3250
     Y_MAX = 750
 
@@ -20,9 +22,7 @@ class CNC_Controller:
         self.stepper_x = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19, motor_step_delay=0.0006)
         self.stepper_y = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13, motor_step_delay=0.0006)
 
-        self.calibration()
-
-        self.curr_pos = [0, 0]
+        self.calibration_advanced()
 
     def close(self):
         GPIO.cleanup()
@@ -53,7 +53,7 @@ class CNC_Controller:
 
         while not self.stepper_x._complete or not self.stepper_y._complete:
             self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
-            
+
         print('DONE: ' + str(self.curr_pos))
 
     def set_pos(self, pos, logging = True):
@@ -118,6 +118,15 @@ class CNC_Controller:
 
         if self.logger: self.logger.info('Y calibration complete!')
 
+    def calibration_advanced(self, disable = True):
+
+        if self.logger: self.logger.info('Starting calibrating...')
+        self.stepper_x.queue_move('C')
+        self.stepper_y.queue_move('C')
+
+        self.curr_pos = self.curr_pos[0,0]
+
+        if self.logger: self.logger.info('Calibration complete!')
 
 def main():
 
