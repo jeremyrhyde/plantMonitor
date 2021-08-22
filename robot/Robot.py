@@ -114,6 +114,8 @@ class Robot:
         #self.cnc.calibration()
         self.move_to([0,50], True)
 
+        self.curr_pos = self.cnc.get_pos
+
         #Send command to gardner that the robot is ready to start
 
     # Stop threads and close out of all objects
@@ -346,13 +348,10 @@ class Robot:
     def move_to(self, new_pos, abs = False):
         self.cnc.move_line(new_pos, abs)
 
-        if abs:
-            self.curr_pos = self.cnc.move_line(new_pos)
-            self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
+        self.curr_pos = self.cnc.move_line(new_pos, abs)
 
-        else:
-            self.curr_pos = self.cnc.move_line(new_pos)
-            self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
+        if abs: self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
+        else: self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
     # def perform_move(self, new_pos, abs = False):
     #
