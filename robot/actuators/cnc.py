@@ -65,26 +65,24 @@ class CNC_Controller:
 
         dtheta = 5
 
-        start_x = int(self.curr_pos[0] + r*math.cos(theta1))
-        start_y = int(self.curr_pos[1] + r*math.sin(theta1))
+        start_x = int(self.curr_pos[0] + r*math.cos(math.radians(theta1)))
+        start_y = int(self.curr_pos[1] + r*math.sin(math.radians(theta1)))
 
         self.stepper_x.queue_move(start_x)
         self.stepper_y.queue_move(start_y)
-
         self.move_wait()
-        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+        #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
-        print('DONE: ' + str(self.curr_pos))
+        #print('DONE: ' + str(self.curr_pos))
 
         while theta1 < theta2:
 
-            move_x = int(self.curr_pos[0] + r*math.cos(theta1))
-            move_y = int(self.curr_pos[1] + r*math.sin(theta1))
+            move_x = int(self.curr_pos[0] + r*math.cos(math.radians(theta1)))
+            move_y = int(self.curr_pos[1] + r*math.sin(math.radians(theta1)))
             print('MOVE: [{},{}], ({})'.format(move_x, move_y, theta1))
 
             self.stepper_x.queue_move(move_x)
             self.stepper_y.queue_move(move_y)
-
             self.move_wait()
             #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
@@ -94,6 +92,11 @@ class CNC_Controller:
 
             time.sleep(5)
 
+
+        self.stepper_x.queue_move(start_x)
+        self.stepper_y.queue_move(start_y)
+
+        self.move_wait()
         self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
 
