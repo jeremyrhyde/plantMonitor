@@ -43,7 +43,7 @@ class Stepper:
         self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True)
 
 
-        self.calibration()
+        if calibration: self.calibration()
         self.pos = 0
 
         self._complete = True
