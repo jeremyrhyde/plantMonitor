@@ -64,7 +64,7 @@ class Stepper:
             command = self._q.get()
 
             self._complete = False
-
+            print(command)
             if command == 'C': self.calibration()
             else: self.move(command[0], command[1])
 
