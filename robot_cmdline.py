@@ -26,22 +26,22 @@ def user_input(logger):
     return user_option
 
 def water_input(logger):
-        user_input = input('Type:')
-        water_info = {'type': user_input}
+    user_input = input('Type:')
+    water_info = {'type': user_input}
 
-        if user_input=='CIRCLE':
-            radius = input('Radius: ')
-            theta1 = input('Theta1: ')
-            theta2 = input('Theta2: ')
-            water_info = {'type': 'CIRCLE', 'radius' : radius, 'angle':[theta1,theta2]}
+    if user_input=='CIRCLE':
+        radius = input('Radius: ')
+        theta1 = input('Theta1: ')
+        theta2 = input('Theta2: ')
+        water_info = {'type': 'CIRCLE', 'radius' : radius, 'angle':[theta1,theta2]}
 
-        elif user_input=='LINE':
-            start = input('Start pos: ')
-            end = input('End pos: ')
-            water_info = {'type': 'CIRCLE', 'start' : start, 'end': end}
+    elif user_input=='LINE':
+        start = input('Start pos: ')
+        end = input('End pos: ')
+        water_info = {'type': 'CIRCLE', 'start' : start, 'end': end}
 
-        else:
-            water_info = {'type': ''}
+    else:
+        water_info = {'type': ''}
 
     logger.info("User water amount input - {}".format(str(water_info)))
 
