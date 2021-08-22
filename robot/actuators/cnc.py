@@ -51,11 +51,10 @@ class CNC_Controller:
             self.stepper_x.queue_move(pos[0])
             self.stepper_y.queue_move(pos[1])
 
-        print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
-        while not (self.stepper_x._complete and self.stepper_y._complete):
-            print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
-            time.sleep(0.1)
+        time.sleep(.1)
 
+        #print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
+        self.move_wait()
         self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
         print('DONE: ' + str(self.curr_pos))
@@ -122,14 +121,21 @@ class CNC_Controller:
     #
     #     if self.logger: self.logger.info('Y calibration complete!')
 
+    def move_wait(self):
+        while not self.stepper_x._complete or not self.stepper_y._complete:
+            print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
+            time.sleep(0.1)
+
     def calibration_advanced(self, disable = True):
 
         if self.logger: self.logger.info('Starting calibrating...')
         self.stepper_x.queue_move('C')
         self.stepper_y.queue_move('C')
 
-        while not self.stepper_x._complete or not self.stepper_y._complete:
-            self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
+        time.sleep(.1)
+
+        self.move_wait()
+        self.curr_pos = self.curr_pos[self.stepper_x.pos, self.stepper_y.pos]
 
         #self.curr_pos = [0,0]
         #print('HI: ' + str(self.curr_pos))
