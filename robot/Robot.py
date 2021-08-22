@@ -285,8 +285,8 @@ class Robot:
 
         if water_info['type'] == 'LINE':
 
-            pos1, a1 = convert_to_pos(water_info['start'])
-            pos2, a2 = convert_to_pos(water_info['end'])
+            pos1, a1 = self.convert_to_pos(water_info['start'])
+            pos2, a2 = self.convert_to_pos(water_info['end'])
 
             start_time = datetime.datetime.now()
             dir = True
