@@ -103,6 +103,10 @@ class Overseer:
             self.logger.info('WARNING! Plant is not in plantMonitor bed')
             return
 
+        self.send_robot_command('MOVE', pos)
+
+        time.sleep(5)
+
         self.logger.info('Watering {} with {} mL at {} [FREQUENCY: {},{}]'.format(plant_key, water_info['amount'], pos, water_info['schedule'], water_info['freq']))
 
         self.send_robot_command('WATER', water_info)
