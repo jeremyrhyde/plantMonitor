@@ -48,7 +48,7 @@ class CNC_Controller:
             self.stepper_y.queue_move(move_pos[1])
         else:
             self.stepper_x.queue_move(pos[0])
-            self.stepper_y.queue_move(pos[1)
+            self.stepper_y.queue_move(pos[1])
 
         self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
