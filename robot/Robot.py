@@ -324,11 +324,11 @@ class Robot:
     # ----------------------------------- CNC ----------------------------------
 
     def convert_to_pos(self, desired_pos):
-        abs_1 = desired_pos[0]=='%'
+        abs = desired_pos[0]=='%'
 
         pos = [int(new_pos.split('[')[1].split(',')[0]), int(new_pos.split('[')[1].split(',')[1].split(']')[0])]
 
-        return pos, abs_1
+        return pos, abs
 
     # Move central mount a certain direction and distance
     def get_pos_cnc(self):
@@ -337,13 +337,13 @@ class Robot:
 
     def set_pos(self, new_pos):
 
-        pos, abs_1 = self.convert_to_pos(new_pos)
+        pos, abs = self.convert_to_pos(new_pos)
 
-        self.curr_pos = self.move_to(new_pos, abs_1)
+        self.curr_pos = self.move_to(new_pos, abs)
 
 
     def move_to(self, new_pos, abs = False):
-        self.cnc.move_line(new_pos, abs_1)
+        self.cnc.move_line(new_pos, abs)
 
         if abs:
             self.curr_pos = self.cnc.move_line(new_pos)
