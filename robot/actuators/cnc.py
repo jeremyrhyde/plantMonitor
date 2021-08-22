@@ -86,13 +86,15 @@ class CNC_Controller:
             self.stepper_y.queue_move(move_y)
 
             self.move_wait()
-            self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+            #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
             print('DONE: {}, ({})'.format(str(self.curr_pos), theta1))
 
             theta1 = theta1 + dtheta
 
             time.sleep(1)
+
+        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
 
         time.sleep(.1)
