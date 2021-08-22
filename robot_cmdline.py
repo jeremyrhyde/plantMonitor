@@ -107,7 +107,7 @@ def main():
 
     robot_logger.info('---------------------------------')
     robot_logger.info('ROBOT INITIALIZATION...')
-
+    print('h')
     # Initialize robot
     robot = Robot(robot_id, robot_logger, cnc_logger)
     sched = Robot_Scheduler(robot)
