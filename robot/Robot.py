@@ -47,23 +47,23 @@ class Robot:
 
 
     COMMANDS = {
-        "TAKE_IMAGE" : lambda self: self.takeCameraImage(),
-        "PREVIEW_IMAGE" : lambda self: self.previewImage(),
-        "ON_PL" : lambda self: self.passiveLightingOnOff(True),
-        "OFF_PL" : lambda self: self.passiveLightingOnOff(),
-        "ON_AL" : lambda self: self.activeLightingOnOff(True),
-        "OFF_AL" : lambda self: self.activeLightingOnOff(),
-        "ON_W" : lambda self: self.waterSystemOnOff(True),
-        "OFF_W" : lambda self: self.waterSystemOnOff(),
-        "WATER" : lambda self, water_info: self.water_plant(water_info),
+        "TAKE_IMAGE" : lambda self, para: self.takeCameraImage(),
+        "PREVIEW_IMAGE" : lambda self, para: self.previewImage(),
+        "ON_PL" : lambda self, para: self.passiveLightingOnOff(True),
+        "OFF_PL" : lambda self, para: self.passiveLightingOnOff(),
+        "ON_AL" : lambda self, para: self.activeLightingOnOff(True),
+        "OFF_AL" : lambda self, para: self.activeLightingOnOff(),
+        "ON_W" : lambda self, para: self.waterSystemOnOff(True),
+        "OFF_W" : lambda self, para: self.waterSystemOnOff(),
+        "WATER" : lambda self, para: self.water_plant(para),
         #"MOVE" : lambda self, new_pos: self.perform_move(new_pos),
-        "CNC_POS" : lambda self, new_pos: self.set_pos(new_pos),
-        "GET_POS" : lambda self: self.get_pos_cnc(),
-        "CAL" : lambda self: self.cnc_calibartion(),
-        "ROUTE_Z" : lambda self: self.route_zigzag('route_zigzag', True),
-        "ROUTE_L" : lambda self: self.route_line('route_line', True),
-        "MAP" : lambda self: self.image_map_bed(),
-        "X" : lambda self: self.close(),
+        "CNC_POS" : lambda self, para: self.set_pos(para),
+        "GET_POS" : lambda self, para: self.get_pos_cnc(),
+        "CAL" : lambda self, para: self.cnc_calibartion(),
+        "ROUTE_Z" : lambda self, para: self.route_zigzag('route_zigzag', True),
+        "ROUTE_L" : lambda self, para: self.route_line('route_line', True),
+        "MAP" : lambda self, para: self.image_map_bed(),
+        "X" : lambda self, para: self.close(),
         #watering
     }
 
@@ -143,7 +143,7 @@ class Robot:
     def _robot_run(self):
         while not self._stop_event.is_set():
             command = self._q.get()
-            self.command(command)
+            self.command(command[0], command[1])
             #self.logger.info('hiiiiii ' + str(command))
             self._q.task_done()
 
@@ -165,11 +165,11 @@ class Robot:
     # ------------------------ COMMAND & QUEUE FUNCTIONS -----------------------
     # --------------------------------------------------------------------------
     # Run the commmand immediately
-    def command(self, command):
+    def command(self, command, para):
         for key, value in self.COMMANDS.items():
             if key == command:
                 #self.logger.info(str(command))
-                value(self)
+                value(self, para)
                 break
 
     # Queue a command under the threaded function
@@ -178,8 +178,8 @@ class Robot:
         #    self.perform_move(command)
         #elif command == 'WATER':
         #    self._q.put('WATER', para)
-        else:
-            self._q.put(command)
+        #else:
+        self._q.put([command, para])
 
     # Adds api input to schedule csv
     def add_command_to_schedule(self, date, command):
