@@ -4,6 +4,7 @@
 
 import RPi.GPIO as GPIO
 import time
+import math
 
 from stepper_advanced import Stepper
 
@@ -190,7 +191,7 @@ def main():
         user_input = input('COMMAND: ')
         if user_input == 'CAL':
             cnc.calibration_advanced()
-            
+
         elif user_input=='CIRCLE':
             radius = input('Radius: ')
             theta1 = input('Theta1: ')
