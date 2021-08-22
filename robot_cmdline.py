@@ -27,7 +27,7 @@ def user_input(logger):
 
 def water_input(logger):
         user_input = input('Type:')
-        water_info = {'type': user_input]
+        water_info = {'type': user_input}
 
         if user_input=='CIRCLE':
             radius = input('Radius: ')
