@@ -58,12 +58,14 @@ class CNC_Controller:
         self.move_wait()
         self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
-        print('DONE: ' + str(self.curr_pos))
+        print('DONE LINE: ' + str(self.curr_pos))
+
+        return self.curr_pos
 
 
     def move_circle(self, r, theta1, theta2, abs = False):
 
-        dtheta = 30
+        dtheta = 20
 
         # start_x = int(self.curr_pos[0] + r*math.cos(math.radians(theta1)))
         # start_y = int(self.curr_pos[1] + r*math.sin(math.radians(theta1)))
@@ -81,7 +83,7 @@ class CNC_Controller:
 
             move_x = int(self.curr_pos[0] + r*math.cos(math.radians(theta1)))
             move_y = int(self.curr_pos[1] + r*math.sin(math.radians(theta1)))
-            print('MOVE: [{},{}], ({})'.format(move_x, move_y, theta1))
+            #print('MOVE: [{},{}], ({})'.format(move_x, move_y, theta1))
 
             self.stepper_x.queue_move(move_x)
             self.stepper_y.queue_move(move_y)
@@ -108,7 +110,9 @@ class CNC_Controller:
         #self.move_wait()
         #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
 
-        print('DONE: ' + str(self.curr_pos))
+        print('DONE CIRCLE: ' + str(self.curr_pos))
+
+        return self.curr_pos
 
     # def set_pos(self, pos, logging = True):
     #     if not self.safe_move(pos):

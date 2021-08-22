@@ -40,9 +40,9 @@ class Robot:
     h = httplib2.Http()
 
     curr_pos = [0,0]
-    new_pos = [0,0]
-    new_pos_abs = [0,0]
-    water_amount = 0
+    #new_pos = [0,0]
+    #new_pos_abs = [0,0]
+    #water_amount = 0
     tube_fill = True
 
 
@@ -55,10 +55,9 @@ class Robot:
         "OFF_AL" : lambda self: self.activeLightingOnOff(),
         "ON_W" : lambda self: self.waterSystemOnOff(True),
         "OFF_W" : lambda self: self.waterSystemOnOff(),
-        "WATER" : lambda self: self.waterSystemAmount(self.water_amount),
-        "MOVE" : lambda self: self.perform_move(self.new_pos),
-        "CNC_POS" : lambda self: self.set_pos_cnc(self.new_pos, False),
-        "CNC_POS_ABS" : lambda self: self.set_pos_cnc(self.new_pos_abs, True),
+        "WATER" : lambda self, water_info: self.water_plant(water_info),
+        #"MOVE" : lambda self, new_pos: self.perform_move(new_pos),
+        "CNC_POS" : lambda self, new_pos: self.set_pos(new_pos),
         "GET_POS" : lambda self: self.get_pos_cnc(),
         "CAL" : lambda self: self.cnc_calibartion(),
         "ROUTE_Z" : lambda self: self.route_zigzag('route_zigzag', True),
@@ -99,6 +98,9 @@ class Robot:
         self.watering_mechanism = WaterPump(RELAY_PIN_WATER)
         self.logger.info(' - WATERING MECHANISM [READY]')
 
+        #self.watering_thread = threading.Thread(target=self._api_interface)
+        #self.watering_thread.start()
+
         self.cnc = CNC_Controller(cnc_logger)
         self.logger.info(' - CNC CONTROLLER [READY]')
 
@@ -110,7 +112,7 @@ class Robot:
         #self.passive_led.turn_on()
 
         self.cnc.calibration()
-        self.set_pos_cnc([0,50], True)
+        self.move_to([0,50], True)
 
         #Send command to gardner that the robot is ready to start
 
@@ -172,12 +174,10 @@ class Robot:
 
     # Queue a command under the threaded function
     def queue_command(self, command, para = ''):
-        if command[0] == '[' or command[0] == '%':
-            self.perform_move(command)
-        elif command == 'WATER':
-            self.water_amount = para
-            #self.logger.info('hi')
-            self._q.put('WATER')
+        #if command[0] == '[' or command[0] == '%':
+        #    self.perform_move(command)
+        #elif command == 'WATER':
+        #    self._q.put('WATER', para)
         else:
             self._q.put(command)
 
@@ -260,8 +260,75 @@ class Robot:
         else:
             self.tube_fill = True
 
+    def water_plant(self, water_info):
+
+        self.logger.info('Watering {} mL at [{}, {}]'.format(water_info['amount'], self.curr_pos[0], self.curr_pos[1]))
+
+        self.waterSystemOnOff(True)
+
+        if water_info['type'] == 'POINT':
+
+            #self.waterSystemOnOff(True)
+
+            # Water for x time accounting for tube fill
+            start_time = datetime.datetime.now()
+
+            dt = 0
+            while dt < water_info['amount']:
+                curr_time = datetime.datetime.now()
+                dt = (curr_time - start_time).seconds + (curr_time - start_time).microseconds*0.000001
+
+            #self.waterSystemOnOff(False)
+
+        if water_info['type'] == 'LINE':
+
+            pos1, a1 = convert_to_pos(water_info['start'])
+            pos2, a2 = convert_to_pos(water_info['end'])
+
+            start_time = datetime.datetime.now()
+            dir = True
+            dt = 0
+
+            while dt < water_info['amount']:
+
+                if dir: self.cnc.move_line(pos1, a1)
+                else: self.cnc.move_line(pos2, a2)
+
+                dir = not dir
+
+                curr_time = datetime.datetime.now()
+                dt = (curr_time - start_time).seconds + (curr_time - start_time).microseconds*0.000001
+
+        if water_info['type'] == 'CIRCLE':
+
+            start_time = datetime.datetime.now()
+            dir = True
+            dt = 0
+
+            while dt < water_info['amount']:
+                self.cnc.move_circle(int(water_info['radius']),int(water_info['angle'][0]),int(water_info['angle'][1]))
+
+                curr_time = datetime.datetime.now()
+                dt = (curr_time - start_time).seconds + (curr_time - start_time).microseconds*0.000001
+
+        self.waterSystemOnOff(False)
+
+        time.sleep(3)
+
+        # Check tube filled
+        if (self.curr_pos[0] > 0.50 * X_MAX):
+            self.tube_fill = False
+        else:
+            self.tube_fill = True
 
     # ----------------------------------- CNC ----------------------------------
+
+    def convert_to_pos(self, desired_pos):
+        abs_1 = desired_pos[0]=='%'
+
+        pos = [int(new_pos.split('[')[1].split(',')[0]), int(new_pos.split('[')[1].split(',')[1].split(']')[0])]
+
+        return pos, abs_1
 
     # Move central mount a certain direction and distance
     def get_pos_cnc(self):
@@ -269,72 +336,68 @@ class Robot:
 
 
     def set_pos(self, new_pos):
-        abs_cmd = str(new_pos.split('[')[0]) is '%'
 
-        pos = [0,0]
+        pos, abs_1 = self.convert_to_pos(new_pos)
 
-        pos[0] = int(new_pos.split('[')[1].split(',')[0])
-        pos[1] = int(new_pos.split('[')[1].split(',')[1].split(']')[0])
+        self.curr_pos = self.move_to(new_pos, abs_1)
 
-        if abs_cmd:
-            self.set_pos_cnc(pos, True)
-        else:
-            self.set_pos_cnc(pos, False)
 
-    def set_pos_cnc(self, new_pos, abs = False):
+    def move_to(self, new_pos, abs = False):
+        self.cnc.move_line(new_pos, abs_1)
+
         if abs:
-            self.curr_pos = self.cnc.set_pos_abs(new_pos)
+            self.curr_pos = self.cnc.move_line(new_pos)
             self.logger.info('Current position: [{}%, {}%] - ([{}, {}])'.format(new_pos[0], new_pos[1], self.curr_pos[0], self.curr_pos[1]))
 
         else:
-            self.curr_pos = self.cnc.set_pos(new_pos)
+            self.curr_pos = self.cnc.move_line(new_pos)
             self.logger.info('Current position: [{}, {}])'.format(self.curr_pos[0], self.curr_pos[1]))
 
-    def perform_move(self, new_pos, abs = False):
-
-        if '-' in new_pos:
-
-            temp0 = new_pos.split(',')
-
-            # Check diagonal line
-            # still needs multi stepper movement
-            if '-' in temp0[0] and '-' in temp0[1]:
-                tempx = temp0[0].split('-')
-                tempy = temp0[1].split('-')
-
-                pos1 = tempx[0] + ',' + tempy[0] + ']'
-                pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy[1]
-
-            # Check straight line
-            elif '-' in temp0[0]:
-                tempx = temp0[0].split('-')
-                tempy = temp0[1]
-
-                pos1 = tempx[0] + ',' + tempy
-                pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy
-
-            else:
-                tempx = temp0[0]
-                tempy = temp0[1].split('-')
-
-                pos1 = tempx + ',' + tempy[0] + ']'
-                pos2 = tempx + ',' + tempy[1]
-
-                self.logger.info('Moving from {} to {}'.format(pos1, pos2))
-
-            self.set_pos(pos1)
-            self.set_pos(pos2)
-
-        else:
-            self.logger.info('Moving to {}'.format(new_pos))
-            self.set_pos(new_pos)
+    # def perform_move(self, new_pos, abs = False):
+    #
+    #     if '-' in new_pos:
+    #
+    #         temp0 = new_pos.split(',')
+    #
+    #         # Check diagonal line
+    #         # still needs multi stepper movement
+    #         if '-' in temp0[0] and '-' in temp0[1]:
+    #             tempx = temp0[0].split('-')
+    #             tempy = temp0[1].split('-')
+    #
+    #             pos1 = tempx[0] + ',' + tempy[0] + ']'
+    #             pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy[1]
+    #
+    #         # Check straight line
+    #         elif '-' in temp0[0]:
+    #             tempx = temp0[0].split('-')
+    #             tempy = temp0[1]
+    #
+    #             pos1 = tempx[0] + ',' + tempy
+    #             pos2 = str(tempx[0].split('[')[0]) + '[' + tempx[1] + ',' + tempy
+    #
+    #         else:
+    #             tempx = temp0[0]
+    #             tempy = temp0[1].split('-')
+    #
+    #             pos1 = tempx + ',' + tempy[0] + ']'
+    #             pos2 = tempx + ',' + tempy[1]
+    #
+    #             self.logger.info('Moving from {} to {}'.format(pos1, pos2))
+    #
+    #         self.set_pos(pos1)
+    #         self.set_pos(pos2)
+    #
+    #     else:
+    #         self.logger.info('Moving to {}'.format(new_pos))
+    #         self.set_pos(new_pos)
 
 
 
     def cnc_calibartion(self):
         self.logger.info('Calibrating CNC...')
         self.cnc.calibration()
-        #self.set_pos_cnc([0,50], True)
+        #self.move_to([0,50], True)
         self.logger.info('Calibration complete!')
 
     # ---------------------------------- ROUTE ---------------------------------
@@ -359,7 +422,7 @@ class Robot:
 
                 pos_perc[0] = float(j)/x_steps*(100.0-2*bound) + bound
 
-                self.curr_pos = self.set_pos_cnc(pos_perc, True)
+                self.curr_pos = self.move_to(pos_perc, True)
 
                 self.route_action('{}_{}_{}.png'.format(tag, i,j))
 
@@ -383,7 +446,7 @@ class Robot:
 
             pos_perc[0] = float(j)/x_steps*(100.0-2*bound) + bound
 
-            self.curr_pos = self.set_pos_cnc(pos_perc, True)
+            self.curr_pos = self.move_to(pos_perc, True)
 
             self.route_action('{}_{}.png'.format(tag,j))
 
@@ -391,7 +454,7 @@ class Robot:
 
         if return_origin:
             #self.cnc.calibration()
-            self.set_pos_cnc([0,50], True)
+            self.move_to([0,50], True)
             self.logger.info('Returning to origin')
 
     def move_line(self, point1, point2):
