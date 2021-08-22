@@ -90,7 +90,7 @@ class CNC_Controller:
 
             theta1 = theta1 + dtheta
 
-            time.sleep(5)
+            #time.sleep(5)
 
 
         self.stepper_x.queue_move(start_x)
