@@ -261,7 +261,8 @@ class Robot:
             self.tube_fill = True
 
     def water_plant(self, water_info):
-
+        print(water_info)
+        print(str(self.curr_pos))
         self.logger.info('Watering {} mL at [{}, {}]'.format(water_info['amount'], self.curr_pos[0], self.curr_pos[1]))
 
         self.waterSystemOnOff(True)
