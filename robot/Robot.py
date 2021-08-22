@@ -339,7 +339,7 @@ class Robot:
 
         pos, abs = self.convert_to_pos(new_pos)
 
-        self.curr_pos = self.move_to(new_pos, abs)
+        self.curr_pos = self.move_to(pos, abs)
 
 
     def move_to(self, new_pos, abs = False):
