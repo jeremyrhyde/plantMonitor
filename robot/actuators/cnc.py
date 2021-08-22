@@ -190,7 +190,7 @@ def main():
         user_input = input('COMMAND: ')
         if user_input == 'CAL':
             cnc.calibration_advanced()
-        elif user_input=='CIR'
+        elif user_input=='CIRCLE':
             radius = input('Radius: ')
             theta1 = input('Theta1: ')
             theta2 = input('Theta2: ')
