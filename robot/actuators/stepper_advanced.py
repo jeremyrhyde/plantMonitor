@@ -40,7 +40,7 @@ class Stepper:
         self.stepper_thread = threading.Thread(target=self._stepper_run)
         self.stepper_thread.start()
 
-        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, False)
+        self.switch =  Limit_Switch_Sensor(self.limit_switch_pin, True)
 
 
         self.calibration()
