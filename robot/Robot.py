@@ -274,7 +274,7 @@ class Robot:
             start_time = datetime.datetime.now()
 
             dt = 0
-            while dt < water_info['amount']:
+            while dt < float(water_info['amount']):
                 curr_time = datetime.datetime.now()
                 dt = (curr_time - start_time).seconds + (curr_time - start_time).microseconds*0.000001
 
@@ -289,7 +289,7 @@ class Robot:
             dir = True
             dt = 0
 
-            while dt < water_info['amount']:
+            while dt < float(water_info['amount']):
 
                 if dir: self.cnc.move_line(pos1, a1)
                 else: self.cnc.move_line(pos2, a2)
@@ -305,7 +305,7 @@ class Robot:
             dir = True
             dt = 0
 
-            while dt < water_info['amount']:
+            while dt < float(water_info['amount']):
                 self.cnc.move_circle(int(water_info['radius']),int(water_info['angle'][0]),int(water_info['angle'][1]))
 
                 curr_time = datetime.datetime.now()
