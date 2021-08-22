@@ -19,8 +19,8 @@ class CNC_Controller:
     def __init__(self, logger = None):
         self.logger = logger
 
-        self.stepper_x = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19, motor_step_delay=0.0006)
-        self.stepper_y = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13, motor_step_delay=0.0006)
+        self.stepper_x = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19, motor_step_delay=0.0006, calibration=False)
+        self.stepper_y = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13, motor_step_delay=0.0006, calibration=False)
 
         self.calibration_advanced()
 
