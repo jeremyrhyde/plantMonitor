@@ -262,7 +262,7 @@ class Robot:
 
     def water_plant(self, water_info):
         print(water_info)
-        print(str(self.curr_pos))
+        print(str(self.curr_pos[0]))
         self.logger.info('Watering {} mL at [{}, {}]'.format(water_info['amount'], self.curr_pos[0], self.curr_pos[1]))
 
         self.waterSystemOnOff(True)
