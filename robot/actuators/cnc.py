@@ -59,6 +59,46 @@ class CNC_Controller:
 
         print('DONE: ' + str(self.curr_pos))
 
+
+    def move_circle(self, r, theta1, theta2, abs = False):
+
+        dtheta = 2
+
+        start_x = int(self.curr_pos[0] + r*math.cos(theta1))
+        start_y = int(self.curr_pos[1] + r*math.sin(theta1))
+
+        self.stepper_x.queue_move(start_x)
+        self.stepper_y.queue_move(start_y)
+
+        self.move_wait()
+        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+
+        print('DONE: ' + str(self.curr_pos))
+
+        while theta1 < theta2:
+
+            move_x = int(self.curr_pos[0] + r*math.cos(theta1))
+            move_y = int(self.curr_pos[1] + r*math.sin(theta1))
+
+            self.stepper_x.queue_move(move_x)
+            self.stepper_y.queue_move(move_y)
+
+            self.move_wait()
+            self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+
+            print('DONE: ' + str(self.curr_pos))
+
+            theta1 = theta1 + dtheta
+
+
+        time.sleep(.1)
+
+        #print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
+        #self.move_wait()
+        #self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+
+        print('DONE: ' + str(self.curr_pos))
+
     # def set_pos(self, pos, logging = True):
     #     if not self.safe_move(pos):
     #         if self.logger: self.logger.info('Improper move...')
@@ -147,17 +187,25 @@ def main():
     cnc = CNC_Controller()
 
     while True:
-        user_input = input('Position: ')
-        if user_input == 'C':
+        user_input = input('COMMAND: ')
+        if user_input == 'CAL':
             cnc.calibration_advanced()
+        elif user_input=='CIR'
+            radius = input('Radius: ')
+            theta1 = input('Theta1: ')
+            theta2 = input('Theta2: ')
 
-        elif user_input[0] == '[':
-            pos = [int(user_input[1:-1].split(',')[0]), int(user_input[1:-1].split(',')[1])]
-            cnc.move_line(pos, False)
+            cnc.move_circle(int(radius), int(theta1), int(theta2))
 
-        elif user_input[0] == '%':
-            pos = [int(user_input[2:-1].split(',')[0]), int(user_input[2:-1].split(',')[1])]
-            cnc.move_line(pos, True)
+        elif user_input=='LINE'
+            line_pos = input('Pos: ')
+            if user_input[0] == '[':
+                pos = [int(line_pos[1:-1].split(',')[0]), int(line_pos[1:-1].split(',')[1])]
+                cnc.move_line(pos, False)
+
+            if user_input[0] == '%':
+                pos = [int(line_pos[2:-1].split(',')[0]), int(line_pos[2:-1].split(',')[1])]
+                cnc.move_line(pos, True)
 
 
 if __name__ == "__main__":
