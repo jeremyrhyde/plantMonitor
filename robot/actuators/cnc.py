@@ -51,7 +51,8 @@ class CNC_Controller:
             self.stepper_x.queue_move(pos[0])
             self.stepper_y.queue_move(pos[1])
 
-        while not self.stepper_x._complete or not self.stepper_y._complete:
+        while not (self.stepper_x._complete and self.stepper_y._complete):
+            print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
             time.sleep(0.1)
 
         self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
