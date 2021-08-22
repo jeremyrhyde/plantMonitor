@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 
-from stepper_advanced import Stepper
+from .stepper_advanced import Stepper
 
 class CNC_Controller:
     # Initialise the PCA9685 using the default address (0x40).
