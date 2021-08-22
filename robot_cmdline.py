@@ -97,7 +97,7 @@ def main():
     # ----------------- API Checks (P1)  ---------------
 
     # Wait until Gardener is finish initializing
-    #get_api_cmd('overseer_ready', 'ready', 'yes')
+    get_api_cmd('overseer_ready', 'ready', 'yes')
 
     # ----------------- Initializing  ------------------
 
