@@ -107,7 +107,7 @@ class Overseer:
 
         time.sleep(5)
 
-        self.logger.info('Watering {} with {} mL at {} [FREQUENCY: {},{}]'.format(plant_key, water_info['amount'], pos, water_info['schedule'], water_info['freq']))
+        self.logger.info('Watering {} with {} mL at {} [FREQUENCY: {},{}]'.format(plant_key, water_info['amount'], pos, water_info['interval'], water_info['freq']))
 
         self.send_robot_command('WATER', water_info)
 
