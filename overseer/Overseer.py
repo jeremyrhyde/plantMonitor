@@ -155,8 +155,8 @@ class Overseer:
             key_list.append(plant_key)
             self.logger.info('     - Scheduling watering of [{}]'.format(key_list[i]))
 
-            interval = plant_dict[plant_key]['water_schedule'][0]
-            freq = int(plant_dict[plant_key]['water_schedule'][1])
+            interval = plant_dict[plant_key]['water_info']['interval']
+            freq = int(plant_dict[plant_key]['water_info']['freq'])
 
             if interval == 'month':
                 if freq == 1:
