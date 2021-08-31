@@ -324,7 +324,7 @@ class Robot:
             dt = 0
             i = 0
             while dt < float(water_info['amount']):
-                new_pos, a = self.convert_to_pos(water_info['points'][i%len(water_info['points'])
+                new_pos, a = self.convert_to_pos(water_info['points'][i%len(water_info['points'])])
                 self.cnc.move_points(new_pos, a)
                 curr_time = datetime.datetime.now()
                 dt = (curr_time - start_time).seconds + (curr_time - start_time).microseconds*0.000001
