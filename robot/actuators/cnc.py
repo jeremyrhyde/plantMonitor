@@ -206,8 +206,8 @@ class CNC_Controller:
     def calibration(self, disable = True):
 
         if self.logger: self.logger.info('Starting calibrating...')
-        self.stepper_x.queue_move('C')
-        self.stepper_y.queue_move('C')
+        self.stepper_x.calibration()#queue_move('C')
+        self.stepper_y.calibration()#queue_move('C')
 
         time.sleep(.1)
 
