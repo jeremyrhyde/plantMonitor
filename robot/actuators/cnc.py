@@ -23,7 +23,7 @@ class CNC_Controller:
         self.stepper_x = Stepper(step_pin = 6, dir_pin = 5, enable_pin = 0, limit_switch_pin = 19, motor_step_delay=0.0006, calibration=False)
         self.stepper_y = Stepper(step_pin = 20, dir_pin = 21, enable_pin = 16, limit_switch_pin = 13, motor_step_delay=0.0006, calibration=False)
 
-        self.calibration_advanced()
+        self.calibration()
 
     def close(self):
         GPIO.cleanup()
@@ -184,7 +184,7 @@ class CNC_Controller:
             #print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
             time.sleep(0.1)
 
-    def calibration_advanced(self, disable = True):
+    def calibration(self, disable = True):
 
         if self.logger: self.logger.info('Starting calibrating...')
         self.stepper_x.queue_move('C')
@@ -207,7 +207,7 @@ def main():
     while True:
         user_input = input('COMMAND: ')
         if user_input == 'CAL':
-            cnc.calibration_advanced()
+            cnc.calibration()
 
         elif user_input=='CIRCLE':
             radius = input('Radius: ')
