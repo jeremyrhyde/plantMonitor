@@ -62,6 +62,25 @@ class CNC_Controller:
 
         return self.curr_pos
 
+    def move_points(self, pos, abs = False):
+        if abs:
+            move_pos = [int(pos[0]/100*self.X_MAX), int(pos[1]/100*self.Y_MAX)]
+            self.stepper_x.move(move_pos[0])
+            self.stepper_y.move(move_pos[1])
+        else:
+            self.stepper_x.move(pos[0])
+            self.stepper_y.move(pos[1])
+
+        time.sleep(.1)
+
+        #print('{} : {}'.format(self.stepper_x._complete,self.stepper_y._complete))
+        self.move_wait()
+        self.curr_pos = [self.stepper_x.pos, self.stepper_y.pos]
+
+        print('DONE LINE: ' + str(self.curr_pos))
+
+        return self.curr_pos
+
 
     def move_circle(self, r, theta1, theta2, abs = False):
 

@@ -66,7 +66,7 @@ class Stepper:
             self._complete = False
             #print(command[0])
             if command[0] == 'C': self.calibration()
-            else: self.move(command[0], command[1])
+            else: self.move_threaded(command[0], command[1])
 
             self._complete = True
 
@@ -81,7 +81,7 @@ class Stepper:
         self._q.put([dist,disable])
 
 
-    def move(self, desired_pos, disable = True):
+    def move_threaded(self, desired_pos, disable = True):
 
         if disable: self._enableDriver()
 
@@ -101,6 +101,35 @@ class Stepper:
             GPIO.output(self.dir_pin, True)
             di = 1
             while i < desired_pos and not self._kill and self.switch.state:
+                self._movement()
+                i = i + di
+
+        self.pos = i
+
+        if not self.switch.state: self.bounce_back()
+
+        if disable: self._disableDriver()
+
+    def move(self, desired_pos, disable = True):
+
+        if disable: self._enableDriver()
+
+        #desired_pos = self.pos + dist
+        dist = desired_pos - self.pos
+        i = self.pos
+
+        #self._complete = False
+
+        if dist < 0:
+            GPIO.output(self.dir_pin, False)
+            di = -1
+            while i > desired_pos and self.switch.state:
+                self._movement()
+                i = i + di
+        else:
+            GPIO.output(self.dir_pin, True)
+            di = 1
+            while i < desired_pos and self.switch.state:
                 self._movement()
                 i = i + di
 
